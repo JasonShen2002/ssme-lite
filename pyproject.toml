@@ -36,7 +36,7 @@ ssme-lite = "ssme_lite.cli:main"
 include = ["ssme_lite*"]
 
 [tool.setuptools.package-data]
-ssme_lite = ["report_assets/*.html", "report_assets/*.css", "report_assets/*.js"]
+ssme_lite = ["py.typed", "reporting/assets/*.html", "reporting/assets/*.css", "reporting/assets/*.js"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -3,7 +3,7 @@ from pathlib import Path
 from html import escape
 import numpy as np
 import pandas as pd
-from .metrics import metric_values, METRICS
+from ..metrics import metric_values, METRICS
 
 INTERVAL_NOTE = ("Intervals are conditional latent-label uncertainty given a fitted posterior. "
                  "They exclude density-fit, bandwidth and population sampling uncertainty. "
@@ -58,8 +58,8 @@ class EvaluationReport:
             self.plot(metric, directory / f"{metric}.png")
             panels.append(f"<h2>{escape(metric)}</h2>" + self.ranking(metric).to_html(index=False, float_format=lambda x: f"{x:.4f}") + f'<img src="{metric}.png" alt="{metric} estimates">')
         if self.data is not None:
-            from .report_html import render_report
-            from .report_data import json_safe
+            from .html import render_report
+            from .data import json_safe
             self.data["metadata"] = self.metadata
             if self.data.get("contribution"):
                 pd.DataFrame(self.data["contribution"]["rows"]).to_csv(directory / "contribution.csv", index=False)
@@ -130,9 +130,9 @@ def make_report(estimator, metrics, n_draws, confidence, target, random_state,
         "max_iter": estimator.max_iter, "early_stopping": estimator.early_stopping,
         "stop_reason": estimator.stop_reason_,
         "converged": estimator.converged_}
-    from .report_data import build_report_data
+    from .data import build_report_data
     data = build_report_data(estimator, table, values, metrics, metadata, sample_ids)
     if contribution:
-        from .contribution import model_contribution
+        from ..contribution import model_contribution
         data["contribution"] = model_contribution(estimator)
     return EvaluationReport(table, metadata, data)

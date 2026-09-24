@@ -18,7 +18,7 @@ def test_four_chapters_preserve_report_panels():
                 self.ids.append(attrs['id'])
                 self.parents[attrs['id']] = self.chapter
 
-    template = Path('ssme_lite/report_assets/report.html').read_text()
+    template = Path('ssme_lite/reporting/assets/report.html').read_text()
     parsed = Structure()
     parsed.feed(template)
     assert parsed.sections == ['overview', 'performance', 'landscape', 'space']

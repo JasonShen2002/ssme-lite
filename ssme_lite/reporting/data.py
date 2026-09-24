@@ -2,7 +2,7 @@
 import numpy as np
 from scipy.stats import gaussian_kde
 from sklearn.decomposition import PCA
-from .prediction import alr
+from ..prediction import alr
 
 
 def json_safe(value):

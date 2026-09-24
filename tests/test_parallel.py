@@ -3,7 +3,7 @@ import numpy as np
 import json
 import pytest
 from scipy.special import softmax
-from ssme_lite.experiments import benchmark
+from ssme_lite.benchmark import benchmark
 from sklearn.datasets import make_classification
 
 

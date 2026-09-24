@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.integrate import trapezoid
-from ssme_lite.report_data import bounded_density
+from ssme_lite.reporting.data import bounded_density
 
 
 def test_reflected_density_and_point_mass():

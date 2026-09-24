@@ -82,7 +82,7 @@ def save_scores(scores, y, names, destination=SCORES):
 def repeated_benchmark(scores=None, y=None, names=None):
     """10 seeds, n_l = 20/50/100, and the nested 2–5 head subsets."""
     import os
-    from ssme_lite.experiments import benchmark
+    from ssme_lite.benchmark import benchmark
     if scores is None:
         with np.load(SCORES) as archive:
             scores, y = archive["scores"], archive["y"]

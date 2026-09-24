@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import numpy as np
 from .estimator import SSMEEstimator
-from .experiments import benchmark, synthetic_scores, gaussian_scores, official_scores
+from .benchmark import benchmark, synthetic_scores, gaussian_scores, official_scores
 
 
 def main():

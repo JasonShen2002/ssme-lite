@@ -5,7 +5,7 @@ import pytest
 from scipy.special import softmax, logsumexp
 from ssme_lite import SSMEEstimator
 from ssme_lite.prediction import alr
-from ssme_lite.report_data import sampling_statistics
+from ssme_lite.reporting.data import sampling_statistics
 
 
 def test_fractional_ties_and_pairwise_denominators():

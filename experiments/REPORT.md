@@ -117,12 +117,11 @@ Held-out Accuracy 的平均绝对误差：
 
 ```bash
 conda activate ssme
-python examples/pneumonia_official.py
-python examples/run_pneumonia_experiments.py
-python examples/transfer_pneumonia.py
+python experiments/pneumoniamnist/pneumonia_ssme.py
+python experiments/transfer/transfer_ssme.py
 ```
 
-`examples/transfer_learning.ipynb` 把迁移学习收成一次划分上的演示：特征、`PredictionMatrixGenerator`、`SemiSupervisedSplit`、`SSMEEstimator.report`。跨 seed 的表在 `results/pneumoniamnist/` 和 `results/pneumonia_transfer/`。主配置也可以用 `ssme-lite configs/pneumoniamnist.json`。
+根目录的 `pneumoniamnist.ipynb` 是同一次官方模型演示。迁移学习的单次演示是 `experiments/transfer/transfer_ssme.py`。跨 seed 的表在 `experiments/pneumoniamnist/results/` 和 `experiments/transfer/results/`。主配置也可以用 `ssme-lite configs/pneumoniamnist.json`。
 
 特征提取用了本机的 PyTorch 与 MPS，ImageNet ResNet18 权重只下载一次。官方实验只读取预测 CSV，不需要 853 MB 的 MedMNIST 权重。
 

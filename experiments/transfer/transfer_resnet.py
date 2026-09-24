@@ -3,7 +3,7 @@
 Input: ImageFolder directory (one subdirectory per class), >1700 images.
 Install optional dependencies: pip install -e '.[transfer]'
 First invocation downloads public pretrained weights (~45MB); no images uploaded.
-Example: python examples/transfer_resnet.py --images /path/to/images --output results/transfer
+Example: python experiments/transfer/transfer_resnet.py --images /path/to/images --output results/transfer
 """
 import argparse
 from pathlib import Path
@@ -36,7 +36,7 @@ def extract_features(images, batch_size=32, device="auto"):
 def main():
     from sklearn.model_selection import train_test_split
     from ssme_lite import PredictionMatrixGenerator
-    from ssme_lite.experiments import ten_models, benchmark
+    from ssme_lite.benchmark import ten_models, benchmark
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--images", required=True)
     parser.add_argument("--output", default="results/transfer")

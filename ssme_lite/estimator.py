@@ -156,7 +156,7 @@ class SSMEEstimator(BaseEstimator):
     def evaluate(self, metrics=("accuracy", "auc", "auprc", "ece"), n_draws=100,
                  confidence=0.95, target="all", random_state=None,
                  title=None, sample_ids=None, primary_metric=None, contribution=False):
-        from .report import make_report
+        from .reporting.report import make_report
         check_is_fitted(self, "posterior_")
         return make_report(self, metrics, n_draws, confidence, target, random_state,
                            title=title, sample_ids=sample_ids, primary_metric=primary_metric,

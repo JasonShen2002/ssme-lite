@@ -9,8 +9,10 @@ def test_profile_capture_does_not_change_official_result():
     pytest.importorskip("statsmodels")
     pytest.importorskip("composition_stats")
     pytest.importorskip("tqdm")
-    from examples.audit_official_same_split import capture_official
     root = Path(__file__).resolve().parents[1]
+    if not (root / "official" / "SSME").exists():
+        pytest.skip("official SSME tree is not part of this repository")
+    from examples.audit_official_same_split import capture_official
     sys.path.insert(0, str(root / "official/SSME"))
     import model
     rng = np.random.default_rng(2)

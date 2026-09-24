@@ -167,7 +167,7 @@ def test_cli_custom_npz(tmp_path, monkeypatch):
 
 
 def test_selection_ties():
-    from ssme_lite.experiments import selection_stats
+    from ssme_lite.benchmark import selection_stats
     a = pd.DataFrame({"model": ["a", "b"], "metric": ["accuracy"]*2, "value": [.5, .5]})
     b = a.copy()
     b["value"] = [.6, .8]
