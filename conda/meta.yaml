@@ -1,0 +1,48 @@
+# Conda-forge style recipe. Fill sha256 after the sdist is on PyPI:
+#   pip download ssme-lite==0.1.0 --no-binary :all: --no-deps -d /tmp/ssme
+#   shasum -a 256 /tmp/ssme/ssme_lite-0.1.0.tar.gz
+{% set name = "ssme-lite" %}
+{% set version = "0.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ssme_lite-{{ version }}.tar.gz
+  sha256: REPLACE_AFTER_PYPI_UPLOAD
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  entry_points:
+    - ssme-lite = ssme_lite.cli:main
+
+requirements:
+  host:
+    - python >=3.10
+    - pip
+    - setuptools >=68
+  run:
+    - python >=3.10
+    - numpy >=1.24
+    - scipy >=1.10
+    - pandas >=2
+    - scikit-learn >=1.3
+    - matplotlib-base >=3.7
+    - joblib >=1.3
+
+test:
+  imports:
+    - ssme_lite
+  commands:
+    - ssme-lite --help
+
+about:
+  license: MIT
+  license_file: LICENSE
+  summary: Semi-supervised evaluation and selection of existing classifiers
+  description: |
+    Estimate Accuracy, AUC, AUPRC and ECE for already fitted classifiers
+    from a few labels and many unlabeled predictions.
+  dev_url: https://github.com/JasonShen2002/ssme-lite

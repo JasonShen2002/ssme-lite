@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><title>SSME-Lite · Model Evaluation</title>
+<style>/* REPORT_CSS */</style></head>
+<body>
+<a class="skip" href="#performance">跳转到性能比较</a>
+<header class="masthead"><a class="brand" href="#overview"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i></span>SSME<span class="brand-lite"> / LITE</span></a><span class="edition">MODEL EVALUATION REPORT <span class="edition-dot">●</span> REAL-WORLD MODE</span><button id="download" class="text-button">导出数据 <span aria-hidden="true">↗</span></button></header>
+<nav aria-label="章节导航"><div class="nav-inner"><a href="#overview">01 评估概览</a><a href="#performance">02 模型表现与排名</a><a href="#landscape">03 模型关系与贡献</a><a href="#space">04 预测空间与后验诊断</a></div></nav>
+<main>
+<section id="overview" class="chapter chapter-overview">
+<div class="section-heading"><span class="section-index">01</span><div><span class="eyebrow">EVALUATION OVERVIEW</span><h2>评估概览</h2></div></div>
+<div class="hero">
+ <div class="eyebrow"><span class="tiny-line"></span> SEMI-SUPERVISED MODEL EVALUATION <span id="dataset-label"></span></div>
+ <div class="hero-heading"><h1>Model evaluation.<br><em>A closer look.</em></h1><div class="hero-intro"><p id="report-title"></p><p>从少量已知标签出发，观察候选模型的表现、关系与后验结构。</p><span class="pill">OFFLINE · INTERACTIVE · TRACEABLE</span></div></div>
+ <div id="kpis" class="kpis"></div>
+ <div class="toolbar"><div><span class="eyebrow">ESTIMATED PERFORMANCE</span><h2 class="compact-title">同一份数据，多种性能视角。</h2></div><div class="metric-tabs" role="group" aria-label="主指标选择"></div></div>
+ <div class="hero-chart-layout"><div class="hero-plot"><div id="hero-dot"></div><p class="caption">点为性能估计，细线为 <span class="coverage"></span> sampling interval。区间收缩时显示为单点。</p></div><aside id="hero-summary" class="hero-summary"></aside></div>
+</div>
+<div class="chapter-subsection" id="setup"><div class="subsection-heading"><div><span class="eyebrow">EVALUATION SETUP</span><h3>每一个结论，都有起点。</h3><p>评估规模、候选模型与拟合配置。</p></div></div>
+ <div class="setup-grid"><div><h3>Data composition</h3><div id="composition"></div><p class="caption" id="scope-caption"></p></div><div id="config-grid" class="config-grid"></div></div>
+ <div class="model-key" id="model-key"></div><p class="caption">点击模型名称可跨图表固定高亮，再次点击取消；也可使用键盘 Tab 与 Enter。</p>
+</div>
+</section>
+<section id="performance" class="chapter">
+<div class="section-heading"><span class="section-index">02</span><div><span class="eyebrow">PERFORMANCE & RANKING</span><h2>模型表现与排名</h2></div></div>
+<div class="chapter-subsection" id="performance-details"><div class="subsection-heading"><div><span class="eyebrow">PERFORMANCE</span><h3>模型表现，逐项比较。</h3><p>从整体分类、区分能力、正类检索和概率校准四个角度比较候选模型。ECE 越低越好，其余指标越高越好。</p></div></div>
+ <div class="metric-guide">
+  <article><h3>Accuracy <span>↑</span></h3><p>预测类别正确的比例。点估计直接计算后验下的正确率期望；类别不平衡时，需要结合 AUPRC 等指标理解。</p></article>
+  <article><h3>AUC <span>↑</span></h3><p>ROC 曲线下面积，衡量模型把正类排在负类前面的能力。二分类使用正类概率，多分类使用 macro OvR。</p></article>
+  <article><h3>AUPRC <span>↑</span></h3><p>这里以 Average Precision（AP）实现，概括 precision–recall 表现。多分类使用 macro OvR；数值与类别比例有关。</p></article>
+  <article><h3>ECE <span>↓</span></h3><p>概率校准误差，按 10 个等宽区间计算并以样本数加权。二分类校准正类概率，多分类校准 top-label confidence。</p></article>
+ </div>
+ <p class="performance-reading" id="performance-scope"></p>
+ <div class="figure-head"><h3>Performance matrix</h3><span class="subtle">按每列指标的相对表现着色</span></div><div id="performance-matrix"></div>
+ <div id="small-multiples" class="small-multiples"></div>
+ <p class="caption">四张图均按 M01 → M02 → … 的输入顺序排列，与上表逐行对应；紫色表示当前指标的领先点估计。横轴按各指标分别缩放，不能跨图比较点之间的几何距离。</p>
+ <div class="performance-reading"><p>点表示性能估计，细线表示 <span class="coverage"></span> 中央抽样区间。Accuracy 使用精确后验期望，AUC、AUPRC 和 ECE 使用有效抽样的均值。区间来自同一拟合后验下的潜在标签抽样，越窄仅表示这一来源的变化越小。</p><p>下表保留精确值、有效抽样次数与 MC standard error。MC standard error 衡量抽样计算的数值误差，不是性能估计相对真实值的误差。</p></div>
+ <details class="data-details" open><summary>逐模型指标明细 · 点估计、抽样区间与 Monte Carlo 数值误差</summary><div id="metric-table" class="table-wrap"></div></details>
+</div>
+<div class="chapter-subsection" id="ranking"><div class="subsection-heading"><div><span class="eyebrow">SAMPLING & RANKING</span><h3>一次抽样，同时观察数值与名次。</h3><p>同一批潜在标签抽样，连接指标分布、模型排名和两两差距；这三个视角共同描述抽样变化。</p></div></div>
+ <p class="performance-reading">例如某个样本的后验为 P(class 1) = 0.7，它在每次抽样中有 70% 的机会被赋为 class 1。重复抽样后，Rank distribution 统计每个模型处于各名次的频率；Pairwise sampling frequency 统计行模型优于列模型的频率。这里重复的是标签抽样，并没有重新训练模型或重新拟合 SSME。</p>
+ <div class="toolbar"><span id="ranking-valid" class="subtle"></span><div class="metric-tabs" role="group" aria-label="排名指标选择"></div></div>
+ <div class="two-col"><figure><h3>Rank distribution</h3><div id="rank-heatmap"></div><figcaption>颜色越深，模型占据该排名的抽样频率越高。并列模型平分其占据的排名位置。</figcaption></figure><figure><h3>Pairwise sampling frequency</h3><div id="pair-heatmap"></div><figcaption>行模型严格优于列模型的频率；ECE 已反转比较方向。并列不计入任一方胜出。</figcaption></figure></div>
+ <div id="rank-bars"></div><p class="caption">Rank-1 stability 是 sampled evaluations 中的频率，不是真实最优模型的概率。Top-2 使用同一并列分配规则。</p>
+<div id="sampling" class="sampling-subsection"><div class="figure-head"><h3>同一批抽样，指标数值变化多大？</h3><span class="subtle">Metric sampling view</span></div>
+ <p class="performance-reading">分布图把一个模型在每次抽样中的指标值汇集起来；下方配对比较使用同一次抽样计算 A 与 B 的差值。例如 Accuracy 的 Δ = 0.002，表示该次抽样中 A 比 B 高 0.2 个百分点。若所有抽样的指标几乎相同，分布就会收缩成一个点。</p>
+ <div class="toolbar"><h3>Sampled metric distributions</h3><div class="metric-tabs" role="group" aria-label="抽样指标选择"></div></div>
+ <div id="violin"></div><p class="caption">轮廓为抽样密度，粗线为四分位区间，点为中位数。没有可见变化时仅显示单点，不人为扩展分布。</p>
+ <p class="performance-reading" id="sampling-diagnostic"></p>
+ <div class="pair-panel"><div class="pair-controls"><div><span class="eyebrow">PAIRWISE FOCUS</span><h3>比较两位候选模型</h3></div><div class="pair-selects"><label>模型 A <select id="pair-a"></select></label><span class="versus">vs.</span><label>模型 B <select id="pair-b"></select></label></div></div><div id="pair-stats" class="pair-stats"></div><div id="delta-chart"></div><p class="caption">Δ = metric A − metric B；ECE 下负值表示 A 更优，其他指标下正值表示 A 更优。初始选择为点估计前两名。</p></div>
+</div></div>
+</section>
+<section id="landscape" class="chapter">
+<div class="section-heading"><span class="section-index">03</span><div><span class="eyebrow">MODEL RELATIONSHIPS & CONTRIBUTION</span><h2>模型关系与贡献</h2></div></div>
+<div class="chapter-subsection" id="landscape-details"><div class="subsection-heading"><div><span class="eyebrow">MODEL LANDSCAPE</span><h3>相似的预测，不同的视角。</h3><p>直接从输入预测概率观察模型关系，无需潜在标签抽样。</p></div></div>
+ <div class="two-col"><figure><h3>Prediction correlation</h3><div id="correlation"></div><figcaption id="correlation-caption"></figcaption></figure><figure><h3>Prediction agreement</h3><div id="agreement"></div><figcaption>同一样本上的 argmax 预测类别一致率；使用完整拟合池。</figcaption></figure></div><div id="landscape-summary" class="landscape-summary"></div>
+</div>
+<div class="chapter-subsection" id="contribution"><div class="subsection-heading"><div><span class="eyebrow">MODEL CONTRIBUTION</span><h3>移除一个模型，估计会怎样改变？</h3><p>逐个移除模型的预测输入并重新拟合 SSME，衡量它对联合估计的影响。</p></div></div>
+ <div id="contribution-content"></div>
+</div>
+</section>
+<section id="space" class="chapter">
+<div class="section-heading"><span class="section-index">04</span><div><span class="eyebrow">PREDICTION SPACE & POSTERIOR DIAGNOSTICS</span><h2>预测空间与后验诊断</h2></div></div>
+<div class="chapter-subsection" id="space-details"><div class="subsection-heading"><div><span class="eyebrow">PREDICTION SPACE</span><h3>推断类别，二维与三维对照。</h3><p>每个点是一个样本。位置由所有模型预测的 ALR → PCA 投影决定，颜色表示推断类别，并非真实标签；三维视图增加第三主成分，不会重新拟合 SSME。</p></div></div>
+ <div class="toolbar"><div class="eyebrow">COLOR · 推断类别</div><label class="toggle"><input id="anchors" type="checkbox"> 突出已标注锚点</label></div>
+ <div id="space-explanation" class="performance-reading" aria-live="polite"></div>
+ <div class="space-layout"><div id="pca"></div><aside class="space-aside"><span class="eyebrow">ALR → PCA</span><h3>预测的几何结构</h3><div id="variance"></div><p>带深色描边的大点为真实已标注样本。点的接近仅表示二维投影位置接近。</p><div id="space-legend"></div><p class="caption" id="space-caption"></p></aside></div>
+ <div class="figure-head"><h3>3D prediction space</h3><span class="subtle">拖动旋转 · 滚轮缩放 · 方向键旋转 · + / − 缩放</span></div><button id="reset-3d" class="text-button">重置视角</button><div id="pca-3d" tabindex="0" role="group" aria-label="三维 PCA，可使用方向键旋转和加减键缩放"></div><p class="caption">同一 PCA 的前三个主成分，共用坐标比例。旋转只改变观察角度；投影中的重叠不等于原始预测相同。</p>
+</div>
+<div class="chapter-subsection" id="diagnostics"><div class="subsection-heading"><div><span class="eyebrow">POSTERIOR DIAGNOSTICS</span><h3>潜在标签有多集中？</h3><p>以下不确定性统计仅包含未标注样本；已知标签的 one-hot 固定值不参与。</p></div></div>
+ <div id="posterior-note" class="diagnostic-note"></div>
+ <div class="two-col"><figure><h3>Posterior confidence</h3><div id="confidence-hist"></div><figcaption>最大后验概率的边界修正 KDE。横轴局部放大，纵轴为概率密度，不是样本数。</figcaption></figure><figure><h3>Posterior entropy</h3><div id="entropy-hist"></div><figcaption>后验熵的边界修正 KDE，单位 nats。越接近零越集中；横轴局部放大。</figcaption></figure></div>
+ <p class="caption">KDE 使用 Scott 带宽与边界反射，仅用于展示经验分布；平滑宽度不代表估计误差。近似常量数据退化为单点，不制造曲线。</p><div class="two-col"><figure><h3>Class structure</h3><div id="class-structure"></div><figcaption>Fitted prior 是加权 M-step 类别先验；posterior composition 是未标注样本按最大后验分类的占比。</figcaption></figure></div>
+ <details class="data-details" open><summary>Most ambiguous samples · 后验熵最高的未标注样本</summary><div id="ambiguous-table" class="table-wrap"></div></details>
+</div>
+</section>
+</main><footer><span class="brand">SSME<span class="brand-lite"> / LITE</span></span><p>Conditional estimates. Transparent diagnostics.</p><a href="#overview">返回顶部 ↑</a></footer>
+<div id="tooltip" role="tooltip" hidden></div>
+<noscript><p class="no-script">此离线报告需要启用浏览器 JavaScript 来呈现交互图表。相同数据已保存至 report_data.json，指标明细见 metrics.csv。</p></noscript>
+<script type="application/json" id="report-data">REPORT_DATA_JSON</script>
+<script>/* REPORT_JS */</script>
+</body></html>

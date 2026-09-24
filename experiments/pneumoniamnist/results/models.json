@@ -1,0 +1,20 @@
+{
+  "dataset": "PneumoniaMNIST",
+  "pool": "official_test",
+  "weights": "https://doi.org/10.5281/zenodo.7782114 weights_pneumoniamnist.zip",
+  "models": [
+    "resnet18_28_1",
+    "autokeras_1",
+    "autokeras_2",
+    "autokeras_3",
+    "automl_vision_1",
+    "automl_vision_2",
+    "automl_vision_3"
+  ],
+  "omitted": "autosklearn snapshots were not released; resnet50_224_1 was skipped after the 94 MB download stalled",
+  "preprocessing": {
+    "resnet18_28_1": "28 grayscale repeated to RGB, /255, mean=std=0.5, CIFAR-style ResNet-18, softmax class 1",
+    "autokeras": "uint8 28x28, Keras Normalization, the saved conv graph, sigmoid",
+    "automl_vision": "PIL bicubic resize to 224 RGB, quantized TFLite scores / 255"
+  }
+}

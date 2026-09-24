@@ -1,0 +1,15 @@
+{
+  "source": "npz",
+  "mode": "benchmark",
+  "data": "../data/pneumoniamnist/official_test_scores.npz",
+  "output": "../results/pneumoniamnist/nl20_nu400_m5",
+  "benchmark": {
+    "dataset": "PneumoniaMNIST",
+    "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "n_labeled": 20,
+    "n_unlabeled": 400,
+    "n_draws": 100,
+    "max_iter": 100,
+    "contribution": true
+  }
+}

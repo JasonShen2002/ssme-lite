@@ -1,0 +1,6 @@
+{
+  "source": "MultiNLI",
+  "inputs": "../official/SSME/inputs",
+  "output": "../results/multinli_1000",
+  "benchmark": {"seeds": [0, 1, 2], "n_labeled": 20, "n_unlabeled": 1000, "n_draws": 50, "max_iter": 1000}
+}

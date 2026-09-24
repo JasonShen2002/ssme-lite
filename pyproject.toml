@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ssme-lite"
+version = "0.1.0"
+description = "Semi-supervised evaluation and selection of existing classifiers"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "jason"}]
+keywords = ["semi-supervised", "model-evaluation", "model-selection", "machine-learning"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["numpy>=1.24", "scipy>=1.10", "pandas>=2", "scikit-learn>=1.3", "matplotlib>=3.7", "joblib>=1.3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+official = ["statsmodels>=0.14"]
+transfer = ["torch>=2", "torchvision>=0.15", "pillow>=9"]
+
+[project.scripts]
+ssme-lite = "ssme_lite.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ssme_lite*"]
+
+[tool.setuptools.package-data]
+ssme_lite = ["report_assets/*.html", "report_assets/*.css", "report_assets/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

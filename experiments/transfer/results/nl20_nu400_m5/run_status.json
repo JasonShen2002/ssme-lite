@@ -1,0 +1,92 @@
+[
+  {
+    "seed": 0,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.9135786803477806,
+    "final_responsibility_change": 1.7974269922587673e-07
+  },
+  {
+    "seed": 1,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.826388487001985,
+    "final_responsibility_change": 1.7665826425039555e-06
+  },
+  {
+    "seed": 2,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.864220734561416,
+    "final_responsibility_change": 9.304917399921564e-07
+  },
+  {
+    "seed": 3,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.914395540273233,
+    "final_responsibility_change": 1.881230948796997e-09
+  },
+  {
+    "seed": 4,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.9145036686318546,
+    "final_responsibility_change": 6.141910247059457e-08
+  },
+  {
+    "seed": 5,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.8165513376765774,
+    "final_responsibility_change": 3.183358321390273e-08
+  },
+  {
+    "seed": 6,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.849536414602278,
+    "final_responsibility_change": 8.086119858159019e-08
+  },
+  {
+    "seed": 7,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.7559216048727104,
+    "final_responsibility_change": 1.4577141388971704e-06
+  },
+  {
+    "seed": 8,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.864149942991067,
+    "final_responsibility_change": 6.761825431522706e-08
+  },
+  {
+    "seed": 9,
+    "status": "ok",
+    "converged": true,
+    "iterations": 100,
+    "stop_reason": "fixed_epochs",
+    "bandwidth": 2.8511214900750046,
+    "final_responsibility_change": 4.947579230942661e-07
+  }
+]

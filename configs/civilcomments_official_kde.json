@@ -1,0 +1,11 @@
+{
+  "source": "CivilComments",
+  "inputs": "../official/SSME/inputs",
+  "output": "../results/civilcomments_official_kde_benchmark",
+  "benchmark": {
+    "seeds": [0, 1, 2, 3, 4], "n_labeled": 20, "n_unlabeled": 1000,
+    "n_draws": 100, "max_iter": 20, "early_stopping": false, "tol": 0.001,
+    "contribution": true,
+    "bandwidth": "official", "labeled_weight": 10.0, "n_jobs": 5
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "dataset": "PneumoniaMNIST_infer",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "n_labeled": 20,
+  "n_unlabeled": 400,
+  "n_draws": 100,
+  "max_iter": 100,
+  "tol": 0.001,
+  "early_stopping": false,
+  "bandwidth": "scott",
+  "labeled_weight": 10.0,
+  "model_names": [
+    "resnet18_28_1",
+    "autokeras_1",
+    "autokeras_2",
+    "autokeras_3",
+    "automl_vision_1",
+    "automl_vision_2",
+    "automl_vision_3"
+  ],
+  "versions": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "ssme-lite": "0.1.0"
+  },
+  "python": "3.11.16",
+  "platform": "Linux-5.15.0-128-generic-x86_64-with-glibc2.35"
+}
