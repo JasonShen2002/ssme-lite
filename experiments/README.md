@@ -2,9 +2,17 @@
 
 These scripts are not installed with the package. Images, weights, and feature caches stay in each experiment's `data/` directory and are not committed.
 
+## CivilComments
+
+The walkthrough is [`civilcomments/quickstart.ipynb`](civilcomments/quickstart.ipynb). It writes `civilcomments/results/report/report.html` and the two comparison figures next to that report. Predictions come from `../official/SSME/inputs`. The figures read the 5-seed benchmark at `../results/civilcomments`.
+
+```bash
+ssme-lite configs/civilcomments.json
+```
+
 ## PneumoniaMNIST
 
-The walkthrough is [`pneumoniamnist.ipynb`](../pneumoniamnist.ipynb). The saved interactive report is [`pneumoniamnist_report.html`](../pneumoniamnist_report.html).
+The walkthrough is [`pneumoniamnist/pneumoniamnist.ipynb`](pneumoniamnist/pneumoniamnist.ipynb). The saved interactive report is [`pneumoniamnist/pneumoniamnist_report.html`](pneumoniamnist/pneumoniamnist_report.html).
 
 ```bash
 python experiments/pneumoniamnist/pneumonia_ssme.py

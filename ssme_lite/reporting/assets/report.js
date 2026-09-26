@@ -74,7 +74,7 @@ function heatmap(matrix,rowLabels,columnLabels,{domain=[0,1],percent=true,modelR
  });return svg(w,h,s,'Matrix: '+columnLabels.join(', '))+`<div class="heat-legend"><span>${percent?'Frequency / share (%)':'Pearson r'}</span><span>${percent?'0':domain[0]}</span><i></i><span>${percent?'100':domain[1]}</span></div>`;
 }
 function histogramChart(hist,{w=520,h=235,xlabel='',zero=false}={}){
- if(!hist.n)return empty('没有可用抽样数据');
+ if(!hist.n)return empty('No sampling data available');
  if(mobile())w=400;
  if(zero&&finite(hist.point_mass)){
   const left=45,right=w-20,top=28,bottom=h-49,domain=extent([0,hist.point_mass]),sx=scale(domain,left,right);
@@ -105,7 +105,7 @@ function violinPlot(){
 }
 function seriesChart(series,{label='',threshold=null,unitRange=false,nonnegative=false}={}){
  const history=D.fit_history,w=mobile()?420:530,h=225,left=62,right=w-20,top=20,bottom=175;
- if(!history.length||!series.some(s=>s.values.some(finite)))return empty('当前拟合记录未保存此诊断；重新拟合后可用。');
+ if(!history.length||!series.some(s=>s.values.some(finite)))return empty('This diagnostic was not saved with the current fit. Refit to show it.');
  const xs=history.map(r=>r.iteration),xd=xs.length===1?[xs[0]-.5,xs[0]+.5]:[xs[0],xs.at(-1)];
  const values=series.flatMap(s=>s.values).filter(finite);if(finite(threshold))values.push(threshold);
  let yd=unitRange?[0,1]:extent(values);
@@ -121,7 +121,7 @@ function seriesChart(series,{label='',threshold=null,unitRange=false,nonnegative
  return svg(w,h,s,label)+(series.length>1?series.map((a,j)=>`<span class="legend-item"><i class="swatch" style="background:${col(j)}"></i>${esc(a.name)}</span>`).join(''):'');
 }
 function scatterPlot(points,{pca=true}={}){
- if(!points.length)return empty('没有未标注样本');
+ if(!points.length)return empty('No unlabeled samples');
  const w=mobile()?420:(pca?780:530),h=pca?(mobile()?350:440):240,left=56,right=w-25,top=20,bottom=h-48;
  const xd=extent(points.map(p=>pca?p.x:p.confidence),!pca),yd=extent(points.map(p=>pca?p.y:p.entropy));
  if(!pca)yd[0]=Math.max(0,yd[0]);
@@ -138,15 +138,15 @@ function scatterPlot(points,{pca=true}={}){
  }return svg(w,h,s,pca?'PCA of ALR prediction vectors':'Posterior confidence and entropy');
 }
 function densityChart(d, xlabel){
- if(!d?.n)return empty('没有可用密度数据，请重新生成报告。');
- if(finite(d.point_mass))return empty(`单点分布：${fmt(d.point_mass,8)} · n = ${d.n}，不进行 KDE 平滑。`);
+ if(!d?.n)return empty('No density data available. Regenerate the report.');
+ if(finite(d.point_mass))return empty(`Point mass: ${fmt(d.point_mass,8)} · n = ${d.n}. KDE smoothing is not applied.`);
  const w=520,h=270,left=65,right=495,top=28,bottom=215;
  const domain=[d.x[0],d.x.at(-1)],sx=scale(domain,left,right),peak=Math.max(...d.density),sy=scale([0,peak],bottom,top);
  let s=line(left,bottom,right,bottom,`stroke="${ink}"`);
  for(let i=0;i<=4;i++){const v=domain[0]+(domain[1]-domain[0])*i/4;s+=text(sx(v),bottom+20,v.toFixed(6),'text-anchor="middle" class="axis-label"');}
  s+=text((left+right)/2,h-8,xlabel,'text-anchor="middle" class="axis-label"');
  [0,peak/2,peak].forEach(v=>s+=text(left-8,sy(v)+4,v.toPrecision(3),'text-anchor="end" class="axis-label"'));
- s+=text(left,15,'Density · 局部放大','class="axis-label"');
+ s+=text(left,15,'Density · zoomed axis','class="axis-label"');
  const path=d.x.map((v,i)=>`${i?'L':'M'}${sx(v)},${sy(d.density[i])}`).join(' ');
  s+=`<path d="${path} L${right},${bottom} L${left},${bottom} Z" fill="${accent}" fill-opacity=".18"/><path d="${path}" fill="none" stroke="${accent}" stroke-width="2.5"/>`;
  return svg(w,h,s,xlabel+' boundary-corrected density');
@@ -155,7 +155,7 @@ function render3D(){
  const host=$('pca-3d');if(!host)return;
  const state=host.viewState||(host.viewState={yaw:.55,pitch:-.35,zoom:1});
  const points=D.prediction_space.points;
- if(!points.every(p=>finite(p.z))){host.innerHTML=empty('三维坐标不可用，请重新生成报告。');return;}
+ if(!points.every(p=>finite(p.z))){host.innerHTML=empty('Three-dimensional coordinates are unavailable. Regenerate the report.');return;}
  const radius=Math.max(1e-12,...points.flatMap(p=>[Math.abs(p.x),Math.abs(p.y),Math.abs(p.z)]));
  const project=(x,y,z)=>{const a=x*Math.cos(state.yaw)+z*Math.sin(state.yaw),b=-x*Math.sin(state.yaw)+z*Math.cos(state.yaw);return [390+a/radius*155*state.zoom,240-(y*Math.cos(state.pitch)-b*Math.sin(state.pitch))/radius*155*state.zoom,y*Math.sin(state.pitch)+b*Math.cos(state.pitch)];};
  let s='';
@@ -175,33 +175,33 @@ function renderSpace(){
  $('space-legend').innerHTML=items.map(([c,l])=>`<span class="legend-item"><i class="swatch" style="background:${c}"></i>${esc(l)}</span>`).join('');
  const p=D.posterior,k=D.fit_pool.n_classes;
  const explanations={
- class:'推断类别：颜色表示 SSME 后验概率最大的类别。它回答“这个位置的样本被分到哪一类？”；未标注点的颜色是推断结果。',
- confidence:`后验置信度（Confidence）：取各类别概率的最大值 max P(y | s)，颜色越深，SSME 越集中地分配到某一类。它不是某个候选模型的预测置信度。${k===2?'例如 [0.5, 0.5] 的置信度为 0.5，[0.99, 0.01] 为 0.99。':''}本次未标注样本范围为 ${fmt(p.min_confidence,6)}–${fmt(p.max_confidence,6)}，范围靠近 1 时颜色会十分相似。`,
- entropy:`后验熵（Entropy）：观察整组类别概率有多分散，H = −Σ p log p。颜色越深，概率越分散、潜在类别越不确定；接近 0 则集中在一个类别。${k===2?'例如 [0.5, 0.5] 的熵为 0.693 nats，[0.99, 0.01] 约为 0.056 nats。二分类时，熵与置信度提供的是相反方向的同一不确定性排序。':''}本次未标注样本的熵为 ${fmt(p.min_entropy,6)}–${fmt(p.max_entropy,6)} nats。`,
- status:`标注状态（Label status）：紫色表示 ${D.fit_pool.n_labeled} 个真实已标注样本，灰色表示 ${D.fit_pool.n_unlabeled} 个未标注样本。这张图用来查看少量标签位于预测空间的哪些区域；颜色不表示准确率或置信度。`,
+ class:'Inferred class: color is the class with the largest SSME posterior probability. It answers which class a sample at this location is assigned to. Color on unlabeled points is an inference.',
+ confidence:`Posterior confidence: the maximum class probability, max P(y | s). Darker color means SSME puts more mass on a single class. This is not a candidate model's own confidence.${k===2?' For example, [0.5, 0.5] has confidence 0.5 and [0.99, 0.01] has confidence 0.99.':''} Unlabeled samples in this report span ${fmt(p.min_confidence,6)}–${fmt(p.max_confidence,6)}. Colors look similar when that range sits near 1.`,
+ entropy:`Posterior entropy: how spread the class probabilities are, H = −Σ p log p. Darker color means the probabilities are more spread out and the latent class is less certain. Values near 0 are concentrated on one class.${k===2?' For example, [0.5, 0.5] has entropy 0.693 nats and [0.99, 0.01] has about 0.056 nats. In the binary case, entropy and confidence rank the same uncertainty in opposite directions.':''} Unlabeled entropy in this report spans ${fmt(p.min_entropy,6)}–${fmt(p.max_entropy,6)} nats.`,
+ status:`Label status: purple marks the ${D.fit_pool.n_labeled} truly labeled samples and gray marks the ${D.fit_pool.n_unlabeled} unlabeled samples. The plot shows where the few labels sit in prediction space. Color is not accuracy or confidence.`,
  };
- $('space-explanation').textContent=explanations[spaceColor]+(spaceColor==='confidence'||spaceColor==='entropy'?' 已标注锚点的后验固定为 one-hot，因此其置信度为 1、熵为 0。':'');
+ $('space-explanation').textContent=explanations[spaceColor]+(spaceColor==='confidence'||spaceColor==='entropy'?' Labeled anchors have a one-hot posterior, so their confidence is 1 and their entropy is 0.':'');
  document.querySelectorAll('[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===spaceColor)));
 }
 function renderContribution(){
  const c=D.contribution,root=$('contribution-content');
- if(!c){root.innerHTML='<p class="performance-reading">本次未计算移除模型诊断。使用 report(contribution=True) 后，此处会显示真实重新拟合得到的后验影响与性能估计变化。</p>';return;}
+ if(!c){root.innerHTML='<p class="performance-reading">Leave-one-model-out diagnostics were not computed. Call report(contribution=True) to show posterior impact and performance changes from actual refits.</p>';return;}
  const w=mobile()?420:650,left=mobile()?115:160,right=w-65,row=38,h=names.length*row+60;
  const max=Math.max(...c.rows.map(r=>r.posterior_total_variation),1e-8),domain=[0,max*1.1],sx=scale(domain,left,right);
  let plot=axisX(domain,left,right,10,h-45,'Mean posterior total variation');
  c.order.forEach((i,r)=>{const a=c.rows[i],y=25+r*row;plot+=`<g data-model="${i}" ${tip(`${a.removed_model}\nMean TV: ${fmt(a.posterior_total_variation,8)}\nClass flips: ${pct(a.posterior_class_flip_rate)}`)}>`+text(left-12,y+4,short(i),'text-anchor="end"')+line(left,y,sx(a.posterior_total_variation),y,'stroke="#d8d7e9" stroke-width="2"')+circle(sx(a.posterior_total_variation),y,5,`fill="${r===0?accent:muted}"`)+text(w-4,y+4,fmt(a.posterior_total_variation,6),'text-anchor="end" class="value-text"')+'</g>';});
  const best=c.rows[c.order[0]];
- root.innerHTML=`<div class="contribution-intro"><p>固定原始可见标签、全模型初始化、标量带宽与 ${c.protocol.fixed_epochs} 轮迭代，额外拟合 ${c.n_refits} 次。所有影响在 ${c.n_samples.toLocaleString()} 个未标注样本上计算。</p><p><strong>影响最大：${esc(best.removed_model)}</strong> · 平均后验 TV = ${fmt(best.posterior_total_variation,6)}。数值越大，移除该输入后结果改变越多；不能把它解释成“让 SSME 更准确”的分数。</p></div><div class="two-col"><figure><h3>对后验分配的影响</h3>${svg(w,h,plot,'Leave-one-model-out posterior total variation')}<figcaption>每个样本先计算 ½Σ|完整后验 − 移除后后验|，再取平均。范围 0–1；二分类时等于正类后验概率的平均绝对变化。</figcaption></figure><figure><h3>对其他模型 Accuracy 估计的影响</h3><div id="contribution-matrix"></div><figcaption>行：被移除的模型；列：仍被评估的模型。数值为移除后 − 移除前的 Accuracy 估计，单位为百分点。紫色为上升，青色为下降；对角线不参与。上升不代表更接近真实值。</figcaption></figure></div><details class="data-details" open><summary>逐模型影响明细</summary><div class="table-wrap"><table><thead><tr><th>Removed model</th><th>Mean TV</th><th>Class flip rate</th><th>Mean |Δ Accuracy| (pp)</th><th>Mean |Δ rank|</th><th>Remaining Top-1 changed</th><th>JS divergence (nats)</th></tr></thead><tbody>${c.order.map(i=>{const a=c.rows[i];return `<tr data-model="${i}"><td>${esc(a.removed_model)}</td><td>${fmt(a.posterior_total_variation,6)}</td><td>${pct(a.posterior_class_flip_rate)}</td><td>${fmt(100*a.remaining_accuracy_mean_abs_change,4)}</td><td>${fmt(a.remaining_rank_mean_abs_change,3)}</td><td>${a.remaining_top1_changed?'Yes':'No'}</td><td>${fmt(a.posterior_js_divergence_nats,6)}</td></tr>`;}).join('')}</tbody></table></div></details><p class="caption">排名只比较移除后仍在候选集中的模型，避免把“删除领先者”本身误算成排名影响。Accuracy 使用精确后验期望，不引入额外标签抽样噪声。</p><details class="data-details"><summary>贡献度的含义与控制条件</summary><p class="performance-reading">这是固定初始化下的条件消融。共享初始化由全模型预测产生，因此该诊断不覆盖移除模型对初始化的影响；标量带宽也不重新选取。低影响可以来自信息重叠或后验集中，不能单凭此值断言模型无用。没有独立真实标签时，不将估计变化解释为准确性增益，也不将这些数值归一化为相加等于 100% 的贡献份额。</p></details>`;
+ root.innerHTML=`<div class="contribution-intro"><p>The original visible labels, full-model initialization, scalar bandwidth, and ${c.protocol.fixed_epochs} iterations are held fixed across ${c.n_refits} extra fits. Every effect is computed on ${c.n_samples.toLocaleString()} unlabeled samples.</p><p><strong>Largest effect: ${esc(best.removed_model)}</strong> · mean posterior TV = ${fmt(best.posterior_total_variation,6)}. A larger value means removing that input changes the result more. It is not a score for making SSME more accurate.</p></div><div class="two-col"><figure><h3>Effect on the posterior</h3>${svg(w,h,plot,'Leave-one-model-out posterior total variation')}<figcaption>For each sample, compute ½Σ|full posterior − posterior after removal|, then average. The range is 0–1. In the binary case this equals the mean absolute change in the positive-class posterior.</figcaption></figure><figure><h3>Effect on the other models' Accuracy estimates</h3><div id="contribution-matrix"></div><figcaption>Rows are removed models. Columns are models still evaluated. Values are Accuracy after removal minus Accuracy before removal, in percentage points. Purple is an increase and teal is a decrease. The diagonal is excluded. An increase does not mean the estimate is closer to the truth.</figcaption></figure></div><details class="data-details" open><summary>Per-model effects</summary><div class="table-wrap"><table><thead><tr><th>Removed model</th><th>Mean TV</th><th>Class flip rate</th><th>Mean |Δ Accuracy| (pp)</th><th>Mean |Δ rank|</th><th>Remaining Top-1 changed</th><th>JS divergence (nats)</th></tr></thead><tbody>${c.order.map(i=>{const a=c.rows[i];return `<tr data-model="${i}"><td>${esc(a.removed_model)}</td><td>${fmt(a.posterior_total_variation,6)}</td><td>${pct(a.posterior_class_flip_rate)}</td><td>${fmt(100*a.remaining_accuracy_mean_abs_change,4)}</td><td>${fmt(a.remaining_rank_mean_abs_change,3)}</td><td>${a.remaining_top1_changed?'Yes':'No'}</td><td>${fmt(a.posterior_js_divergence_nats,6)}</td></tr>`;}).join('')}</tbody></table></div></details><p class="caption">Ranks compare only models that remain after the removal, so deleting the leader is not itself counted as a ranking effect. Accuracy uses the exact posterior expectation and adds no extra label-sampling noise.</p><details class="data-details"><summary>What contribution means, and what is held fixed</summary><p class="performance-reading">This is a conditional ablation under a fixed initialization. The shared initialization comes from the full set of model predictions, so the diagnostic does not cover how removal would change that initialization, and the scalar bandwidth is not reselected. A small effect can come from overlapping information or a concentrated posterior. That value alone does not show that a model is useless. Without a separate set of true labels, a change in the estimate is not an accuracy gain, and these numbers are not normalized into shares that add to 100%.</p></details>`;
  const cell=43,ml=65,mt=30,mw=ml+names.length*cell+8,mh=mt+names.length*cell+15;
  const limit=Math.max(...c.accuracy_delta_matrix.flat().filter(finite).map(Math.abs),1e-12);let matrix='';
  names.forEach((_,j)=>matrix+=text(ml+j*cell+cell/2,17,code(j),'text-anchor="middle"'));
  names.forEach((_,i)=>{matrix+=`<g data-model="${i}">`+text(ml-10,mt+i*cell+26,code(i),'text-anchor="end"');names.forEach((_,j)=>{const v=c.accuracy_delta_matrix[i][j],nearZero=finite(v)&&Math.abs(v)<=1e-12,t=finite(v)&&!nearZero?Math.abs(v)/limit:0;const end=v<0?[98,155,153]:[106,105,182],rgb=[247,247,250].map((a,k)=>Math.round(a+(end[k]-a)*t));matrix+=`<g ${tip(`Remove ${names[i]} → ${names[j]}\nΔ Accuracy: ${finite(v)?(100*v).toExponential(4):'—'} percentage points`)}>`+rect(ml+j*cell+1,mt+i*cell+1,cell-3,cell-3,`fill="rgb(${rgb})" rx="3"`)+text(ml+j*cell+cell/2,mt+i*cell+26,finite(v)?nearZero?'≈0':(v>0?'+':'')+(100*v).toFixed(2):'—',`text-anchor="middle" style="font-size:10px;fill:${t>.65?'white':ink}"`)+'</g>';});matrix+='</g>';});
- $('contribution-matrix').innerHTML=svg(mw,mh,matrix,'Signed Accuracy changes in percentage points')+'<p class="caption">显示容差：|Δ Accuracy| ≤ 10⁻¹² 记为 ≈0 并使用中性色；原始数值保留在悬停提示和数据导出中。</p>';
+ $('contribution-matrix').innerHTML=svg(mw,mh,matrix,'Signed Accuracy changes in percentage points')+'<p class="caption">Display tolerance: |Δ Accuracy| ≤ 10⁻¹² is shown as ≈0 in a neutral color. The raw value stays in the hover tip and in the exported data.</p>';
 }
 function renderPair(){
  const d=D.metrics[metric],p=d.pairs[`${pairA}:${pairB}`];
- if(!p){$('pair-stats').innerHTML='';$('delta-chart').innerHTML=empty('至少需要两个不同的候选模型。');return;}
- $('pair-stats').innerHTML=[[pct(p.a_better),'A 优于 B'],[pct(p.b_better),'B 优于 A'],[pct(p.tie),'并列'],[String(p.n),'有效配对抽样']].map(([v,l])=>`<div><div class="stat-number">${v}</div><div class="stat-label">${l}</div></div>`).join('');
+ if(!p){$('pair-stats').innerHTML='';$('delta-chart').innerHTML=empty('At least two distinct candidate models are required.');return;}
+ $('pair-stats').innerHTML=[[pct(p.a_better),'A beats B'],[pct(p.b_better),'B beats A'],[pct(p.tie),'Tie'],[String(p.n),'Valid paired draws']].map(([v,l])=>`<div><div class="stat-number">${v}</div><div class="stat-label">${l}</div></div>`).join('');
  $('delta-chart').innerHTML=histogramChart(p.delta,{w:1000,h:205,xlabel:`Δ ${metricName(metric)} · A − B`,zero:true});
  $('pair-a').value=String(pairA);$('pair-b').value=String(pairB);
  for(const option of $('pair-a').options)option.disabled=Number(option.value)===pairB;
@@ -213,11 +213,11 @@ function updateHighlight(){
  document.querySelectorAll('.model-chip').forEach(el=>el.setAttribute('aria-pressed',String(Number(el.dataset.model)===pinned)));
 }
 function renderMetric(){
- const d=D.metrics[metric],j=d.order[0],second=d.order[1],r=d.rows[j],validLeader=finite(r.estimate),direction=metric==='ece'?'最低':'最高';
+ const d=D.metrics[metric],j=d.order[0],second=d.order[1],r=d.rows[j],validLeader=finite(r.estimate),direction=metric==='ece'?'lowest':'highest';
  document.querySelectorAll('.metric-tabs').forEach(el=>el.innerHTML=metrics.map(k=>`<button data-metric="${k}" aria-pressed="${k===metric}">${metricName(k)}</button>`).join(''));
  $('kpi-metric').textContent=metricName(metric);$('hero-dot').innerHTML=dotPlot(metric);
- $('hero-summary').innerHTML=`<div><span class="eyebrow">LEADING ESTIMATE</span><div class="leader-name">${validLeader?esc(short(j)):'暂无可用估计'}</div><span class="subtle">${metricName(metric)} · ${metric==='ece'?'LOWER':'HIGHER'} IS BETTER</span><div class="score">${fmt(r.estimate)}</div></div><div><div class="mini-row">Rank-1 stability<strong>${validLeader?pct(d.rank1[j]):'—'}</strong></div><div class="mini-row">Closest competitor<strong>${second!==undefined&&finite(d.rows[second].estimate)?esc(short(second)):'—'}</strong></div><div class="mini-row">Valid ranked evaluations<strong>${d.rank_valid_draws} / ${M.n_draws}</strong></div></div>`;
- $('ranking-valid').textContent=`${metricName(metric)} · ${d.rank_valid_draws} / ${M.n_draws} 次完整有效抽样`;
+ $('hero-summary').innerHTML=`<div><span class="eyebrow">LEADING ESTIMATE</span><div class="leader-name">${validLeader?esc(short(j)):'No estimate available'}</div><span class="subtle">${metricName(metric)} · ${metric==='ece'?'LOWER':'HIGHER'} IS BETTER</span><div class="score">${fmt(r.estimate)}</div></div><div><div class="mini-row">Rank-1 stability<strong>${validLeader?pct(d.rank1[j]):'—'}</strong></div><div class="mini-row">Closest competitor<strong>${second!==undefined&&finite(d.rows[second].estimate)?esc(short(second)):'—'}</strong></div><div class="mini-row">Valid ranked evaluations<strong>${d.rank_valid_draws} / ${M.n_draws}</strong></div></div>`;
+ $('ranking-valid').textContent=`${metricName(metric)} · ${d.rank_valid_draws} / ${M.n_draws} complete valid draws`;
  $('rank-heatmap').innerHTML=heatmap(d.rank_frequencies,names.map((_,i)=>code(i)),names.map((_,i)=>'#'+(i+1)));
  $('pair-heatmap').innerHTML=heatmap(d.pairwise_wins,names.map((_,i)=>code(i)),names.map((_,i)=>code(i)),{diagonal:true});
  $('rank-bars').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Model</th><th>Rank-1 stability</th><th>Top-2 frequency</th><th>Median rank</th></tr></thead><tbody>${d.order.map(i=>`<tr data-model="${i}"><td>${esc(names[i])}</td><td><span style="display:inline-block;vertical-align:middle;width:${finite(d.rank1[i])?d.rank1[i]*80:0}px;height:4px;background:${accent};margin-right:12px"></span>${pct(d.rank1[i])}</td><td>${pct(d.top2[i])}</td><td>${d.median_rank[i]??'—'}</td></tr>`).join('')}</tbody></table></div>`;
@@ -231,8 +231,8 @@ function renderStatic(){
  const f=D.fit_pool;
  $('kpis').innerHTML=[[names.length,'CANDIDATE MODELS'],[f.n_labeled.toLocaleString(),'LABELED ANCHORS'],[f.n_unlabeled.toLocaleString(),'UNLABELED SAMPLES'],[metricName(metric),'PRIMARY METRIC']].map(([v,l],i)=>`<div class="kpi"><div class="number" ${i===3?'id="kpi-metric"':''}>${v}</div><div class="label">${l}</div></div>`).join('');
  $('composition').innerHTML=`<div class="composition-bar"><span style="width:${100*f.n_labeled/f.n_samples}%"></span><span style="flex:1"></span></div><div class="composition-legend"><div><strong>${f.n_labeled.toLocaleString()}</strong><span>Labeled · ${pct(f.n_labeled/f.n_samples)}</span></div><div><strong>${f.n_unlabeled.toLocaleString()}</strong><span>Unlabeled · ${pct(f.n_unlabeled/f.n_samples)}</span></div></div>`;
- $('scope-caption').textContent=`拟合池 ${f.n_samples.toLocaleString()} 个样本；性能估计目标为 ${M.target==='all'?'完整拟合池':'仅未标注样本'}（n = ${M.n_samples}）。${M.split_seed!==undefined?'当前报告来自 seed '+M.split_seed+' 的单次拟合。':''}`;
- $('performance-scope').textContent=`本节评估 ${names.length} 个候选模型，目标为${M.target==='all'?'完整拟合池':'未标注样本'}（${M.n_samples.toLocaleString()} 个样本）。${M.n_labeled} 个已知标签在每次抽样中保持固定，其余标签按拟合后验抽样，共 ${M.n_draws} 次。表内每列单独着色，深浅表示该指标内的相对表现，不能把不同指标的数值直接平均成总分。`;
+ $('scope-caption').textContent=`Fit pool: ${f.n_samples.toLocaleString()} samples. Performance is estimated on ${M.target==='all'?'the full fit pool':'unlabeled samples only'} (n = ${M.n_samples}).${M.split_seed!==undefined?' This report is a single fit from seed '+M.split_seed+'.':''}`;
+ $('performance-scope').textContent=`This section evaluates ${names.length} candidate models on ${M.target==='all'?'the full fit pool':'unlabeled samples'} (${M.n_samples.toLocaleString()} samples). ${M.n_labeled} known labels stay fixed in every draw. The remaining labels are drawn from the fitted posterior, for ${M.n_draws} draws. Each table column is colored on its own. Shade shows relative standing within that metric and is not a score that can be averaged across metrics.`;
  const config=[['Task',f.n_classes===2?'Binary classification':'Multiclass'],['Classes',f.n_classes],['Kernel','Gaussian KDE'],['Bandwidth rule',M.bandwidth_rule],['Bandwidth',fmt(M.bandwidth,6)],['Labeled weight',M.labeled_weight],['EM epochs',M.n_iter+(earlyStopping?' (early stop)':' (fixed)')],['Metric samples',M.n_draws],['ALR dimensions',D.prediction_space.alr_dimensions]];
  $('config-grid').innerHTML=config.map(([k,v])=>`<dl><dt>${k}</dt><dd>${esc(v)}</dd></dl>`).join('');
  $('model-key').innerHTML=names.map((n,i)=>`<button class="model-chip" data-model="${i}" aria-pressed="false"><span class="code">${code(i)}</span>${esc(n)}</button>`).join('');
@@ -243,17 +243,17 @@ function renderStatic(){
  const l=D.landscape;
  $('correlation').innerHTML=heatmap(l.correlation,names.map((_,i)=>code(i)),names.map((_,i)=>code(i)),{domain:[-1,1],percent:false});
  $('agreement').innerHTML=heatmap(l.agreement,names.map((_,i)=>code(i)),names.map((_,i)=>code(i)));
- $('correlation-caption').textContent='Pearson correlation · '+l.correlation_definition+'。常数预测的相关系数不可定义，显示为 —。';
+ $('correlation-caption').textContent='Pearson correlation of '+l.correlation_definition+'. Correlation is undefined for a constant prediction and is shown as —.';
  const pairLabel=p=>p?p.map(i=>short(i)).join(' / '):'—';
  $('landscape-summary').innerHTML=[['MOST SIMILAR',pairLabel(l.most_similar),true],['MOST DIFFERENT',pairLabel(l.most_different),true],['MEAN CORRELATION',fmt(l.mean_correlation,3),false],['MEAN AGREEMENT',pct(l.mean_agreement),false]].map(([title,value,small])=>`<div><span class="eyebrow">${title}</span><div class="value ${small?'small':''}">${esc(value)}</div></div>`).join('');
  const sp=D.prediction_space;
  $('variance').innerHTML=sp.variance.map((v,i)=>`<div class="variance-row"><div class="top"><span>PC${i+1}</span><span>${pct(v)}</span></div><div class="variance-track"><span style="width:${100*v}%"></span></div></div>`).join('');
- $('space-caption').textContent=`前两维解释方差 ${pct(sp.variance[0]+sp.variance[1])}；前三维 ${pct(sp.variance.reduce((a,b)=>a+b,0))}。显示 ${sp.points.length.toLocaleString()} / ${sp.total.toLocaleString()} 个点；大数据时对未标注点作确定性展示抽样，保留全部锚点。`;
+ $('space-caption').textContent=`The first two components explain ${pct(sp.variance[0]+sp.variance[1])} of the variance, and the first three explain ${pct(sp.variance.reduce((a,b)=>a+b,0))}. Showing ${sp.points.length.toLocaleString()} / ${sp.total.toLocaleString()} points. On large data, unlabeled points use a deterministic display sample and every anchor is kept.`;
  renderSpace();
  renderContribution();
  const p=D.posterior;
- $('sampling-diagnostic').textContent=finite(p.mean_confidence)?`本次未标注样本的平均最大后验概率为 ${(100*p.mean_confidence).toFixed(6)}%。每轮抽样预期 ${fmt(p.expected_nonmodal_labels_per_draw,6)} 个样本偏离各自的最可能类别（Σ[1 − max P]）。该数量很小时，即使执行多轮 EM，有限次抽样的区间仍可能收缩为点。`:'';
- $('posterior-note').innerHTML=`<span class="big">${pct(p.concentrated_fraction)}</span><p>未标注样本满足 max P(y | s) ≥ ${p.threshold.toFixed(2)}。这是当前后验的集中程度。若抽样分布收缩为点，也不能据此排除拟合或带宽选择的不确定性。</p>`;
+ $('sampling-diagnostic').textContent=finite(p.mean_confidence)?`The mean maximum posterior probability on unlabeled samples is ${(100*p.mean_confidence).toFixed(6)}%. Each draw is expected to move ${fmt(p.expected_nonmodal_labels_per_draw,6)} samples off their most likely class (Σ[1 − max P]). When that count is small, a finite number of draws can still collapse the interval to a point, even after many EM iterations.`:'';
+ $('posterior-note').innerHTML=`<span class="big">${pct(p.concentrated_fraction)}</span><p>of unlabeled samples satisfy max P(y | s) ≥ ${p.threshold.toFixed(2)}. That is how concentrated the current posterior is. A sampling distribution that collapses to a point does not rule out uncertainty from the fit or from the bandwidth.</p>`;
  $('confidence-hist').innerHTML=densityChart(p.confidence_density, 'Maximum posterior probability');
  $('entropy-hist').innerHTML=densityChart(p.entropy_density, 'Entropy (nats)');
 
@@ -262,8 +262,8 @@ function renderStatic(){
  const yy=35+k*70,prior=p.class_priors[k],share=p.n_unlabeled?p.class_counts[k]/p.n_unlabeled:null;
  cs+=text(80,yy+8,'Class '+k,'text-anchor="end"')+rect(98,yy-6,372*prior,10,`fill="${col(k)}" ${tip(`Class ${k} fitted prior: ${pct(prior)}`)}`);
  if(finite(share))cs+=rect(98,yy+11,372*share,10,`fill="${col(k)}" fill-opacity=".35" ${tip(`Class ${k} unlabeled composition: ${pct(share)}`)}`);
- }$('class-structure').innerHTML=svg(cw,ch,cs,'Fitted priors and posterior composition')+'<span class="legend-item">实色：Fitted prior</span><span class="legend-item">浅色：Unlabeled composition</span>';
- $('ambiguous-table').innerHTML=p.ambiguous.length?`<table><thead><tr><th>Sample id</th>${Array.from({length:f.n_classes},(_,k)=>`<th>P(class ${k})</th>`).join('')}<th>Confidence</th><th>Entropy (nats)</th></tr></thead><tbody>${p.ambiguous.map(a=>`<tr><td>${esc(a.id)}</td>${a.posterior.map(v=>`<td>${fmt(v,6)}</td>`).join('')}<td>${fmt(a.confidence,6)}</td><td>${a.entropy>0&&a.entropy<.000001?a.entropy.toExponential(3):fmt(a.entropy,6)}</td></tr>`).join('')}</tbody></table>`:empty('拟合池没有未标注样本。');
+ }$('class-structure').innerHTML=svg(cw,ch,cs,'Fitted priors and posterior composition')+'<span class="legend-item">Solid: fitted prior</span><span class="legend-item">Light: unlabeled composition</span>';
+ $('ambiguous-table').innerHTML=p.ambiguous.length?`<table><thead><tr><th>Sample id</th>${Array.from({length:f.n_classes},(_,k)=>`<th>P(class ${k})</th>`).join('')}<th>Confidence</th><th>Entropy (nats)</th></tr></thead><tbody>${p.ambiguous.map(a=>`<tr><td>${esc(a.id)}</td>${a.posterior.map(v=>`<td>${fmt(v,6)}</td>`).join('')}<td>${fmt(a.confidence,6)}</td><td>${a.entropy>0&&a.entropy<.000001?a.entropy.toExponential(3):fmt(a.entropy,6)}</td></tr>`).join('')}</tbody></table>`:empty('The fit pool has no unlabeled samples.');
 
 }
 renderStatic();renderMetric();

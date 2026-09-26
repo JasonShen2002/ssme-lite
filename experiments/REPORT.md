@@ -1,119 +1,119 @@
-# SSME-Lite 实验报告
+# SSME-Lite experiment report
 
-PneumoniaMNIST 上的半监督模型评估。比较对象是「只用少量标签」和 SSME-Lite。迁移学习是另一条独立的链：冻结的 ImageNet ResNet18 提特征，再接 sklearn 分类头。
+Semi-supervised model evaluation on PneumoniaMNIST. The comparison is between a labeled-only estimate and SSME-Lite. Transfer learning is a separate chain: a frozen ImageNet ResNet18 extracts features, and sklearn heads classify them.
 
-## 1. 问题
+## 1. Question
 
-Accuracy、AUC、AUPRC、ECE 通常要在一大批有标签的样本上算。儿科胸片这类任务标签少，未标注图像反而多。SSME（Shanmugam et al., NeurIPS 2025）用多个分类器的预测概率，加上少量真实标签，估计这些分类器在未标注数据上的性能。
+Accuracy, AUC, AUPRC, and ECE are usually computed on a large labeled set. Pediatric chest X-rays are the opposite: labels are scarce and unlabeled images are plentiful. SSME (Shanmugam et al., NeurIPS 2025) uses predicted probabilities from several classifiers, together with a few true labels, to estimate how those classifiers perform on unlabeled data.
 
-SSME-Lite 把这件事做成可调用的流程，而不是再改一版核心算法：
+SSME-Lite turns that procedure into a callable pipeline rather than a new core algorithm:
 
-`多个模型的概率 → PredictionMatrixGenerator → SSMEEstimator → 排名、区间和报告`
+`model probabilities → PredictionMatrixGenerator → SSMEEstimator → ranks, intervals, and a report`
 
-本报告回答三件事。官方 PneumoniaMNIST 模型能不能组成一个有差异的分类器集合。在统一划分上，SSME-Lite 的绝对误差是否低于只使用标签的估计。预训练 ResNet 提取的特征能不能接进同一条流程。
+This report answers three questions. Can the official PneumoniaMNIST models form a diverse classifier set? On a shared split, is the absolute error of SSME-Lite lower than the labeled-only estimate? Can features from a pretrained ResNet enter the same pipeline?
 
-## 2. 方法
+## 2. Method
 
-估计器沿用工具包里已经实现的流程：把多个模型的类别概率做加性对数比变换，在这个空间里做加权高斯核密度估计，再用 EM 更新未标注样本的类别责任度。已见标签在每次 E-step 固定为 one-hot。默认固定跑 100 轮，标注样本权重 10，带宽用 Scott 尺度。Accuracy 用后验期望；AUC、AUPRC、ECE 用潜在标签抽样。这些选择和本仓库其余 benchmark 一致，不是论文 improved Sheather-Jones 带宽的逐行复现。
+The estimator follows the pipeline already implemented in the package. Class probabilities from several models are mapped with an additive log-ratio transform. A weighted Gaussian kernel density estimate is fit in that space, and EM updates class responsibilities for unlabeled samples. Observed labels stay one-hot at every E-step. The default run is a fixed 100 iterations, labeled samples have weight 10, and the bandwidth uses the Scott scale. Accuracy uses the posterior expectation. AUC, AUPRC, and ECE use latent-label draws. These choices match the other benchmarks in this repository. They are not a line-by-line reproduction of the paper's improved Sheather-Jones bandwidth.
 
-数据划分封装为 `SemiSupervisedSplit`。一次均匀随机置换把评估池切成三段：
+The split is `SemiSupervisedSplit`. One uniform random permutation cuts the evaluation pool into three parts:
 
-- 模型训练数据：分类器已经用过，SSME 不再使用
-- estimation set：`n_l` 个可见标签 + `n_u` 个只提供预测的样本
-- held-out：标签完全不进入 SSME，用来计算 ground truth
+- Model training data: already used by the classifiers, and not used again by SSME
+- Estimation set: `n_l` visible labels plus `n_u` samples that contribute predictions only
+- Held-out: labels never enter SSME, and are used for ground truth
 
-同一个 seed 只由样本数决定，因此模型数量消融比较的是同一批索引。误差是
+A seed depends only on the sample counts, so model-count ablations compare the same indices. The error is
 
 \[
 |\widehat{\mathrm{Metric}} - \mathrm{Metric}_{GT}|
 \]
 
-跨 10 个 seed 取均值，并用 Student-t 区间描述这个均值的不确定性。区间只覆盖随机划分，不覆盖密度估计本身的不确定性。
+Means are taken over 10 seeds. A Student-t interval describes uncertainty in that mean. The interval covers the random split only, not uncertainty in the density estimate itself.
 
-## 3. 实验设置
+## 3. Setup
 
-### 3.1 数据与官方模型
+### 3.1 Data and official models
 
-PneumoniaMNIST 是二分类胸片：train 4,708、val 524、test 624。test 里 normal 234、pneumonia 390。官方分类器在 train 上训练，并用 val 做 early stopping，所以评估池只用 test。624 张放不下论文中的 1,000 个无标签样本，协议定为
+PneumoniaMNIST is a binary chest X-ray task: 4,708 train, 524 validation, and 624 test images. The test split has 234 normal and 390 pneumonia cases. Official classifiers are trained on train and use validation for early stopping, so the evaluation pool is test only. The test split has 624 images, which cannot hold the paper's 1,000 unlabeled samples. The protocol is
 
 \[
 n_l \in \{20, 50, 100\}, \quad n_u = 400
 \]
 
-`n_l = 20` 时 held-out 为 204；`n_l = 100` 时为 124。
+Held-out size is 204 when `n_l = 20` and 124 when `n_l = 100`.
 
-模型来自 MedMNIST v2 发布的 test 预测（Zenodo `10.5281/zenodo.7782114`），不是把同一个 checkpoint 复制五份。每个族只取重复编号 1。重算的 AUC / Accuracy 与文件名里的三位小数一致，分数落在 `[0, 1]`。
+Models come from the MedMNIST v2 released test predictions (Zenodo `10.5281/zenodo.7782114`), not from five copies of one checkpoint. Each family keeps repeat 1 only. Recomputed AUC and Accuracy match the three decimals in the filenames, and scores lie in `[0, 1]`.
 
-| 模型 | 结构 | Test AUC | Test ACC |
+| Model | Architecture | Test AUC | Test ACC |
 | --- | --- | ---: | ---: |
-| `resnet18_28_1` | ResNet-18，28×28 | 0.948 | 0.833 |
-| `resnet50_224_1` | ResNet-50，224×224 | 0.967 | 0.896 |
+| `resnet18_28_1` | ResNet-18, 28×28 | 0.948 | 0.833 |
+| `resnet50_224_1` | ResNet-50, 224×224 | 0.967 | 0.896 |
 | `autokeras_1` | AutoKeras | 0.939 | 0.883 |
 | `autosklearn_1` | auto-sklearn | 0.942 | 0.859 |
 | `automl_vision_1` | Google AutoML Vision | 0.993 | 0.941 |
 
-Accuracy 极差 0.107。两两阈值预测的不一致率最高 0.120，正类概率相关在 0.80–0.93，不是同一份分数。auto-sklearn 的概率挤在 0.38–0.63，排序还在，置信度更低。它的模型快照没有发布，SSME 用的是发布出来的概率。完整审计在 `docs/PNEUMONIAMNIST_AUDIT.md`。
+The Accuracy range is 0.107. The highest pairwise disagreement of thresholded predictions is 0.120, and positive-class probability correlations lie in 0.80–0.93, so the scores are not copies of one another. auto-sklearn probabilities sit in 0.38–0.63: ranking remains, and confidence is lower. Its model snapshot was not released, so SSME uses the published probabilities. The full audit is `experiments/pneumoniamnist/AUDIT.md`.
 
-### 3.2 迁移学习
+### 3.2 Transfer learning
 
-这条线不加载上面的 checkpoint。ImageNet 预训练 ResNet18 去掉分类层并冻结，28×28 灰度图复制成 3 通道、双线性放大到 224、按 ImageNet 均值方差归一化，得到 512 维特征。Logistic Regression、Random Forest、MLP、Extra Trees、HistGradientBoosting 只在官方 train split 上拟合，超参数事先写定，验证集不参与挑选。SSME 仍只看 test split，划分协议与上一节相同。
+This line does not load the checkpoints above. An ImageNet-pretrained ResNet18 drops its classification layer and is frozen. Each 28×28 grayscale image is copied to three channels, bilinearly resized to 224, and normalized with ImageNet mean and variance, producing a 512-dimensional feature. Logistic regression, random forest, MLP, extra trees, and histogram gradient boosting are fit only on the official train split. Hyperparameters are fixed in advance. The validation set is not used for selection. SSME still sees only the test split, with the same split protocol as the previous section.
 
-### 3.3 重复实验
+### 3.3 Repeated runs
 
-每种设置 10 个 seed（0–9）。主比较是 5 个模型、`n_l = 20`、`n_u = 400`。然后只改变标签数，或只改变模型个数。2/3/4 个官方模型的子集按预测相关从低到高嵌套加入，规则只用分数，不看 SSME 误差。迁移学习的子集按分类头类型事先指定：logistic + forest，再依次加入 MLP、Extra Trees、HistGradientBoosting。
+Each setting uses 10 seeds (0–9). The main comparison is 5 models, `n_l = 20`, and `n_u = 400`. Later runs change only the label count, or only the model count. Nested subsets of 2, 3, and 4 official models are added from lowest to highest prediction correlation. The rule uses scores only, not SSME error. Transfer-learning subsets are specified in advance by head type: logistic regression plus forest, then MLP, extra trees, and histogram gradient boosting.
 
-主实验打开了逐个移除模型的敏感度分析。全部 seed 都跑完 100 轮，没有因标签缺类而丢弃的划分。
+The main experiment turns on leave-one-model-out sensitivity. Every seed finishes 100 iterations. No split is dropped for a missing class among the visible labels.
 
-## 4. 结果与工具包
+## 4. Results
 
-### 4.1 官方模型：20 个标签
+### 4.1 Official models, 20 labels
 
-Held-out 上的平均绝对误差。括号里是 10 个 seed 均值的 95% t 区间。
+Mean absolute error on the held-out set. Brackets are 95% Student-t intervals for the mean over 10 seeds.
 
-| 指标 | 只用 20 个标签 | SSME-Lite |
+| Metric | 20 labels only | SSME-Lite |
 | --- | ---: | ---: |
 | Accuracy | 0.053 [0.040, 0.065] | 0.030 [0.023, 0.037] |
 | AUC | 0.032 [0.023, 0.041] | 0.030 [0.022, 0.038] |
 | AUPRC | 0.033 [0.021, 0.045] | 0.030 [0.021, 0.038] |
 | ECE | 0.038 [0.030, 0.045] | 0.033 [0.024, 0.043] |
 
-Accuracy 的两个区间没有重叠，SSME-Lite 更接近 held-out 真值。AUC、AUPRC、ECE 的绝对误差接近，区间重叠。
+The Accuracy intervals do not overlap, and SSME-Lite is closer to the held-out truth. Absolute errors for AUC, AUPRC, and ECE are close, and their intervals overlap.
 
-排序是另一回事。Accuracy 的 Spearman 从 0.71 到 0.78。AUC 的 Spearman 从 0.40 降到约 0，Top-1 从 0.56 降到 0：十次划分里 SSME 都没有把 held-out AUC 最高的模型排到第一。原因在估计值本身。五个模型的真实 estimation-pool AUC 大约从 0.94 到 0.99，SSME 把它们都估到 0.966–0.978。最强的 AutoML Vision（真值约 0.992）被估成 0.966，弱于 ResNet-50。绝对误差不大，名次却反了。同一结论在 estimation pool 的 ground truth 上同样出现，不是 held-out 和估计池不一致造成的。
+Ranking is a separate question. Accuracy Spearman correlation moves from 0.71 to 0.78. AUC Spearman correlation falls from 0.40 to about 0, and Top-1 falls from 0.56 to 0: across ten splits, SSME never ranks the held-out AUC leader first. The estimates themselves explain it. True estimation-pool AUC for the five models runs from about 0.94 to 0.99, and SSME places all of them in 0.966–0.978. The strongest model, AutoML Vision (truth about 0.992), is estimated at 0.966, below ResNet-50. Absolute error is small, but the order is reversed. The same conclusion appears on estimation-pool ground truth, so it is not a mismatch between the held-out set and the estimation pool.
 
-### 4.2 标签数和模型数
+### 4.2 Label count and model count
 
-Held-out Accuracy 的平均绝对误差：
+Mean absolute error of held-out Accuracy:
 
-| 设置 | 只用标签 | SSME-Lite |
+| Setting | Labels only | SSME-Lite |
 | --- | ---: | ---: |
-| `n_l = 20`，5 个模型 | 0.053 | 0.030 |
-| `n_l = 50`，5 个模型 | 0.029 | 0.027 |
-| `n_l = 100`，5 个模型 | 0.028 | 0.032 |
-| `n_l = 20`，2 / 3 / 4 / 5 个模型 | 0.056 / 0.055 / 0.052 / 0.053 | 0.028 / 0.029 / 0.028 / 0.030 |
+| `n_l = 20`, 5 models | 0.053 | 0.030 |
+| `n_l = 50`, 5 models | 0.029 | 0.027 |
+| `n_l = 100`, 5 models | 0.028 | 0.032 |
+| `n_l = 20`, 2 / 3 / 4 / 5 models | 0.056 / 0.055 / 0.052 / 0.053 | 0.028 / 0.029 / 0.028 / 0.030 |
 
-标签从 20 增到 50 以后，只用标签的 Accuracy 误差降到和 SSME 同一水平。到 100 个标签时，只用标签略好，两者区间重叠。SSME 的 Accuracy 误差从 2 个模型到 5 个模型几乎不变。AUC 的 Top-1 在 3、4、5 个模型时仍是 0。多一个相关的分类器，没有自动带来更好的 AUC 排名。
+Once the label count rises from 20 to 50, labeled-only Accuracy error falls to the same level as SSME. At 100 labels, labels only is slightly better, and the intervals overlap. SSME Accuracy error barely changes from 2 models to 5 models. AUC Top-1 stays at 0 for 3, 4, and 5 models. Adding another correlated classifier does not automatically improve the AUC ranking.
 
-逐个移除模型（10 个 seed 的平均后验 total variation）显示信息并不均匀：ResNet-50 为 0.041，AutoKeras 和 AutoML Vision 约为 0.020，ResNet-18 为 0.013，auto-sklearn 为 0.0001。auto-sklearn 的概率挤在 0.5 附近，对后验几乎没有推动。这是冗余线索，不是“这个模型没有预测能力”：它的 test AUC 仍有 0.942。
+Leave-one-model-out (mean posterior total variation over 10 seeds) shows that the information is uneven: ResNet-50 is 0.041, AutoKeras and AutoML Vision are about 0.020, ResNet-18 is 0.013, and auto-sklearn is 0.0001. auto-sklearn probabilities sit near 0.5 and barely move the posterior. That is a redundant signal, not a claim that the model cannot predict: its test AUC is still 0.942.
 
-### 4.3 迁移学习
+### 4.3 Transfer learning
 
-五个 sklearn 头的 test 预测彼此不同。一次划分上，SSME 给出的 AUC 估计从 Extra Trees 的 0.950 到 MLP 的 0.982。重复实验里，`n_l = 20`、5 个分类头的 held-out 绝对误差：
+The five sklearn heads produce different test predictions. On one split, SSME AUC estimates run from 0.950 for extra trees to 0.982 for the MLP. In the repeated experiment, held-out absolute error with `n_l = 20` and 5 heads is:
 
-| 指标 | 只用 20 个标签 | SSME-Lite |
+| Metric | 20 labels only | SSME-Lite |
 | --- | ---: | ---: |
 | Accuracy | 0.071 [0.046, 0.096] | 0.042 [0.025, 0.058] |
 | AUC | 0.048 [0.033, 0.062] | 0.039 [0.022, 0.056] |
 | AUPRC | 0.043 [0.032, 0.053] | 0.040 [0.018, 0.063] |
 | ECE | 0.064 [0.042, 0.086] | 0.040 [0.026, 0.053] |
 
-这里 Accuracy 的排序也分开了：Spearman 0.30 对 0.87，Top-1 0.25 对 0.70。ECE 的 Spearman 从 −0.46 到 0.53。AUC 两边都排不好，因为这些头的 AUC 都挤在 0.95 以上。`n_l = 50` 时 Accuracy 误差仍是 0.056 对 0.032；`n_l = 100` 时是 0.043 对 0.034。
+Accuracy ranking separates here as well: Spearman 0.30 versus 0.87, and Top-1 0.25 versus 0.70. ECE Spearman correlation moves from −0.46 to 0.53. AUC ranking is weak on both sides because every head sits above 0.95. At `n_l = 50`, Accuracy error is still 0.056 versus 0.032. At `n_l = 100` it is 0.043 versus 0.034.
 
-移除一个分类头时，MLP 和 Logistic Regression 的后验变化最大（total variation 0.047 和 0.043），两棵树模型只有 0.004 和 0.003。同一组 ResNet 特征上，树模型彼此更替补，线性模型和 MLP 提供的信息更多。
+When one head is removed, the MLP and logistic regression move the posterior the most (total variation 0.047 and 0.043). The two tree models are only 0.004 and 0.003. On the same ResNet features, the tree models substitute for each other, while the linear model and the MLP contribute more information.
 
-28×28 放大到 224 不会恢复原始胸片分辨率。这个例子证明的是流程能跑通，并且在 20 个标签时 Accuracy / ECE 的估计优于只使用标签，不是肺炎检测的新结果。
+Resizing 28×28 images to 224 does not recover the resolution of the original radiograph. This example shows that the pipeline runs, and that with 20 labels the Accuracy and ECE estimates beat the labeled-only baseline. It is not a new pneumonia-detection result.
 
-### 4.4 怎样复现
+### 4.4 How to reproduce
 
 ```bash
 conda activate ssme
@@ -121,10 +121,10 @@ python experiments/pneumoniamnist/pneumonia_ssme.py
 python experiments/transfer/transfer_ssme.py
 ```
 
-根目录的 `pneumoniamnist.ipynb` 是同一次官方模型演示。迁移学习的单次演示是 `experiments/transfer/transfer_ssme.py`。跨 seed 的表在 `experiments/pneumoniamnist/results/` 和 `experiments/transfer/results/`。主配置也可以用 `ssme-lite configs/pneumoniamnist.json`。
+`experiments/pneumoniamnist/pneumoniamnist.ipynb` is the same official-model demo. The single-split transfer demo is `experiments/transfer/transfer_ssme.py`. Tables across seeds are in `experiments/pneumoniamnist/results/` and `experiments/transfer/results/`. The main config can also be run with `ssme-lite configs/pneumoniamnist.json`.
 
-特征提取用了本机的 PyTorch 与 MPS，ImageNet ResNet18 权重只下载一次。官方实验只读取预测 CSV，不需要 853 MB 的 MedMNIST 权重。
+Feature extraction used the local PyTorch install and MPS. ImageNet ResNet18 weights are downloaded once. The official experiment reads prediction CSVs only and does not need the 853 MB MedMNIST weights.
 
-### 4.5 边界
+### 4.5 Limits
 
-10 个 seed 用来看方向，比论文里常见的 30–50 次少，区间因此更宽。`n_u = 400` 是 test split 的规模决定的，不是 1,000。SSME 在这份数据上改善的是少量标签时的 Accuracy 估计，以及迁移学习里的 Accuracy / ECE；它没有稳定地排出 AUC 名次。模型彼此很强、AUC 很接近时，绝对误差变小并不足以选对模型。
+Ten seeds are enough to see the direction. That is fewer than the 30–50 repeats common in the paper, so the intervals are wider. `n_u = 400` is set by the size of the test split, not by 1,000. On this data, SSME improves Accuracy estimates when labels are scarce, and Accuracy and ECE in the transfer setting. It does not stably rank models by AUC. When the models are all strong and their AUCs are close, a smaller absolute error is not enough to select the right model.

@@ -1,26 +1,26 @@
 # SSME-Lite
 
-用少量真实标签和多个已有分类器的预测概率，估计这些分类器的 Accuracy、AUC、AUPRC 和 ECE，并给出排名和一份可离线打开的 HTML 报告。
+Estimate Accuracy, AUC, AUPRC, and ECE for existing classifiers from a few true labels and their predicted probabilities. The package ranks those classifiers and writes an HTML report that opens offline.
 
-方法依据 Shanmugam et al., *Evaluating multiple models using labeled and unlabeled data*, NeurIPS 2025。官方参考实现是 [divyashan/SSME](https://github.com/divyashan/SSME)。本包默认使用 Scott 尺度带宽，固定运行 100 轮 EM；设置 `early_stopping=True` 可改为阈值停止。它不保证在每个任务上都优于只使用标签的估计。
+The method follows Shanmugam et al., *Evaluating multiple models using labeled and unlabeled data*, NeurIPS 2025. The official reference implementation is [divyashan/SSME](https://github.com/divyashan/SSME). This package uses a Scott-scale bandwidth and runs EM for a fixed 100 iterations. Set `early_stopping=True` to stop on a threshold instead. It does not guarantee a better estimate than the labeled-only baseline on every task.
 
-## 安装
+## Install
 
 ```bash
 pip install ssme-lite
 ```
 
-从本仓库安装：
+From this repository:
 
 ```bash
 pip install -e '.[dev]'
 ```
 
-迁移学习实验额外需要 `pip install -e '.[transfer]'`。核心估计不依赖 PyTorch。
+Transfer-learning experiments also need `pip install -e '.[transfer]'`. The core estimator does not depend on PyTorch.
 
-## 用法
+## Usage
 
-准备一组已经拟合好的分类器。它们要有相同的类别集合，并提供 `predict_proba`。
+Start with classifiers that are already fit. They must share the same class set and implement `predict_proba`.
 
 ```python
 from ssme_lite import PredictionMatrixGenerator, SSMEEstimator, SemiSupervisedSplit
@@ -38,44 +38,60 @@ print(report.ranking("auc"))
 report.save("results/my_report")
 ```
 
-`fit_transform` 只收集概率，不训练模型。二分类 `scores` 的形状是 `(N, M)`，表示正类概率；多分类是 `(N, M, K)`。`y_partial` 与样本逐行对应，未知标签用 `-1`。每一类至少要有一个可见标签。
+`fit_transform` only collects probabilities. It does not train models. Binary `scores` have shape `(N, M)` and store the positive-class probability. Multiclass `scores` have shape `(N, M, K)`. `y_partial` is aligned row by row with the samples, and unknown labels are `-1`. Every class needs at least one visible label.
 
-`report.save` 写出独立的 `report.html`，以及 `metrics.csv`、`metadata.json` 和 `report_data.json`。页面里的区间是给定已拟合后验之后的潜在标签不确定性，不是总体抽样标准误。
+`report.save` writes a standalone `report.html`, plus `metrics.csv`, `metadata.json`, and `report_data.json`. Intervals on the page are latent-label uncertainty given the fitted posterior. They are not population sampling standard errors.
 
-已有概率矩阵也可以不经过分类器对象。NPZ 里放 `scores` 和 `y`，再写一份 JSON，然后运行 `ssme-lite my_config.json`。仓库里的 `configs/` 是合成数据、Gaussian 诊断，以及 CivilComments、MultiNLI 的配置。
+A probability matrix can also be passed without classifier objects. Put `scores` and `y` in an NPZ file, write a JSON config, and run `ssme-lite my_config.json`. The `configs/` directory in this repository holds synthetic data, a Gaussian diagnostic, and CivilComments and MultiNLI configs.
+
+## CivilComments
+
+This is the toxicity-detection task from the paper. Seven released classifiers are estimated from 20 visible labels and 1,000 unlabeled comments.
+
+[experiments/civilcomments/quickstart.ipynb](experiments/civilcomments/quickstart.ipynb) fits one split, writes an offline report, and draws the two figures below. Predictions are read from `../official/SSME/inputs`. The figures use the 5-seed benchmark at `../results/civilcomments`, written by `ssme-lite configs/civilcomments.json`.
+
+RMAE is held-out mean absolute error divided by the labeled-only error. The dashed line at 1 is that baseline. On these five seeds, SSME is lower on Accuracy, AUPRC, and ECE, and slightly higher on AUC.
+
+![Relative estimation error on CivilComments](experiments/civilcomments/results/rmae.png)
+
+Each bar is the mean absolute gap between the estimate and the holdout value, in percentage points. Smaller is better.
+
+![SSME versus labeled-only error by model](experiments/civilcomments/results/model_errors.png)
+
+The interactive report for the single split is [experiments/civilcomments/results/report/report.html](experiments/civilcomments/results/report/report.html).
 
 ## PneumoniaMNIST
 
-这是本仓库的主要实验。七个已发布的 PneumoniaMNIST 分类器在官方 test split 上推理，再用 20 个可见标签和 400 个无标签样本做一次 SSME 估计。
+This is the main experiment in the repository. Seven released PneumoniaMNIST classifiers are scored on the official test split, then estimated once with 20 visible labels and 400 unlabeled samples.
 
-打开这两个文件就能看结果，不必先跑推理：
+Open these two files to see the result without running inference:
 
-- [pneumoniamnist.ipynb](pneumoniamnist.ipynb)：实验步骤和这次估计的 AUC 排名
-- [pneumoniamnist_report.html](pneumoniamnist_report.html)：同一份交互式报告
+- [experiments/pneumoniamnist/pneumoniamnist.ipynb](experiments/pneumoniamnist/pneumoniamnist.ipynb): the experiment steps and the AUC ranking for this estimate
+- [experiments/pneumoniamnist/pneumoniamnist_report.html](experiments/pneumoniamnist/pneumoniamnist_report.html): the same interactive report
 
-重新跑这一次演示：
+To rerun the demo:
 
 ```bash
 python experiments/pneumoniamnist/pneumonia_ssme.py
 ```
 
-AutoML Vision 的三个权重是 TFLite，需要 `pip install ai-edge-litert`。10 个 seed 的 labeled-only 对比已经保存在 `experiments/pneumoniamnist/results/nl20_nu400_m7/`。在 estimation pool 上，Accuracy 的平均绝对误差从 labeled-only 的 0.058 降到 SSME 的 0.021。模型选择和协议说明在 `experiments/pneumoniamnist/AUDIT.md`，完整写在 `experiments/REPORT.md`。
+The three AutoML Vision weights are TFLite and need `pip install ai-edge-litert`. The 10-seed comparison against the labeled-only baseline is already in `experiments/pneumoniamnist/results/nl20_nu400_m7/`. On the estimation pool, mean absolute error for Accuracy falls from 0.058 with labels only to 0.021 with SSME. Model selection and the protocol are in `experiments/pneumoniamnist/AUDIT.md`. The full write-up is `experiments/REPORT.md`.
 
-## 迁移学习
+## Transfer learning
 
-另一条链不使用官方 checkpoint。冻结的 ImageNet ResNet18 提取特征，五个 sklearn 分类头只在官方训练集上拟合，再在 test split 上走同一套 `PredictionMatrixGenerator`、`SemiSupervisedSplit` 和 `SSMEEstimator`。
+This chain does not use the official checkpoints. A frozen ImageNet ResNet18 extracts features. Five sklearn heads are fit only on the official training split, then scored on the test split with the same `PredictionMatrixGenerator`, `SemiSupervisedSplit`, and `SSMEEstimator`.
 
 ```bash
 pip install -e '.[transfer]'
 python experiments/transfer/transfer_ssme.py
 ```
 
-重复比较是 `python experiments/transfer/transfer_models.py --suite`。任意 ImageFolder 可以用 `experiments/transfer/transfer_resnet.py`。说明见 [experiments/README.md](experiments/README.md)。
+The repeated comparison is `python experiments/transfer/transfer_models.py --suite`. Any ImageFolder dataset can use `experiments/transfer/transfer_resnet.py`. See [experiments/README.md](experiments/README.md).
 
-## 测试
+## Tests
 
 ```bash
 python -m pytest -q
 ```
 
-测试覆盖概率对齐、估计器、划分、报告版式和模型贡献度。发布到 PyPI 之前用它们确认包还能跑。
+The tests cover probability alignment, the estimator, splits, report layout, and model contribution. Run them before a PyPI release.
