@@ -2,7 +2,7 @@
 
 Estimate Accuracy, AUC, AUPRC, and ECE for existing classifiers from a few true labels and their predicted probabilities. The package ranks those classifiers and writes an HTML report that opens offline.
 
-The method follows Shanmugam et al., *Evaluating multiple models using labeled and unlabeled data*, NeurIPS 2025. The official reference implementation is [divyashan/SSME](https://github.com/divyashan/SSME). This package uses a Scott-scale bandwidth and runs EM for a fixed 100 iterations. Set `early_stopping=True` to stop on a threshold instead. It does not guarantee a better estimate than the labeled-only baseline on every task.
+The method follows Shanmugam et al., *Evaluating multiple models using labeled and unlabeled data*, NeurIPS 2025. The official reference implementation is [divyashan/SSME](https://github.com/divyashan/SSME). EM runs for `max_iter` epochs. The default is 100, and with `early_stopping=False` those epochs all run. Pass a smaller `max_iter`, or set `early_stopping=True` to stop once the largest posterior change falls below `tol` (default `1e-3`). The default bandwidth is Scott. `bandwidth="official"` follows the public SSME code. The estimator does not guarantee a better estimate than the labeled-only baseline on every task.
 
 ## Install
 
@@ -48,13 +48,13 @@ A probability matrix can also be passed without classifier objects. Put `scores`
 
 This is the toxicity-detection task from the paper. Seven released classifiers are estimated from 20 visible labels and 1,000 unlabeled comments.
 
-[experiments/civilcomments/quickstart.ipynb](experiments/civilcomments/quickstart.ipynb) fits one split, writes an offline report, and draws the two figures below. Predictions are read from `../official/SSME/inputs`. The figures use the 5-seed benchmark at `../results/civilcomments`, written by `ssme-lite configs/civilcomments.json`.
+[experiments/civilcomments/quickstart.ipynb](experiments/civilcomments/quickstart.ipynb) fits one split and writes an offline report. The two figures below follow the public SSME protocol instead: half the comments (66,891) are the held-out ground truth, and each of 50 seeds draws 20 labels and 1,000 unlabeled comments from the other half. Estimates use the official 20-epoch EM. Regenerate them with `python experiments/civilcomments/reproduce_official_split.py`.
 
-RMAE is held-out mean absolute error divided by the labeled-only error. The dashed line at 1 is that baseline. On these five seeds, SSME is lower on Accuracy, AUPRC, and ECE, and slightly higher on AUC.
+RMAE divides a method's held-out mean absolute error by the labeled-only error. The dashed line at 1 is that baseline. SSME's absolute error matches Tables S3–S6: 2.34, 2.35, 3.34, and 10.87 percentage points for Accuracy, ECE, AUC, and AUPRC. The corresponding RMAE is 0.41, 0.44, 0.48, and 0.50. Majority Vote, PL, and Dawid-Skene are the Appendix B.2 baselines.
 
 ![Relative estimation error on CivilComments](experiments/civilcomments/results/rmae.png)
 
-Each bar is the mean absolute gap between the estimate and the holdout value, in percentage points. Smaller is better.
+Each bar is the mean absolute gap between the estimate and the holdout value, in percentage points. Smaller is better. The last three rows mix the released scores and are scored with the labels SSME imputes from the seven models.
 
 ![SSME versus labeled-only error by model](experiments/civilcomments/results/model_errors.png)
 

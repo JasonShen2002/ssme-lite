@@ -9,13 +9,13 @@
   "confidence": 0.95,
   "interval_type": "conditional_latent_label",
   "note": "Intervals are conditional latent-label uncertainty given a fitted posterior. They exclude density-fit, bandwidth and population sampling uncertainty. mc_standard_error measures numerical Monte Carlo error only.",
-  "bandwidth": 2.2835757238554857,
-  "n_iter": 100,
-  "bandwidth_rule": "scott",
+  "bandwidth": 0.05828467452573516,
+  "n_iter": 20,
+  "bandwidth_rule": "official",
   "labeled_weight": 10.0,
   "tol": 0.001,
-  "max_iter": 100,
+  "max_iter": 20,
   "early_stopping": false,
   "stop_reason": "fixed_epochs",
-  "converged": false
+  "converged": true
 }

@@ -4,10 +4,10 @@ These scripts are not installed with the package. Images, weights, and feature c
 
 ## CivilComments
 
-The walkthrough is [`civilcomments/quickstart.ipynb`](civilcomments/quickstart.ipynb). It writes `civilcomments/results/report/report.html` and the two comparison figures next to that report. Predictions come from `../official/SSME/inputs`. The figures read the 5-seed benchmark at `../results/civilcomments`.
+The walkthrough is [`civilcomments/quickstart.ipynb`](civilcomments/quickstart.ipynb). It writes `civilcomments/results/report/report.html`. The comparison figures next to that report use the official half-split protocol: 50 seeds, 20 labels, 1,000 unlabeled comments, and the public 20-epoch EM. Predictions come from `../official/SSME/inputs`.
 
 ```bash
-ssme-lite configs/civilcomments.json
+python experiments/civilcomments/reproduce_official_split.py
 ```
 
 ## PneumoniaMNIST
