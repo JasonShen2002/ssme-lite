@@ -1,42 +1,39 @@
-"""CivilComments figure on the official half-split protocol.
+"""CivilComments figure from this package, on the paper's half-split protocol.
 
-The public SSME code holds out half the rows (66,891 on this release) as the
-ground-truth evaluation split, then draws 20 labeled and 1,000 unlabeled
-comments from the other half. Metric error is the estimate on that estimation
-split minus the metric on the held-out half.
+Half the comments (66,891) are the held-out ground truth. Each seed draws 20
+labels and 1,000 unlabeled comments from the other half with
+``SemiSupervisedSplit``. SSME estimates come from ``SSMEEstimator``
+(``bandwidth="official"``, 20 EM epochs, labeled weight 10), not from the
+public ``SSME_KDE`` function.
 
-Baselines follow Appendix B.2: logistic regression pseudo-labels, Dawid-Skene on
-predictions thresholded at 1/2, and an accuracy-weighted majority vote. The three
-extra predictors on the bar chart are mixtures of the seven released scores.
-They are scored with the labels SSME imputes; they are not extra inputs to EM.
+Baselines follow Appendix B.2 and are scored with this package's metrics.
+The three extra predictors are mixtures of the seven released scores. They are
+scored with labels drawn from this package's posterior; they are not extra
+inputs to EM.
 """
 from pathlib import Path
-import os
 import sys
-
-os.environ.setdefault("TQDM_DISABLE", "1")
 
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
 from sklearn.linear_model import LogisticRegression
 
-OFFICIAL = Path(__file__).resolve().parents[3] / "official" / "SSME"
-sys.path.insert(0, str(OFFICIAL))
+PACKAGE = Path(__file__).resolve().parents[2]
+if str(PACKAGE) not in sys.path:
+    sys.path.insert(0, str(PACKAGE))
 
-from baselines import labeled_data_alone  # noqa: E402
-from model import SSME_KDE  # noqa: E402
-from utils import (  # noqa: E402
-    DATASET_INFO,
-    N_DRAWS,
-    create_metrics_df,
-    get_model_values_df,
-    sample_data,
-)
+from ssme_lite import SSMEEstimator, SemiSupervisedSplit
+from ssme_lite.benchmark import official_scores
+from ssme_lite.metrics import METRICS, metric_values, point_metrics
 
-NAMES = DATASET_INFO["CivilComments"]["model_names"]
-METRICS = ("acc", "ece", "auc", "auprc")
+INPUTS = PACKAGE.parent / "official" / "SSME" / "inputs"
+NAMES = [
+    "alg_CORAL", "alg_ERM", "alg_IRM",
+    "alg_ERM_seed1", "alg_ERM_seed2", "alg_IRM_seed1", "alg_IRM_seed2",
+]
 MIXTURES = ("ensemble", "mix_erm_coral", "mix_irm_erm")
+N_DRAWS = 100
 
 
 def _mixture_scores(positive):
@@ -48,21 +45,19 @@ def _mixture_scores(positive):
     ])
 
 
-def _dawid_skene(votes, labeled_index, labeled_y, max_iter=100, tol=1e-5):
-    """Binary Dawid-Skene. Known labels stay fixed. votes are 0/1, shape (n, m)."""
+def _as_probabilities(positive):
+    positive = np.asarray(positive, dtype=float)
+    return np.stack([1.0 - positive, positive], axis=-1)
+
+
+def _dawid_skene(votes, max_iter=100, tol=1e-5):
+    """Binary Dawid-Skene on discretized votes. Shape (n, m), values in {0, 1}."""
     n, m = votes.shape
     classes = 2
-    posterior = np.full((n, classes), 0.5)
-    if len(labeled_index):
-        posterior[labeled_index] = 0.0
-        posterior[labeled_index, labeled_y.astype(int)] = 1.0
-    else:
-        posterior[:, 1] = votes.mean(axis=1)
-        posterior[:, 0] = 1.0 - posterior[:, 1]
+    posterior = np.column_stack([1.0 - votes.mean(axis=1), votes.mean(axis=1)])
     last = posterior.copy()
     for _ in range(max_iter):
-        pi = posterior.mean(axis=0)
-        pi = np.clip(pi, 1e-6, None)
+        pi = np.clip(posterior.mean(axis=0), 1e-6, None)
         pi /= pi.sum()
         theta = np.zeros((m, classes, classes))
         for annotator in range(m):
@@ -79,115 +74,110 @@ def _dawid_skene(votes, labeled_index, labeled_y, max_iter=100, tol=1e-5):
         log_post -= log_post.max(axis=1, keepdims=True)
         posterior = np.exp(log_post)
         posterior /= posterior.sum(axis=1, keepdims=True)
-        if len(labeled_index):
-            posterior[labeled_index] = 0.0
-            posterior[labeled_index, labeled_y.astype(int)] = 1.0
         if np.max(np.abs(posterior - last)) < tol:
             break
         last = posterior.copy()
     return posterior.argmax(axis=1)
 
 
-def _metric_frame(labels, positive, dataset="CivilComments"):
-    groups = [np.array(["global"] * len(labels))]
-    frame = create_metrics_df(np.asarray(labels), np.asarray(positive, dtype=float), groups, dataset=dataset)
-    return frame.sort_values("model_idx")
+def _absolute_errors(estimate, truth):
+    merged = estimate.merge(truth, on=["model", "metric"], suffixes=("_estimate", "_truth"))
+    merged["absolute_error"] = (merged.value_estimate - merged.value_truth).abs()
+    return merged
 
 
-def _one_seed(df, seed):
-    np.random.seed(seed)
-    train = df.sample(frac=0.5, random_state=seed)
-    test = df.loc[~df.index.isin(train.index)]
-    sampled, partial, _, _ = sample_data(train, 20, 1000, NAMES, seed, 2)
-    labeled = np.flatnonzero(partial != -1)
-    unlabeled = np.flatnonzero(partial == -1)
-    y_labeled = partial[labeled].astype(int)
-    groups = [np.array(["global"] * len(partial))]
-    test_positive = test[NAMES].to_numpy(dtype=float)
-    test_groups = [np.array(["global"] * len(test))]
-    config = {"dataset": "CivilComments"}
+def _posterior_metrics(posterior, labels, model_scores, names, seed, n_draws=N_DRAWS):
+    """Match ``make_report``: exact Accuracy, Monte Carlo for the other metrics."""
+    rng = np.random.default_rng(seed)
+    known = labels >= 0
+    k = model_scores.shape[-1]
+    nonlinear = [metric for metric in METRICS if metric != "accuracy"]
+    draws = {metric: np.empty((n_draws, len(names))) for metric in nonlinear}
+    for draw in range(n_draws):
+        sampled = np.minimum((rng.random((len(labels), 1)) > np.cumsum(posterior, 1)).sum(1), k - 1)
+        sampled[known] = labels[known]
+        for j, name in enumerate(names):
+            result = metric_values(sampled, model_scores[:, j], nonlinear)
+            for metric in nonlinear:
+                draws[metric][draw, j] = result[metric]
+    predicted = model_scores.argmax(axis=-1)
+    accuracy = np.array([posterior[np.arange(len(posterior)), predicted[:, j]].mean() for j in range(len(names))])
+    rows = [{"model": name, "metric": "accuracy", "value": float(accuracy[j])} for j, name in enumerate(names)]
+    for metric in nonlinear:
+        mean = np.nanmean(draws[metric], axis=0)
+        rows.extend({"model": name, "metric": metric, "value": float(mean[j])} for j, name in enumerate(names))
+    return pd.DataFrame(rows)
 
-    draws = {"count": 0, "mixture": []}
-    import utils
-    original = utils.create_metrics_df
 
-    def capture(labels, predictions, demographics_list, dataset=None):
-        frame = original(labels, predictions, demographics_list, dataset=dataset)
-        draws["count"] += 1
-        if draws["count"] > 1:
-            mixture = _mixture_scores(predictions)
-            drawn = original(labels, mixture, demographics_list, dataset=dataset)
-            draws["mixture"].append(drawn.sort_values("model_idx"))
-        return frame
+def _one_seed(scores, y, seed):
+    rng = np.random.default_rng(seed)
+    perm = rng.permutation(len(y))
+    n_eval = len(y) // 2
+    test, train = perm[:n_eval], perm[n_eval:]
+    splitter = SemiSupervisedSplit(20, 1000, seed)
+    local = splitter.indices(len(train))
+    if splitter.labeled_class_count(y[train], local) != scores.shape[-1]:
+        return None
+    partial = splitter.partial_labels(y[train], local)
+    pool = scores[train[local["estimation"]]]
+    labeled_scores = scores[train[local["labeled"]]]
+    y_labeled = y[train[local["labeled"]]]
+    estimator = SSMEEstimator(
+        max_iter=20, early_stopping=False, bandwidth="official",
+        labeled_weight=10.0, random_state=seed, n_jobs=1,
+    )
+    estimator.fit(pool, partial, model_names=NAMES)
+    ssme = estimator.report(n_draws=N_DRAWS, primary_metric="accuracy").table.rename(columns={"estimate": "value"})
+    ssme = ssme[["model", "metric", "value"]]
+    truth = point_metrics(y[test], scores[test], NAMES)
+    labeled_only = point_metrics(y_labeled, labeled_scores, NAMES)
 
-    utils.create_metrics_df = capture
-    import model as model_module
-    model_module.create_metrics_df = capture
-    try:
-        ssme = SSME_KDE(
-            (sampled[labeled], [groups[0][labeled]], y_labeled),
-            (sampled[unlabeled], [groups[0][unlabeled]], partial[unlabeled]),
-            config,
-        ).sort_values("model_idx")
-    finally:
-        utils.create_metrics_df = original
-        model_module.create_metrics_df = original
-
-    gt = labeled_data_alone((test_positive, test_groups, test["label"].to_numpy()), config).sort_values("model_idx")
-    labeled_only = _metric_frame(y_labeled, sampled[labeled])
-    votes = (sampled >= 0.5).astype(int)
-    weights = np.array([np.mean(votes[labeled, j] == y_labeled) for j in range(votes.shape[1])])
-    weights = np.clip(weights, 1e-6, None)
+    positive = pool[:, :, 1]
+    votes = (positive >= 0.5).astype(int)
+    weights = np.clip(np.array([np.mean(votes[:20, j] == y_labeled) for j in range(votes.shape[1])]), 1e-6, None)
     majority = (votes @ weights / weights.sum() >= 0.5).astype(int)
-    majority[labeled] = y_labeled
-    majority_metrics = _metric_frame(majority, sampled)
-    pseudo = LogisticRegression().fit(sampled[labeled], y_labeled).predict(sampled).astype(int)
-    pseudo[labeled] = y_labeled
-    pseudo_metrics = _metric_frame(pseudo, sampled)
-    # Appendix B.2 runs Dawid-Skene on discretized votes only. Clamping the 20
-    # known labels into the posterior moves accuracy error from 4.98 to 6.42 pp.
-    dawid = _dawid_skene(votes, np.array([], dtype=int), np.array([], dtype=int))
-    dawid_metrics = _metric_frame(dawid, sampled)
-
-    mixture_draws = (pd.concat(draws["mixture"])
-                     .groupby("model_idx")[list(METRICS)]
-                     .mean()
-                     .reset_index())
-    mixture_positive_test = _mixture_scores(test_positive)
-    mixture_gt = _metric_frame(test["label"].to_numpy(), mixture_positive_test)
-    mixture_labeled = _metric_frame(y_labeled, _mixture_scores(sampled[labeled]))
-
-    rows = []
+    majority[:20] = y_labeled
+    pseudo = LogisticRegression().fit(positive[:20], y_labeled).predict(positive).astype(int)
+    pseudo[:20] = y_labeled
+    dawid = _dawid_skene(votes)
     methods = {
         "ssme": ssme,
         "labeled_only": labeled_only,
-        "majority_vote": majority_metrics,
-        "pl": pseudo_metrics,
-        "dawid_skene": dawid_metrics,
+        "majority_vote": point_metrics(majority, pool, NAMES),
+        "pl": point_metrics(pseudo, pool, NAMES),
+        "dawid_skene": point_metrics(dawid, pool, NAMES),
     }
+    rows = []
     for method, frame in methods.items():
-        for metric in METRICS:
-            error = np.abs(frame[metric].to_numpy() - gt[metric].to_numpy())
-            for model_idx, value in enumerate(error):
-                rows.append(dict(seed=seed, method=method, metric=metric, model=NAMES[model_idx],
-                                 absolute_error=float(value), n_draws=N_DRAWS))
-    for method, frame in (("ssme", mixture_draws), ("labeled_only", mixture_labeled)):
-        for metric in METRICS:
-            error = np.abs(frame[metric].to_numpy() - mixture_gt[metric].to_numpy())
-            for model_idx, value in enumerate(error):
-                rows.append(dict(seed=seed, method=method, metric=metric, model=MIXTURES[model_idx],
-                                 absolute_error=float(value), n_draws=int(draws["count"] - 1)))
+        errors = _absolute_errors(frame, truth)
+        for record in errors.itertuples(index=False):
+            rows.append(dict(seed=seed, method=method, metric=record.metric, model=record.model,
+                             absolute_error=float(record.absolute_error), n_draws=N_DRAWS,
+                             estimator="ssme_lite.SSMEEstimator"))
+
+    mixture_pool = _as_probabilities(_mixture_scores(positive))
+    mixture_test = _as_probabilities(_mixture_scores(scores[test][:, :, 1]))
+    mixture_labeled = _as_probabilities(_mixture_scores(labeled_scores[:, :, 1]))
+    mixture_truth = point_metrics(y[test], mixture_test, MIXTURES)
+    mixture_methods = {
+        "ssme": _posterior_metrics(estimator.posterior_, estimator.y_, mixture_pool, MIXTURES, seed),
+        "labeled_only": point_metrics(y_labeled, mixture_labeled, MIXTURES),
+    }
+    for method, frame in mixture_methods.items():
+        errors = _absolute_errors(frame, mixture_truth)
+        for record in errors.itertuples(index=False):
+            rows.append(dict(seed=seed, method=method, metric=record.metric, model=record.model,
+                             absolute_error=float(record.absolute_error), n_draws=N_DRAWS,
+                             estimator="ssme_lite.SSMEEstimator"))
     return rows
 
 
 def plot(details_path, out_dir):
     details = pd.read_csv(details_path)
-    base_names = set(NAMES)
-    base = details[details.model.isin(base_names)]
+    base = details[details.model.isin(NAMES)]
     mae = base.groupby(["method", "metric"])["absolute_error"].mean()
     labeled = mae.xs("labeled_only", level="method")
-    order = ["accuracy", "ece", "auc", "auprc"]
-    metric_key = {"accuracy": "acc", "ece": "ece", "auc": "auc", "auprc": "auprc"}
+    order = list(METRICS)
     methods = [
         ("majority_vote", "Majority Vote", "#d94f4f", "x"),
         ("pl", "PL", "#e8923a", "x"),
@@ -199,7 +189,7 @@ def plot(details_path, out_dir):
     y_pos = np.arange(len(order))[::-1]
     ax.axvline(1, color="#8a8a8a", linestyle=(0, (1.2, 1.4)), linewidth=1.3, label="Labeled", zorder=1)
     for method, label, color, marker in methods:
-        values = [mae.loc[(method, metric_key[name])] / labeled.loc[metric_key[name]] for name in order]
+        values = [mae.loc[(method, name)] / labeled.loc[name] for name in order]
         ax.scatter(values, y_pos, s=64 if marker == "o" else 46, color=color, marker=marker,
                    linewidths=1.6, zorder=3, label=label)
     ax.set_yticks(y_pos, ["ACC", "ECE", "AUC", "AUPRC"])
@@ -227,7 +217,7 @@ def plot(details_path, out_dir):
         ("mix_erm_coral", "mix ERM+CORAL"),
         ("mix_irm_erm", "mix IRM+ERM"),
     ]
-    per_model = (details.groupby(["model", "metric", "method"], as_index=False)["absolute_error"].mean())
+    per_model = details.groupby(["model", "metric", "method"], as_index=False)["absolute_error"].mean()
     per_model["pp"] = per_model.absolute_error * 100
     labeled_color, ssme_color = "#c5c5c5", "#2c5f8a"
 
@@ -239,7 +229,7 @@ def plot(details_path, out_dir):
 
     fig, axes = plt.subplots(1, 2, figsize=(10.6, 6.2), sharey=True)
     positions = np.arange(len(model_order))
-    for ax, metric, title in zip(axes, ["auc", "acc"], ["AUC error (percentage points)", "ACC error (percentage points)"]):
+    for ax, metric, title in zip(axes, ["auc", "accuracy"], ["AUC error (percentage points)", "ACC error (percentage points)"]):
         labeled_pp, ssme_pp = panel(metric)
         ax.barh(positions - 0.18, ssme_pp, height=0.32, color=ssme_color, label="SSME", zorder=2)
         ax.barh(positions + 0.18, labeled_pp, height=0.32, color=labeled_color, label="Labeled only", zorder=2)
@@ -248,15 +238,15 @@ def plot(details_path, out_dir):
         for y, value in zip(positions + 0.18, labeled_pp):
             ax.text(value + 0.12, y, f"{value:.1f}", va="center", fontsize=8, color="#555555")
         ax.set_yticks(positions, [label for _, label in model_order])
-        ax.set_xlim(0, 10)
+        ax.set_xlim(0, 12)
         ax.set_xlabel("(estimate − holdout), percentage points")
         ax.set_title(title)
         ax.grid(axis="x", color="#e6e6e6", zorder=0)
         ax.spines[["top", "right"]].set_visible(False)
     axes[0].invert_yaxis()
     handles, labels = axes[0].get_legend_handles_labels()
-    order = [labels.index("Labeled only"), labels.index("SSME")]
-    fig.legend([handles[i] for i in order], [labels[i] for i in order],
+    legend_order = [labels.index("Labeled only"), labels.index("SSME")]
+    fig.legend([handles[i] for i in legend_order], [labels[i] for i in legend_order],
                loc="lower center", ncol=2, frameon=False, bbox_to_anchor=(0.5, -0.02))
     fig.suptitle("10 models: SSME vs labeled data only", y=1.02)
     fig.tight_layout()
@@ -264,27 +254,41 @@ def plot(details_path, out_dir):
     plt.close(fig)
 
 
-def main(seeds=range(50), n_jobs=8):
-    os.chdir(OFFICIAL)
-    df = get_model_values_df("CivilComments", NAMES)
-    pieces = Parallel(n_jobs=n_jobs, prefer="processes")(delayed(_one_seed)(df, seed) for seed in seeds)
-    out = Path(__file__).resolve().parents[3] / "results" / "civilcomments_official_split"
+def main(n_success=50, n_jobs=8):
+    scores, y, names = official_scores(INPUTS, "CivilComments")
+    if names != NAMES:
+        raise ValueError(f"unexpected model order: {names}")
+    y = np.asarray(y)
+    collected, seed = [], 0
+    # Draw seeds until 50 splits contain both classes. The package does not
+    # look at hidden labels to repair a one-class labeled draw.
+    pending = []
+    while len(collected) < n_success:
+        batch = list(range(seed, seed + n_jobs * 2))
+        seed = batch[-1] + 1
+        pieces = Parallel(n_jobs=n_jobs, prefer="processes")(
+            delayed(_one_seed)(scores, y, item) for item in batch)
+        for item, piece in zip(batch, pieces):
+            pending.append((item, piece))
+        pending.sort()
+        collected = [piece for _, piece in pending if piece]
+        print(f"valid splits {len(collected)} / attempts {pending[-1][0] + 1}", flush=True)
+    details = pd.DataFrame([row for piece in collected[:n_success] for row in piece])
+    out = PACKAGE.parent / "results" / "civilcomments_package_half_split"
     out.mkdir(parents=True, exist_ok=True)
-    details = pd.DataFrame([row for piece in pieces for row in piece])
     details.to_csv(out / "details.csv", index=False)
     base = details[details.model.isin(NAMES)]
     summary = (base.groupby(["method", "metric"])["absolute_error"].mean()
                .unstack("metric")
                .reindex(columns=list(METRICS)))
-    labeled = summary.loc["labeled_only"]
-    rmae = summary.div(labeled, axis=1)
+    rmae = summary.div(summary.loc["labeled_only"], axis=1)
     summary.to_csv(out / "mae.csv")
     rmae.to_csv(out / "rmae.csv")
-    figure_dir = Path(__file__).resolve().parent / "results"
-    plot(out / "details.csv", figure_dir)
+    plot(out / "details.csv", Path(__file__).resolve().parent / "results")
     print(out)
     print((summary * 100).round(2))
     print(rmae.round(3))
+    print("seeds", sorted(details.seed.unique()))
 
 
 if __name__ == "__main__":

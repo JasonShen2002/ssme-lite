@@ -48,9 +48,9 @@ A probability matrix can also be passed without classifier objects. Put `scores`
 
 This is the toxicity-detection task from the paper. Seven released classifiers are estimated from 20 visible labels and 1,000 unlabeled comments.
 
-[experiments/civilcomments/quickstart.ipynb](experiments/civilcomments/quickstart.ipynb) fits one split and writes an offline report. The two figures below follow the public SSME protocol instead: half the comments (66,891) are the held-out ground truth, and each of 50 seeds draws 20 labels and 1,000 unlabeled comments from the other half. Estimates use the official 20-epoch EM. Regenerate them with `python experiments/civilcomments/reproduce_official_split.py`.
+[experiments/civilcomments/quickstart.ipynb](experiments/civilcomments/quickstart.ipynb) fits one split and writes an offline report. The two figures below use this package's `SSMEEstimator` on the paper's half-split: 66,891 comments are the held-out ground truth, and each of 50 seeds draws 20 labels and 1,000 unlabeled comments from the other half with `SemiSupervisedSplit`. The fit is `bandwidth="official"` for 20 EM epochs. Regenerate them with `python experiments/civilcomments/reproduce_official_split.py`.
 
-RMAE divides a method's held-out mean absolute error by the labeled-only error. The dashed line at 1 is that baseline. SSME's absolute error matches Tables S3–S6: 2.34, 2.35, 3.34, and 10.87 percentage points for Accuracy, ECE, AUC, and AUPRC. The corresponding RMAE is 0.41, 0.44, 0.48, and 0.50. Majority Vote, PL, and Dawid-Skene are the Appendix B.2 baselines.
+RMAE divides a method's held-out mean absolute error by the labeled-only error. The dashed line at 1 is that baseline. On these seeds, SSME's mean absolute error is 2.27, 2.12, 3.28, and 9.41 percentage points for Accuracy, ECE, AUC, and AUPRC. The corresponding RMAE is 0.41, 0.42, 0.47, and 0.42. Majority Vote, PL, and Dawid-Skene are the Appendix B.2 baselines, scored with this package's metrics. Accuracy and AUC are close to Tables S3 and S5 (2.34 and 3.34). ECE uses this package's equal-width bins, so it is not the paper's equal-frequency number.
 
 ![Relative estimation error on CivilComments](experiments/civilcomments/results/rmae.png)
 
