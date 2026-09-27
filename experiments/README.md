@@ -4,7 +4,7 @@ These scripts are not installed with the package. Images, weights, and feature c
 
 ## CivilComments
 
-The walkthrough is [`civilcomments/quickstart.ipynb`](civilcomments/quickstart.ipynb). It writes `civilcomments/results/report/report.html`. The comparison figures next to that report use this package's `SSMEEstimator` on the paper's half-split: 50 seeds, 20 labels, 1,000 unlabeled comments, `bandwidth="official"`, and 20 EM epochs. Predictions come from `../official/SSME/inputs`.
+The walkthrough is [`civilcomments/quickstart.ipynb`](civilcomments/quickstart.ipynb). The saved interactive report is [`civilcomments/civilcomments_report.html`](https://jasonshen2002.github.io/ssme-lite/experiments/civilcomments/civilcomments_report.html). The notebook also writes `civilcomments/results/report/report.html`. The comparison figures next to that report use this package's `SSMEEstimator` on the paper's half-split: 50 seeds, 20 labels, 1,000 unlabeled comments, `bandwidth="official"`, and 20 EM epochs. Predictions come from `../official/SSME/inputs`.
 
 ```bash
 python experiments/civilcomments/reproduce_official_split.py

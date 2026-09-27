@@ -60,7 +60,7 @@ Each bar is the mean absolute gap between the estimate and the holdout value, in
 
 ![SSME versus labeled-only error by model](experiments/civilcomments/results/model_errors.png)
 
-The interactive report for the single split is [rendered here](https://jasonshen2002.github.io/ssme-lite/experiments/civilcomments/results/report/report.html). The file in the repository is [experiments/civilcomments/results/report/report.html](experiments/civilcomments/results/report/report.html).
+The interactive report for the single split is [experiments/civilcomments/civilcomments_report.html](https://jasonshen2002.github.io/ssme-lite/experiments/civilcomments/civilcomments_report.html).
 
 ## PneumoniaMNIST
 
