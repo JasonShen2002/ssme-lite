@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SSME-Lite results</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; background: #fff; color: #20212a; font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 40px 20px 64px; }
+  h1 { font-size: 1.7rem; margin: 0 0 8px; }
+  h2 { font-size: 1.15rem; margin: 36px 0 8px; }
+  p { margin: 0 0 14px; }
+  a.button { display: inline-block; margin: 4px 8px 16px 0; background: #2c5f8a; color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 6px; }
+  a.quiet { color: #2c5f8a; }
+  img { display: block; max-width: 100%; height: auto; margin: 12px 0 20px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>SSME-Lite results</h1>
+  <p>These are the saved experiment pages. Each report is one HTML file and opens directly. On the GitHub file view, the same file is shown as source.</p>
+
+  <h2>CivilComments</h2>
+  <p>Fifty half-splits, 20 visible labels, and 1,000 unlabeled comments. SSME mean absolute error is 2.27, 2.12, 3.28, and 9.41 percentage points for Accuracy, ECE, AUC, and AUPRC.</p>
+  <a class="button" href="experiments/civilcomments/results/report/report.html">Open the CivilComments report</a>
+  <img src="experiments/civilcomments/results/rmae.png" alt="Relative estimation error on CivilComments">
+  <img src="experiments/civilcomments/results/model_errors.png" alt="SSME versus labeled-only error by model">
+
+  <h2>PneumoniaMNIST</h2>
+  <p>Seven released classifiers, estimated once with 20 visible labels and 400 unlabeled test images.</p>
+  <a class="button" href="experiments/pneumoniamnist/pneumoniamnist_report.html">Open the PneumoniaMNIST report</a>
+
+  <p><a class="quiet" href="https://github.com/JasonShen2002/ssme-lite">Source repository</a></p>
+</main>
+</body>
+</html>
