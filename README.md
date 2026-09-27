@@ -2,7 +2,7 @@
 
 Estimate Accuracy, AUC, AUPRC, and ECE for existing classifiers from a few true labels and their predicted probabilities. The package ranks those classifiers and writes an HTML report that opens offline.
 
-GitHub's file view shows those HTML files as source. Download the file and open it in a browser. Each report is one self-contained page.
+The rendered results are at <https://jasonshen2002.github.io/ssme-lite/>. GitHub's file view shows the same HTML as source.
 
 The method follows Shanmugam et al., *Evaluating multiple models using labeled and unlabeled data*, NeurIPS 2025. The official reference implementation is [divyashan/SSME](https://github.com/divyashan/SSME). EM runs for `max_iter` epochs. The default is 100, and with `early_stopping=False` those epochs all run. Pass a smaller `max_iter`, or set `early_stopping=True` to stop once the largest posterior change falls below `tol` (default `1e-3`). The default bandwidth is Scott. `bandwidth="official"` follows the public SSME code. The estimator does not guarantee a better estimate than the labeled-only baseline on every task.
 
@@ -60,7 +60,7 @@ Each bar is the mean absolute gap between the estimate and the holdout value, in
 
 ![SSME versus labeled-only error by model](experiments/civilcomments/results/model_errors.png)
 
-The interactive report for the single split is [experiments/civilcomments/results/report/report.html](experiments/civilcomments/results/report/report.html). Download it and open it in a browser.
+The interactive report for the single split is [rendered here](https://jasonshen2002.github.io/ssme-lite/experiments/civilcomments/results/report/report.html). The file in the repository is [experiments/civilcomments/results/report/report.html](experiments/civilcomments/results/report/report.html).
 
 ## PneumoniaMNIST
 
@@ -69,7 +69,7 @@ This is the main experiment in the repository. Seven released PneumoniaMNIST cla
 Open these two files to see the result without running inference:
 
 - [experiments/pneumoniamnist/pneumoniamnist.ipynb](experiments/pneumoniamnist/pneumoniamnist.ipynb): the experiment steps and the AUC ranking for this estimate
-- [experiments/pneumoniamnist/pneumoniamnist_report.html](experiments/pneumoniamnist/pneumoniamnist_report.html): the same interactive report. Download it and open it in a browser.
+- [experiments/pneumoniamnist/pneumoniamnist_report.html](https://jasonshen2002.github.io/ssme-lite/experiments/pneumoniamnist/pneumoniamnist_report.html): the same interactive report, rendered in the browser
 
 To rerun the demo:
 
