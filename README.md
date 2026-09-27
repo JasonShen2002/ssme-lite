@@ -6,6 +6,27 @@ The rendered results are at <https://jasonshen2002.github.io/ssme-lite/>. GitHub
 
 The method follows Shanmugam et al., *Evaluating multiple models using labeled and unlabeled data*, NeurIPS 2025. The official reference implementation is [divyashan/SSME](https://github.com/divyashan/SSME). EM runs for `max_iter` epochs. The default is 100, and with `early_stopping=False` those epochs all run. Pass a smaller `max_iter`, or set `early_stopping=True` to stop once the largest posterior change falls below `tol` (default `1e-3`). The default bandwidth is Scott. `bandwidth="official"` follows the public SSME code. The estimator does not guarantee a better estimate than the labeled-only baseline on every task.
 
+## What this repository delivers
+
+The course brief asks for an installable form of SSME: a prediction matrix, the estimator, a selection report, a transfer-learning example, and a comparison against labels alone. The last three rows are additions on top of the official research code.
+
+| Piece | Role | Where |
+| --- | --- | --- |
+| Prediction matrix from sklearn-style models | Required | `PredictionMatrixGenerator` |
+| SSME estimator | Required | `SSMEEstimator` |
+| Ranks, intervals, and charts | Required | `report.save`, one offline HTML file |
+| Few labels and many unlabeled samples | Required | CivilComments and PneumoniaMNIST, 20 visible labels |
+| SSME versus labeled-only evaluation | Required | CivilComments figures below; PneumoniaMNIST 10-seed comparison |
+| Docs and a runnable tutorial | Required | this README and the two notebooks |
+| Transfer learning from a pretrained network | Required | frozen ImageNet ResNet18, then sklearn heads, in `experiments/transfer` |
+| Model contribution | Added | `contribution=True` on both experiment reports |
+| Installable package, parallel fits, one JSON config | Added | `pip install ssme-lite`, `n_jobs` for density updates and for seeds, `ssme-lite my_config.json` |
+| Paper protocol, run by this package | Added | CivilComments half-split, 50 seeds, `bandwidth="official"`, 20 epochs |
+
+Model contribution is the main addition. For each candidate, SSME is refit with that model removed. The visible labels, bandwidth, and epoch count stay fixed. The report shows how far the joint posterior moves, and how the other models' Accuracy estimates change. A larger move means that input carries information the others do not, so redundant models can be screened out. Both experiment pages include this section. On PneumoniaMNIST, removing `automl_vision_3` moves the unlabeled posterior most (mean total variation 0.028). On the CivilComments fit the posterior is already concentrated, so the largest move is `alg_IRM_seed1` at 0.000044.
+
+`pip install ssme-lite` is the interface. Density updates and repeated seeds can run with `n_jobs`. A JSON config with a data path and a model list is enough for `ssme-lite my_config.json` to write the report.
+
 ## Install
 
 ```bash
@@ -35,14 +56,14 @@ y_partial = splitter.partial_labels(y, parts)
 
 ssme = SSMEEstimator(max_iter=100, early_stopping=False, random_state=0)
 ssme.fit(scores[parts["estimation"]], y_partial, model_names=generator.model_names_)
-report = ssme.report(n_draws=100, primary_metric="auc")
+report = ssme.report(n_draws=100, primary_metric="auc", contribution=True)
 print(report.ranking("auc"))
 report.save("results/my_report")
 ```
 
 `fit_transform` only collects probabilities. It does not train models. Binary `scores` have shape `(N, M)` and store the positive-class probability. Multiclass `scores` have shape `(N, M, K)`. `y_partial` is aligned row by row with the samples, and unknown labels are `-1`. Every class needs at least one visible label.
 
-`report.save` writes a standalone `report.html`, plus `metrics.csv`, `metadata.json`, and `report_data.json`. Intervals on the page are latent-label uncertainty given the fitted posterior. They are not population sampling standard errors.
+`report.save` writes a standalone `report.html`, plus `metrics.csv`, `metadata.json`, and `report_data.json`. Intervals on the page are latent-label uncertainty given the fitted posterior. They are not population sampling standard errors. `contribution=True` refits once with each model removed and records how that changes the joint posterior and the remaining Accuracy estimates. It costs one extra fit per model.
 
 A probability matrix can also be passed without classifier objects. Put `scores` and `y` in an NPZ file, write a JSON config, and run `ssme-lite my_config.json`. The `configs/` directory in this repository holds synthetic data, a Gaussian diagnostic, and CivilComments and MultiNLI configs.
 
@@ -60,7 +81,7 @@ Each bar is the mean absolute gap between the estimate and the holdout value, in
 
 ![SSME versus labeled-only error by model](experiments/civilcomments/results/model_errors.png)
 
-The interactive report for the single split is [experiments/civilcomments/civilcomments_report.html](https://jasonshen2002.github.io/ssme-lite/experiments/civilcomments/civilcomments_report.html).
+The rendered report is <https://jasonshen2002.github.io/ssme-lite/experiments/civilcomments/civilcomments_report.html>. Opening the `.html` file on github.com shows the source. Its contribution section is filled: removing `alg_IRM_seed1` moves the posterior most, at mean total variation 0.000044.
 
 ## PneumoniaMNIST
 
@@ -69,7 +90,7 @@ This is the main experiment in the repository. Seven released PneumoniaMNIST cla
 Open these two files to see the result without running inference:
 
 - [experiments/pneumoniamnist/pneumoniamnist.ipynb](experiments/pneumoniamnist/pneumoniamnist.ipynb): the experiment steps and the AUC ranking for this estimate
-- [experiments/pneumoniamnist/pneumoniamnist_report.html](https://jasonshen2002.github.io/ssme-lite/experiments/pneumoniamnist/pneumoniamnist_report.html): the same interactive report, rendered in the browser
+- <https://jasonshen2002.github.io/ssme-lite/experiments/pneumoniamnist/pneumoniamnist_report.html>: the same interactive report. Opening the `.html` file on github.com shows the source.
 
 To rerun the demo:
 
@@ -77,7 +98,7 @@ To rerun the demo:
 python experiments/pneumoniamnist/pneumonia_ssme.py
 ```
 
-The three AutoML Vision weights are TFLite and need `pip install ai-edge-litert`. The 10-seed comparison against the labeled-only baseline is already in `experiments/pneumoniamnist/results/nl20_nu400_m7/`. On the estimation pool, mean absolute error for Accuracy falls from 0.058 with labels only to 0.021 with SSME. Model selection and the protocol are in `experiments/pneumoniamnist/AUDIT.md`. The full write-up is `experiments/REPORT.md`.
+The three AutoML Vision weights are TFLite and need `pip install ai-edge-litert`. The 10-seed comparison against the labeled-only baseline is already in `experiments/pneumoniamnist/results/nl20_nu400_m7/`. On the estimation pool, mean absolute error for Accuracy falls from 0.058 with labels only to 0.021 with SSME. The report's contribution section is filled: removing `automl_vision_3` moves the posterior most, at mean total variation 0.028. Model selection and the protocol are in `experiments/pneumoniamnist/AUDIT.md`. The full write-up is `experiments/REPORT.md`.
 
 ## Transfer learning
 
