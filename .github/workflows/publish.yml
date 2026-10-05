@@ -1,0 +1,44 @@
+name: Publish to PyPI
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install '.[dev,docs]' build twine
+      - run: python -m pytest -q
+      - run: mkdocs build --strict
+      - run: python -m build
+      - run: python -m twine check --strict dist/*
+      - name: Verify installed wheel
+        run: |
+          python -m pip install --force-reinstall --no-deps dist/*.whl
+          cd "$RUNNER_TEMP"
+          python -m pytest "$GITHUB_WORKSPACE/tests" --import-mode=importlib -q
+          python "$GITHUB_WORKSPACE/examples/quickstart.py"
+          python "$GITHUB_WORKSPACE/examples/sklearn_models.py"
+          ssme-lite results/quickstart/evaluation.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distributions
+          path: dist/
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/ssme-lite/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
