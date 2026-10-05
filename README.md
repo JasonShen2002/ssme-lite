@@ -1,5 +1,8 @@
 # SSME-Lite
 
+[![PyPI](https://img.shields.io/pypi/v/ssme-lite.svg)](https://pypi.org/project/ssme-lite/)
+[![Tests](https://github.com/JasonShen2002/ssme-lite/actions/workflows/ci.yml/badge.svg)](https://github.com/JasonShen2002/ssme-lite/actions/workflows/ci.yml)
+
 **Evaluate existing classifiers with a few labels and many unlabeled predictions.**
 
 SSME-Lite packages semi-supervised model evaluation into a small Python interface: provide model probabilities and partial labels, estimate performance, rank candidates, and export an interactive HTML report that opens offline.
@@ -10,6 +13,11 @@ SSME-Lite packages semi-supervised model evaluation into a small Python interfac
 - **Portable outputs:** HTML, CSV, JSON, and metric plots.
 - **Reproducible experiments:** explicit seeds, shared splits, and optional model-influence diagnostics.
 - **Lightweight core:** no PyTorch dependency; transfer learning is optional.
+- **Parallel execution:** configurable prediction, density-fit, and benchmark workers, with batched posterior evaluation.
+
+## Published release
+
+**SSME-Lite 0.1.0 is available on [PyPI](https://pypi.org/project/ssme-lite/0.1.0/).** The release was built and uploaded through GitHub Actions Trusted Publishing. Automated checks passed on Python 3.10–3.14; a fresh installation from public PyPI was verified with both runnable examples and the CLI report workflow. [Release run](https://github.com/JasonShen2002/ssme-lite/actions/runs/37307075613).
 
 ## Installation
 
@@ -60,6 +68,12 @@ For a complete example without external data, run `python examples/quickstart.py
 | [Transfer learning](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/tutorials/transfer.md) | Frozen ResNet18 features, five classifier heads, and a shared evaluation interface |
 
 [View saved experiment reports](https://jasonshen2002.github.io/ssme-lite/).
+
+## Experimental evidence
+
+PneumoniaMNIST is the main study: seven released checkpoints demonstrate the complete inference-to-report workflow, and five frozen-ResNet18 transfer heads demonstrate reuse with newly trained classifiers. With 20 visible labels, mean held-out Accuracy estimation error decreases from **5.72 to 2.26 percentage points** for checkpoints and from **7.11 to 4.16** for transfer heads, over ten shared splits.
+
+CivilComments is the original-paper quickstart and qualitative reproduction check. These are measured results for the stated protocols, rather than guarantees for every dataset. See the [current experiment summary](https://github.com/JasonShen2002/ssme-lite/blob/main/experiments/REPORT.md) and [course-requirement evidence](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/course-requirements.md).
 
 ## Method and interpretation
 

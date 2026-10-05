@@ -15,6 +15,10 @@ python -m twine check --strict dist/*
 
 Install the wheel in a fresh environment, then run `examples/quickstart.py`, `ssme-lite --help`, and the NPZ CLI example from outside the checkout. Verify that the HTML assets, version, and license are included. Rebuild a wheel from the sdist as well. Exclude experiment datasets, model weights, caches, and credentials from distributions.
 
+## Current release
+
+Version 0.1.0 is already [published on PyPI](https://pypi.org/project/ssme-lite/0.1.0/). The account and pending-publisher instructions below describe initial setup; they do not need to be repeated for the existing publisher. For subsequent changed distributions, increment the version before invoking the workflow. Documentation-only repository edits do not replace the immutable 0.1.0 release.
+
 ## PyPI account setup
 
 The owner must register at <https://pypi.org/account/register/>, verify their email, and enable two-factor authentication. Never put an API token in source code, issues, chat, or a workflow file.

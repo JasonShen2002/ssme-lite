@@ -36,6 +36,10 @@ Paths resolve relative to the configuration file, not the shell's current direct
 
 For a downloadable example, run `python examples/quickstart.py` from the checkout: it also writes `results/quickstart/predictions.npz` and `evaluation.json`. Then run `ssme-lite results/quickstart/evaluation.json`.
 
+## Model names and model objects
+
+The candidate list is the `model_names` array saved inside the NPZ file, aligned with its model axis. The 0.1.0 CLI does not load serialized fitted models or select a subset through a JSON `models` field. To use model objects, first collect probabilities with `PredictionMatrixGenerator`, then save the NPZ file above. See [input adapters](inputs.md).
+
 ## Benchmark configurations
 
 The repository's `configs/` also includes synthetic and released-score benchmark configurations. Those run repeated experimental comparisons and have different data requirements and costs. The small NPZ example above is the recommended first CLI run. See `ssme-lite --help` for the command syntax.

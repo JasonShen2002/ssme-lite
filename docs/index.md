@@ -1,5 +1,7 @@
 # SSME-Lite
 
+**Published:** [ssme-lite 0.1.0 on PyPI](https://pypi.org/project/ssme-lite/0.1.0/). Install with `python -m pip install ssme-lite`.
+
 ## From classifier probabilities to an evaluation report
 
 SSME-Lite helps you evaluate several already trained classifiers when labels are scarce. It combines a small labeled sample with the models' predictions on unlabeled samples, then produces metric estimates, rankings, and an offline report.
@@ -30,3 +32,6 @@ The core package consumes probabilities. Training models and downloading dataset
 - [API reference](api.md): public classes, defaults, inputs, and outputs.
 - [Troubleshooting](troubleshooting.md): common setup and data-alignment problems.
 - [Saved interactive reports](https://jasonshen2002.github.io/ssme-lite/): inspect results before running experiments.
+
+- [Parallelism and workload sizing](guides/performance.md).
+- [Course requirements and evidence](course-requirements.md).
