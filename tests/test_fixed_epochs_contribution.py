@@ -2,7 +2,7 @@ import json
 import numpy as np
 import pytest
 from ssme_lite import SSMEEstimator
-from ssme_lite.contribution import model_contribution
+from ssme_lite.estimation import model_contribution
 from ssme_lite.benchmark import benchmark
 from ssme_lite.reporting.data import histogram
 

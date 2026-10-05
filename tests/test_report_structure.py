@@ -1,5 +1,5 @@
 from html.parser import HTMLParser
-from pathlib import Path
+from importlib.resources import files
 
 
 def test_four_chapters_preserve_report_panels():
@@ -18,7 +18,7 @@ def test_four_chapters_preserve_report_panels():
                 self.ids.append(attrs['id'])
                 self.parents[attrs['id']] = self.chapter
 
-    template = Path('ssme_lite/reporting/assets/report.html').read_text()
+    template = files('ssme_lite.reporting').joinpath('assets/report.html').read_text(encoding='utf-8')
     parsed = Structure()
     parsed.feed(template)
     assert parsed.sections == ['overview', 'performance', 'landscape', 'space']

@@ -1,0 +1,30 @@
+site_name: SSME-Lite
+site_description: Evaluate classifiers with scarce labels
+repo_url: https://github.com/JasonShen2002/ssme-lite
+repo_name: JasonShen2002/ssme-lite
+edit_uri: edit/main/docs/
+theme:
+  name: readthedocs
+  highlightjs: true
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quickstart: quickstart.md
+  - Tutorials:
+      - CivilComments: tutorials/civilcomments.md
+      - PneumoniaMNIST: tutorials/pneumoniamnist.md
+      - Transfer learning: tutorials/transfer.md
+  - User guide:
+      - Inputs and models: guides/inputs.md
+      - Reports and metrics: guides/reports.md
+      - Command line: guides/cli.md
+  - Method: method.md
+  - API reference: api.md
+  - Troubleshooting: troubleshooting.md
+  - Releasing: releasing.md
+markdown_extensions:
+  - admonition
+  - tables
+  - fenced_code
+
+use_directory_urls: false

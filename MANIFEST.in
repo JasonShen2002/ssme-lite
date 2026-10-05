@@ -1,0 +1,11 @@
+include LICENSE README.md CHANGELOG.md CONTRIBUTING.md mkdocs.yml
+recursive-include docs *.md
+recursive-include examples *.py
+recursive-include tests *.py
+recursive-include ssme_lite *.py py.typed *.html *.css *.js
+prune experiments
+prune data
+prune results
+prune site
+prune .github
+global-exclude __pycache__ *.py[cod] .DS_Store

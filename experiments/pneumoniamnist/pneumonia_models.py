@@ -319,12 +319,23 @@ def build_models(paths):
 
 
 def load_test_images():
-    import sys
-    examples = str(ROOT / "examples")
-    if examples not in sys.path:
-        sys.path.insert(0, examples)
-    from pneumonia_official import download_dataset
-    with np.load(download_dataset()) as archive:
+    """Load the checked MedMNIST archive, downloading it when absent."""
+    import hashlib
+    import urllib.request
+
+    archive_path = ROOT / "data" / "pneumoniamnist" / "pneumoniamnist.npz"
+    expected_md5 = "28209eda62fecd6e6a2d98b1501bb15f"
+    valid = archive_path.exists() and hashlib.md5(archive_path.read_bytes()).hexdigest() == expected_md5
+    if not valid:
+        url = "https://zenodo.org/records/10519652/files/pneumoniamnist.npz?download=1"
+        request = urllib.request.Request(url, headers={"User-Agent": "ssme-lite"})
+        with urllib.request.urlopen(request, timeout=180) as response:
+            payload = response.read()
+        if hashlib.md5(payload).hexdigest() != expected_md5:
+            raise RuntimeError("PneumoniaMNIST archive checksum did not match")
+        archive_path.parent.mkdir(parents=True, exist_ok=True)
+        archive_path.write_bytes(payload)
+    with np.load(archive_path, allow_pickle=False) as archive:
         return archive["test_images"], archive["test_labels"].astype(int).reshape(-1)
 
 
@@ -343,6 +354,7 @@ def check_against_official(models, y):
     for name, model in models.items():
         published = _official_positive(name)
         if published is None:
+            print(f"{name}: published-score audit skipped (CSV unavailable)", flush=True)
             continue
         score = model.positive_
         gap = float(np.max(np.abs(score - published)))

@@ -1,4 +1,12 @@
-# Experiments
+# Experiment tutorials
+
+Start with the English walkthroughs:
+
+- [CivilComments: original-paper quickstart](../docs/tutorials/civilcomments.md)
+- [PneumoniaMNIST: end-to-end evaluation](../docs/tutorials/pneumoniamnist.md)
+- [Transfer learning with frozen ResNet18](../docs/tutorials/transfer.md)
+
+For a first run without data downloads, use `python examples/quickstart.py` from the repository root. The experiment scripts below are source-checkout tools, not installed CLI commands.
 
 These scripts are not installed with the package. Images, weights, and feature caches stay in each experiment's `data/` directory and are not committed.
 

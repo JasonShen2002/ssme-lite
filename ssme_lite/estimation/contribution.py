@@ -1,7 +1,7 @@
 """Controlled model-view ablation, without hidden ground truth or metric MC."""
 import numpy as np
 from scipy.special import xlogy
-from .reporting.data import json_safe
+from ..reporting.data import json_safe
 
 
 def model_contribution(estimator):
