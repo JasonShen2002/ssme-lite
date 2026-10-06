@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><title>SSME-Lite · Model Evaluation</title>
+<style>/* REPORT_CSS */</style></head>
+<body>
+<a class="skip" href="#performance">Skip to performance</a>
+<header class="masthead"><a class="brand" href="#overview"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i></span>SSME<span class="brand-lite"> / LITE</span></a><span class="edition">MODEL EVALUATION REPORT <span class="edition-dot">●</span> REAL-WORLD MODE</span><button id="download" class="text-button">Export data <span aria-hidden="true">↗</span></button></header>
+<nav aria-label="Section navigation"><div class="nav-inner"><a href="#overview">01 Overview</a><a href="#performance">02 Performance and ranking</a><a href="#landscape">03 Relationships and contribution</a><a href="#space">04 Prediction space and diagnostics</a></div></nav>
+<main>
+<section id="overview" class="chapter chapter-overview">
+<div class="section-heading"><span class="section-index">01</span><div><span class="eyebrow">EVALUATION OVERVIEW</span><h2>Overview</h2></div></div>
+<div class="hero">
+ <div class="eyebrow"><span class="tiny-line"></span> SEMI-SUPERVISED MODEL EVALUATION <span id="dataset-label"></span></div>
+ <div class="hero-heading"><h1>Model evaluation.<br><em>A closer look.</em></h1><div class="hero-intro"><p id="report-title"></p><p>Start from a few known labels and inspect candidate performance, relationships, and posterior structure.</p><span class="pill">OFFLINE · INTERACTIVE · TRACEABLE</span></div></div>
+ <div id="kpis" class="kpis"></div>
+ <div class="toolbar"><div><span class="eyebrow">ESTIMATED PERFORMANCE</span><h2 class="compact-title">One dataset, several performance views.</h2></div><div class="metric-tabs" role="group" aria-label="Primary metric"></div></div>
+ <div class="hero-chart-layout"><div class="hero-plot"><div id="hero-dot"></div><p class="caption">Points are performance estimates. Thin lines are <span class="coverage"></span> sampling intervals. A collapsed interval is drawn as a single point.</p></div><aside id="hero-summary" class="hero-summary"></aside></div>
+</div>
+<div class="chapter-subsection" id="setup"><div class="subsection-heading"><div><span class="eyebrow">EVALUATION SETUP</span><h3>Every conclusion starts from a setup.</h3><p>Evaluation size, candidate models, and fit configuration.</p></div></div>
+ <div class="setup-grid"><div><h3>Data composition</h3><div id="composition"></div><p class="caption" id="scope-caption"></p></div><div id="config-grid" class="config-grid"></div></div>
+ <div class="model-key" id="model-key"></div><p class="caption">Click a model name to pin the highlight across charts. Click again to clear it. Tab and Enter work as well.</p>
+</div>
+</section>
+<section id="performance" class="chapter">
+<div class="section-heading"><span class="section-index">02</span><div><span class="eyebrow">PERFORMANCE & RANKING</span><h2>Performance and ranking</h2></div></div>
+<div class="chapter-subsection" id="performance-details"><div class="subsection-heading"><div><span class="eyebrow">PERFORMANCE</span><h3>Performance, metric by metric.</h3><p>Compare candidates on overall classification, discrimination, positive-class retrieval, and probability calibration. Lower ECE is better. Higher is better for the other metrics.</p></div></div>
+ <div class="metric-guide">
+  <article><h3>Accuracy <span>↑</span></h3><p>Share of predictions whose class is correct. The point estimate is the posterior expectation of accuracy. Under class imbalance, read it together with AUPRC.</p></article>
+  <article><h3>AUC <span>↑</span></h3><p>Area under the ROC curve: how well the model ranks positives ahead of negatives. Binary tasks use the positive-class probability. Multiclass tasks use macro one-vs-rest.</p></article>
+  <article><h3>AUPRC <span>↑</span></h3><p>Implemented as average precision, summarizing the precision–recall curve. Multiclass tasks use macro one-vs-rest. The value depends on the class balance.</p></article>
+  <article><h3>ECE <span>↓</span></h3><p>Expected calibration error over 10 equal-width bins, weighted by bin count. Binary tasks calibrate the positive-class probability. Multiclass tasks calibrate top-label confidence.</p></article>
+ </div>
+ <p class="performance-reading" id="performance-scope"></p>
+ <div class="figure-head"><h3>Performance matrix</h3><span class="subtle">Colored by relative performance within each column</span></div><div id="performance-matrix"></div>
+ <div id="small-multiples" class="small-multiples"></div>
+ <p class="caption">All four plots follow the input order M01, M02, and so on, matching the table rows. Purple marks the leading point estimate for that metric. Each horizontal axis is scaled on its own, so distances cannot be compared across plots.</p>
+ <div class="performance-reading"><p>Points are performance estimates. Thin lines are the central <span class="coverage"></span> sampling interval. Accuracy uses the exact posterior expectation. AUC, AUPRC, and ECE use the mean of valid draws. Intervals come from latent-label draws under one fitted posterior. A narrower interval only means less variation from that source.</p><p>The table below keeps exact values, the number of valid draws, and the Monte Carlo standard error. That standard error measures numerical error in the sampling calculation. It is not the error of the performance estimate relative to the true value.</p></div>
+ <details class="data-details" open><summary>Per-model metrics · point estimates, sampling intervals, and Monte Carlo numerical error</summary><div id="metric-table" class="table-wrap"></div></details>
+</div>
+<div class="chapter-subsection" id="ranking"><div class="subsection-heading"><div><span class="eyebrow">SAMPLING & RANKING</span><h3>One set of draws, for both values and ranks.</h3><p>The same latent-label draws link metric distributions, model ranks, and pairwise gaps. Together they describe sampling variation.</p></div></div>
+ <p class="performance-reading">If a sample has posterior P(class 1) = 0.7, each draw assigns it to class 1 with probability 70%. Across draws, the rank distribution counts how often each model occupies each rank. Pairwise sampling frequency counts how often the row model beats the column model. The repeated step is label sampling. Models are not retrained, and SSME is not refit.</p>
+ <div class="toolbar"><span id="ranking-valid" class="subtle"></span><div class="metric-tabs" role="group" aria-label="Ranking metric"></div></div>
+ <div class="two-col"><figure><h3>Rank distribution</h3><div id="rank-heatmap"></div><figcaption>Darker cells mean the model occupies that rank more often. Tied models split the ranks they occupy.</figcaption></figure><figure><h3>Pairwise sampling frequency</h3><div id="pair-heatmap"></div><figcaption>How often the row model is strictly better than the column model. The comparison is reversed for ECE. Ties count for neither side.</figcaption></figure></div>
+ <div id="rank-bars"></div><p class="caption">Rank-1 stability is a frequency among sampled evaluations, not the probability that a model is truly best. Top-2 uses the same tie rule.</p>
+<div id="sampling" class="sampling-subsection"><div class="figure-head"><h3>How much do the metric values move across the same draws?</h3><span class="subtle">Metric sampling view</span></div>
+ <p class="performance-reading">Each distribution collects one model's metric across draws. The paired comparison below uses the same draw for both A and B. An Accuracy delta of 0.002 means A is 0.2 percentage points higher than B on that draw. If every draw gives almost the same value, the distribution collapses to a point.</p>
+ <div class="toolbar"><h3>Sampled metric distributions</h3><div class="metric-tabs" role="group" aria-label="Sampling metric"></div></div>
+ <div id="violin"></div><p class="caption">The outline is the sampling density, the thick line is the interquartile range, and the point is the median. When there is no visible variation, only a single point is shown.</p>
+ <p class="performance-reading" id="sampling-diagnostic"></p>
+ <div class="pair-panel"><div class="pair-controls"><div><span class="eyebrow">PAIRWISE FOCUS</span><h3>Compare two candidates</h3></div><div class="pair-selects"><label>Model A <select id="pair-a"></select></label><span class="versus">vs.</span><label>Model B <select id="pair-b"></select></label></div></div><div id="pair-stats" class="pair-stats"></div><div id="delta-chart"></div><p class="caption">Delta is metric A minus metric B. For ECE, a negative value means A is better. For the other metrics, a positive value means A is better. The initial pair is the top two point estimates.</p></div>
+</div></div>
+</section>
+<section id="landscape" class="chapter">
+<div class="section-heading"><span class="section-index">03</span><div><span class="eyebrow">MODEL RELATIONSHIPS & CONTRIBUTION</span><h2>Relationships and contribution</h2></div></div>
+<div class="chapter-subsection" id="landscape-details"><div class="subsection-heading"><div><span class="eyebrow">MODEL LANDSCAPE</span><h3>Similar predictions, different views.</h3><p>Model relationships are read directly from the input probabilities, without latent-label sampling.</p></div></div>
+ <div class="two-col"><figure><h3>Prediction correlation</h3><div id="correlation"></div><figcaption id="correlation-caption"></figcaption></figure><figure><h3>Prediction agreement</h3><div id="agreement"></div><figcaption>Rate of identical argmax labels on the same sample, using the full fit pool.</figcaption></figure></div><div id="landscape-summary" class="landscape-summary"></div>
+</div>
+<div class="chapter-subsection" id="contribution"><div class="subsection-heading"><div><span class="eyebrow">MODEL CONTRIBUTION</span><h3>What changes when one model is removed?</h3><p>Drop each model's predictions in turn, refit SSME, and measure the effect on the joint estimate.</p></div></div>
+ <div id="contribution-content"></div>
+</div>
+</section>
+<section id="space" class="chapter">
+<div class="section-heading"><span class="section-index">04</span><div><span class="eyebrow">PREDICTION SPACE & POSTERIOR DIAGNOSTICS</span><h2>Prediction space and diagnostics</h2></div></div>
+<div class="chapter-subsection" id="space-details"><div class="subsection-heading"><div><span class="eyebrow">PREDICTION SPACE</span><h3>Inferred class, in two and three dimensions.</h3><p>Each point is a sample. Position is the ALR-to-PCA projection of all model predictions. Color is the inferred class, not the true label. The 3D view adds the third principal component and does not refit SSME.</p></div></div>
+ <div class="toolbar"><div class="eyebrow">COLOR · inferred class</div><label class="toggle"><input id="anchors" type="checkbox"> Emphasize labeled anchors</label></div>
+ <div id="space-explanation" class="performance-reading" aria-live="polite"></div>
+ <div class="space-layout"><div id="pca"></div><aside class="space-aside"><span class="eyebrow">ALR → PCA</span><h3>Geometry of the predictions</h3><div id="variance"></div><p>Large points with a dark outline are truly labeled samples. Nearby points are close only in the two-dimensional projection.</p><div id="space-legend"></div><p class="caption" id="space-caption"></p></aside></div>
+ <div class="figure-head"><h3>3D prediction space</h3><span class="subtle">Drag to rotate · scroll to zoom · arrow keys to rotate · + / − to zoom</span></div><button id="reset-3d" class="text-button">Reset view</button><div id="pca-3d" tabindex="0" role="group" aria-label="Three-dimensional PCA. Use arrow keys to rotate and plus or minus to zoom."></div><p class="caption">The first three principal components of the same PCA, on a shared scale. Rotation only changes the viewing angle. Overlap in the projection does not mean the original predictions are identical.</p>
+</div>
+<div class="chapter-subsection" id="diagnostics"><div class="subsection-heading"><div><span class="eyebrow">POSTERIOR DIAGNOSTICS</span><h3>How concentrated are the latent labels?</h3><p>These uncertainty summaries include unlabeled samples only. Known labels stay fixed as one-hot and are left out.</p></div></div>
+ <div id="posterior-note" class="diagnostic-note"></div>
+ <div class="two-col"><figure><h3>Posterior confidence</h3><div id="confidence-hist"></div><figcaption>Boundary-corrected KDE of the maximum posterior probability. The horizontal axis is zoomed locally. The vertical axis is a probability density, not a count.</figcaption></figure><figure><h3>Posterior entropy</h3><div id="entropy-hist"></div><figcaption>Boundary-corrected KDE of posterior entropy, in nats. Values near zero are more concentrated. The horizontal axis is zoomed locally.</figcaption></figure></div>
+ <p class="caption">The KDE uses Scott bandwidth and boundary reflection to display the empirical distribution. The smoothing width is not an estimation error. Near-constant data collapses to a point instead of a fabricated curve.</p><div class="two-col"><figure><h3>Class structure</h3><div id="class-structure"></div><figcaption>The fitted prior is the weighted M-step class prior. Posterior composition is the share of unlabeled samples assigned by maximum posterior class.</figcaption></figure></div>
+ <details class="data-details" open><summary>Most ambiguous samples · unlabeled samples with the highest posterior entropy</summary><div id="ambiguous-table" class="table-wrap"></div></details>
+</div>
+</section>
+</main><footer><span class="brand">SSME<span class="brand-lite"> / LITE</span></span><p>Conditional estimates. Transparent diagnostics.</p><a href="#overview">Back to top ↑</a></footer>
+<div id="tooltip" role="tooltip" hidden></div>
+<noscript><p class="no-script">This offline report needs JavaScript to draw the interactive charts. The same data is saved in report_data.json. Metric details are in metrics.csv.</p></noscript>
+<script type="application/json" id="report-data">REPORT_DATA_JSON</script>
+<script>/* REPORT_JS */</script>
+</body></html>

@@ -1,0 +1,56 @@
+{
+  "backbone": "torchvision ResNet18 ImageNet-1k V1, frozen, fc removed",
+  "feature_dim": 512,
+  "input": "28x28 grayscale resized bilinear to 224 and ImageNet-normalized",
+  "heads": [
+    "logistic",
+    "random_forest",
+    "mlp",
+    "extra_trees",
+    "hist_gradient_boosting"
+  ],
+  "train_split": "official train",
+  "evaluation_pool": "official test",
+  "subsets": {
+    "2": [
+      "logistic",
+      "random_forest"
+    ],
+    "3": [
+      "logistic",
+      "random_forest",
+      "mlp"
+    ],
+    "4": [
+      "logistic",
+      "random_forest",
+      "mlp",
+      "extra_trees"
+    ],
+    "5": [
+      "logistic",
+      "random_forest",
+      "mlp",
+      "extra_trees",
+      "hist_gradient_boosting"
+    ]
+  },
+  "n_labeled": [
+    20,
+    50,
+    100
+  ],
+  "n_unlabeled": 400,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "valid_seeds": 50,
+  "rows": 8200,
+  "max_absolute_difference": 0.0,
+  "python": "3.11.16",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "versions": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.1",
+    "statsmodels": "0.15.0"
+  },
+  "scope": "Full half-split refit and baseline comparison using original released inputs"
+}

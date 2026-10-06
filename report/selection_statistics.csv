@@ -1,0 +1,9 @@
+experiment,metric,method,top1
+Released models (7),accuracy,labeled_only,0.23333333333333334
+Released models (7),accuracy,ssme,0.5
+Released models (7),auc,labeled_only,0.25666666666666665
+Released models (7),auc,ssme,0.2
+Transfer heads (5),accuracy,labeled_only,0.25
+Transfer heads (5),accuracy,ssme,0.7
+Transfer heads (5),auc,labeled_only,0.07833333333333334
+Transfer heads (5),auc,ssme,0.1

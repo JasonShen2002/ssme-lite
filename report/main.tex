@@ -1,0 +1,151 @@
+\documentclass[twoside,11pt]{article}
+\usepackage[preprint]{jmlr2e}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage[font=small,format=hang,skip=6pt]{caption}
+\setlength{\intextsep}{8pt plus 1pt minus 1pt}
+\urlstyle{same}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi:\,#1}}
+\newcommand{\pkg}{\texttt{ssme-lite}}
+\ShortHeadings{SSME-Lite: Evaluation with Scarce Labels}{Junje Shen}
+\firstpageno{1}
+\lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,showstringspaces=false,frame=single}
+\raggedbottom
+\begin{document}
+\title{SSME-Lite: Reproducible Model Evaluation with Scarce Labels}
+\author{\makebox[\textwidth][c]{\textbf{Junje Shen}\quad\textbar\quad\normalfont Student ID: 2026211240}}
+\maketitle
+\begin{abstract}
+SSME-Lite combines semi-supervised evaluation with reproducible comparisons and offline diagnostics. PneumoniaMNIST is the main case study: checkpoint inference through report generation, plus a frozen-ResNet18 transfer example. CivilComments, used in the original SSME paper, provides a quickstart and reproduction check. With 20 visible labels, Accuracy estimation error falls from 5.70 to 2.22 percentage points for pretrained checkpoints and from 7.11 to 4.16 for transfer classifiers. SSME-Lite is available on PyPI and connects prediction, evaluation, and reporting through a unified Python interface.
+\end{abstract}
+\begin{keywords}
+semi-supervised evaluation, model selection, reproducible software, Python
+\end{keywords}
+
+\section{Motivation and Contribution}
+Semi-Supervised Model Evaluation (SSME) estimates the joint distribution of labels and classifier probabilities to evaluate models with scarce labels \citep{shanmugam2025}. This project provides a reusable estimator, reproducible experiments, and metric, ranking, and sensitivity diagnostics (Figure~\ref{fig:workflow}). PneumoniaMNIST demonstrates inference-to-report integration; CivilComments checks reproduction on the paper's data. The contribution is their integration into a documented, reusable Python workflow.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/workflow.pdf}
+\caption{End-to-end evaluation: PneumoniaMNIST starts with checkpoint inference; the CivilComments quickstart uses stored scores. Hidden labels enter benchmark scoring only.}
+\label{fig:workflow}
+\end{figure}
+
+\section{Semi-Supervised Estimator}
+Let $p_{imk}$ denote class probabilities, with shape $N\times M\times K$ (binary: $N\times M$). Missing labels use $-1$; each class needs a visible label. Clipped, normalized scores undergo the additive log-ratio transform \citep{aitchison1982} $z_{imk}=\log(p_{imk}/p_{imK})$, yielding $M(K-1)$ features.
+
+With responsibilities $\gamma_{ik}$ and annotation weights $w_i=10$ for visible labels and $1$ otherwise, iterations update Gaussian kernel densities \citep{scott1992}, priors, and posteriors:
+\begin{equation}
+ f_k(z)=\frac{\sum_i w_i\gamma_{ik}K_h(z-z_i)}{\sum_i w_i\gamma_{ik}},\quad
+ \pi_k=\frac{\sum_i w_i\gamma_{ik}}{\sum_i w_i},\quad
+ \gamma_{ik}\leftarrow\frac{\pi_k f_k(z_i)}{\sum_c\pi_c f_c(z_i)}.
+\end{equation}
+Initialization samples from mean model probabilities; visible labels remain clamped. Fixed iterations and explicit bandwidth settings support controlled, reproducible comparisons.
+
+\clearpage
+\section{Implementation and Experimental Design}
+\paragraph{Reusable interface and reports.}
+The prediction adapter aligns class columns; the split utility records sample indices. A scikit-learn-style estimator \citep{pedregosa2011} exports offline HTML, CSV metrics, and JSON statistics:
+\begin{lstlisting}[language=Python]
+from ssme_lite import SSMEEstimator
+e = SSMEEstimator(max_iter=100, random_state=0)
+e.fit(scores, y_partial, model_names=model_names)
+e.report(n_draws=100, contribution=True).save("evaluation")
+\end{lstlisting}
+MIT-licensed version 0.1.0 is \href{https://pypi.org/project/ssme-lite/}{published on PyPI} (\texttt{pip install ssme-lite}); the core needs no PyTorch. CI passes on Python 3.10--3.14; local validation passes 38 tests, with one optional reference-code audit skipped.
+
+\paragraph{Metrics and uncertainty.}
+The default report evaluates the estimation pool (visible plus unlabeled samples). Accuracy is the exact posterior expectation of a model's correctness. ROC AUC, average precision (AP), and expected calibration error (ECE) average 100 shared latent-label draws, preserving paired comparisons. AP is the implementation's AUPRC summary; binary ECE uses ten equal-width bins \citep{guo2017}. The interface supports multiclass inputs; the present experiments are binary. Label-sampling intervals describe uncertainty conditional on the fitted posterior.
+
+\begin{table}[!ht]
+\centering\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ccccc@{}}
+\toprule
+Pipeline & Models & $n_L$ / $n_U$ / $n_H$ & Splits & Bandwidth / epochs\\
+\midrule
+Checkpoint inference & 7 & 20 / 400 / 204 & 10 & Scott / 100\\
+Transfer learning & 5 & 20 / 400 / 204 & 10 & Scott / 100\\
+CivilComments quickstart & 7 & 20 / 1,000 / 66,891 & 50 & Reference / 20\\
+\bottomrule
+\end{tabular*}
+\caption{The first two pipelines use PneumoniaMNIST, the main dataset. Counts are visible ($L$), unlabeled ($U$), and held-out ($H$); all runs use weight 10 and 100 label draws.}
+\label{tab:protocol}
+\end{table}
+
+\paragraph{PneumoniaMNIST: the main end-to-end study.}
+The dataset has 4,708 training, 524 validation, and 624 test images \citep{yang2023}. The demo loads seven pretrained checkpoints (one ResNet18, three AutoKeras \citep{jin2023}, three AutoML Vision), runs test-image inference, aligns probabilities, fits SSME, and exports the interactive report. The transfer example freezes an ImageNet ResNet18 \citep{he2016} for 512-dimensional features and trains five sklearn heads on training data only, with fixed hyperparameters. Both pipelines evaluate test data over seeds 0--9; validation is unused for transfer-head selection.
+
+\paragraph{CivilComments: quickstart and reproduction check.}
+CivilComments \citep{borkan2019}, used in the SSME paper, supplies seven released score vectors per comment. A half-split protocol gives 50 valid runs (seeds 0--58; nine missing-class draws excluded). The reference-code bandwidth rule is the minimum normal-reference ALR bandwidth divided by four. Archived official-code executions establish the reference workflow; this package-level study checks its qualitative gains.
+
+\paragraph{Paired error analysis.}
+Split-level error is $e_s=M^{-1}\sum_m|\widehat q_{sm}-q^H_{sm}|$ against held-out truth. Both methods use the same visible labels. Reported reductions $d_s=e_s^L-e_s^{\mathrm{SSME}}$ use descriptive intervals $\bar d\pm t_{.975,S-1}s_d/\sqrt S$; splits, not individual models, are repetitions.
+
+\clearpage
+\section{PneumoniaMNIST: Main Results and Diagnostics}
+\begin{table}[!ht]
+\centering\small
+\input{results_table.tex}
+\caption{PneumoniaMNIST held-out MAE (pp), ten paired splits. Positive reduction favors SSME-Lite; brackets give unadjusted 95\% $t$ intervals for the paired reduction.}
+\label{tab:main}
+\end{table}
+
+\paragraph{Accuracy and calibration show the clearest gains.}
+Accuracy MAE falls by 61.1\% for pretrained checkpoints and 41.4\% for transfer heads. All twelve models improve in mean Accuracy MAE (Figure~\ref{fig:diagnostics}). Both pipelines also improve ECE, extending the gains to calibration assessment.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/diagnostics.pdf}
+\caption{Accuracy estimation MAE for all seven checkpoints and five transfer heads, averaged over ten held-out splits. Lower is better; every model improves on average.}
+\label{fig:diagnostics}
+\end{figure}
+
+\paragraph{Improved Accuracy-based model selection.}
+Accuracy Top-1 success rises from 23.3\% to 50.0\% for checkpoints and from 25.0\% to 70.0\% for transfer heads. The workflow thus supports both accurate metric estimation and selection of the highest-Accuracy model.
+
+\paragraph{Interpretable model-influence diagnostics.}
+For each removed model $m$, sensitivity is
+$\mathrm{TV}_m=|U|^{-1}\sum_{i\in U}\frac12\|\gamma_i-\gamma_i^{(-m)}\|_1$.
+Removing MLP or logistic regression gives the largest mean TV (0.0465 and 0.0425); the two forest models yield 0.0043 and 0.0030. Initialization, bandwidth, labels, and epochs are fixed. TV quantifies conditional influence under shared full-view initialization.
+
+\clearpage
+\section{Quickstart Validation and Practical Reuse}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/evidence.pdf}
+\caption{(a) Paper-data quickstart: CivilComments relative MAE over 50 valid splits; dashed line: labeled-only baseline. (b) Main-dataset extension: PneumoniaMNIST transfer MAE over ten splits per budget, with 95\% $t$ intervals.}
+\label{fig:evidence}
+\end{figure}
+
+\paragraph{Quickstart validation on the original paper's data.}
+CivilComments MAEs for Accuracy, AUC, AP, and ECE are 2.27, 3.28, 9.41, and 2.12 pp; relative errors are 0.41, 0.47, 0.42, and 0.42. The quickstart recovers the advantage over labeled-only estimation, weighted voting, pseudo-labeling, and Dawid--Skene aggregation \citep{dawid1979} (Figure~\ref{fig:evidence}a). This confirms the expected qualitative gains; the package uses equal-width ECE bins, while the paper uses equal-frequency bins.
+
+\paragraph{Gains across annotation budgets.}
+With five transfer heads and 400 unlabeled examples, increasing visible labels from 20 to 50 to 100 changes Accuracy MAE from 7.11/4.16 to 5.60/3.19 to 4.28/3.45 pp (labeled-only/SSME). SSME-Lite lowers mean error at every budget (Figure~\ref{fig:evidence}b), with the largest relative gain at 20 labels. Holdout sizes are 204, 174, and 124, respectively.
+
+\paragraph{Reusable outputs and evaluation scope.}
+Offline HTML, CSV, and JSON support inspection and reuse. A JSON-configured CLI evaluates stored predictions. Parallel prediction, class-density fits, and benchmark seeds complement batched posterior evaluation. Gains are clearest for Accuracy and ECE; AUC/AP selection shows no consistent improvement. Cross-split and conditional label intervals quantify distinct sources of variation.
+
+\paragraph{Reproducibility and verification.}
+Source: \href{https://github.com/jasonshen2002/ssme-lite}{github.com/jasonshen2002/ssme-lite}. Saved runs retain splits, configurations, and versions. The builder checks model-level errors, regenerates figures, and records input hashes. Appendix~\ref{app:reproduction} gives executable reproduction steps. All ten sensitivity runs are included, enabling verification from saved outputs.
+
+\section{Conclusion}
+SSME-Lite delivers a reusable Python workflow, validated through CivilComments reproduction and a PneumoniaMNIST end-to-end and transfer-learning study. Improved Accuracy and ECE estimation, Accuracy-based model selection, and interpretable offline reports demonstrate its practical value for scarce-label evaluation.
+
+\clearpage
+\begingroup
+\raggedright
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\setlength{\bibhang}{1.5em}
+\setlength{\bibsep}{14pt plus 1pt minus 1pt}
+\bibliography{references}
+\endgroup
+\clearpage
+\appendix
+\input{appendix_reproduction}
+\end{document}

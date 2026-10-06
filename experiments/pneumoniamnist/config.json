@@ -1,0 +1,15 @@
+{
+  "source": "npz",
+  "mode": "benchmark",
+  "data": "data/inferred_test_scores.npz",
+  "output": "results/nl20_nu400_m7",
+  "benchmark": {
+    "dataset": "PneumoniaMNIST_infer",
+    "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "n_labeled": 20,
+    "n_unlabeled": 400,
+    "n_draws": 100,
+    "max_iter": 100,
+    "contribution": true
+  }
+}

@@ -1,0 +1,62 @@
+\section{Experimental Artifacts and Reproduction}
+\label{app:reproduction}
+
+\paragraph{Artifact access.}
+The released package is \href{https://pypi.org/project/ssme-lite/0.1.0/}{\texttt{ssme-lite==0.1.0}};
+source and English documentation are available at
+\href{https://github.com/JasonShen2002/ssme-lite}{github.com/JasonShen2002/ssme-lite}.
+OpenI experiment project:\newline
+\href{https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240}{openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240}.
+The steps below run from the root of the accompanying source archive.
+
+\paragraph{Installation.}
+Use a clean Python 3.11 environment. On macOS/Linux:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r reproduction/requirements.txt
+\end{lstlisting}
+On Windows, activate with \nolinkurl{.venv/Scripts/Activate.ps1}.
+Verification receipts record the tested environment; fixed-score fits need no GPU.
+
+\paragraph{Main results: fresh fits from fixed predictions.}
+Two small NPZ artifacts retain the 624 official test rows, ordered candidate
+names, and benchmark labels for the seven-checkpoint and five-head studies.
+Their SHA-256 hashes and provenance are in
+\nolinkurl{reproduction/inputs/manifest.json}. Run:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+python reproduction/run.py --jobs 2
+\end{lstlisting}
+This performs ten splits per setting: checkpoints with 20 labels, and transfer
+heads with 20, 50, and 100 labels. Each fit uses 400 unlabeled rows, 100 fixed EM
+iterations, and 100 posterior label draws. At 20 labels, the runner also refits
+each leave-one-model-out diagnostic. It checks split indices, model-level
+metrics, errors, ranking statistics, and posterior-TV values against the
+supplied references with absolute tolerance $10^{-10}$.
+New outputs and \texttt{verification.json} are written under
+\texttt{results/reproduction/}; the original references are preserved.
+The expected Accuracy MAEs (labeled-only/SSME, pp) are 5.70/2.22 for checkpoints
+and 7.11/4.16, 5.60/3.19, and 4.28/3.45 for the three transfer budgets.
+This route recomputes SSME rather than merely redrawing saved summaries.
+
+\paragraph{CivilComments quickstart reproduction.}
+Download the seven released prediction/label pairs following the
+\href{https://github.com/divyashan/SSME}{official SSME repository}. Keep each model directory under
+\nolinkurl{inputs/CivilComments/}, with \texttt{preds.npy} and \texttt{labels.npy}.
+Install \texttt{ssme-lite[official]==0.1.0}, then run the command below,
+replacing the input directory with its actual location:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize,breaklines=true,breakatwhitespace=true]
+python experiments/civilcomments/reproduce_official_split.py --inputs /path/to/SSME/inputs --output results/reproduction/civilcomments --jobs 2
+\end{lstlisting}
+The script collects 50 valid splits in seed order, using 20 visible labels,
+1,000 unlabeled rows, a 66,891-row holdout, reference-code bandwidth, and 20 EM
+iterations. The expected Accuracy/AUC/AP/ECE MAEs are 2.27/3.28/9.41/2.12 pp.
+
+\paragraph{Optional image-to-report workflow.}
+Install \texttt{ssme-lite[transfer]==0.1.0}; also install \texttt{ai-edge-litert} for checkpoints.
+Run \texttt{pneumonia\_ssme.py} or
+\texttt{transfer\_ssme.py} in the corresponding experiment directory.
+They download assets, regenerate predictions, and produce reports. Run the
+matching experiment's \texttt{config.json} with \texttt{ssme-lite} for repeated
+evaluation. See \nolinkurl{docs/reproduction.md} for complete commands and
+platform-dependent inference/training considerations.

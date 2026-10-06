@@ -1,0 +1,47 @@
+{
+  "description": "Frozen prediction artifacts for independent SSME refits; not raw images or model weights.",
+  "files": [
+    {
+      "file": "checkpoints.npz",
+      "sha256": "30ad2a0a821fbe5d95114f68d71566078546134c6b1fd75293f224b0e9419ed9",
+      "rows": 624,
+      "shape": [
+        624,
+        7
+      ],
+      "models": [
+        "resnet18_28_1",
+        "autokeras_1",
+        "autokeras_2",
+        "autokeras_3",
+        "automl_vision_1",
+        "automl_vision_2",
+        "automl_vision_3"
+      ],
+      "source": "Seven released MedMNIST checkpoints",
+      "dataset": "PneumoniaMNIST official test split",
+      "dataset_source": "https://zenodo.org/records/10519652",
+      "weights_source": "https://zenodo.org/records/7782114"
+    },
+    {
+      "file": "transfer.npz",
+      "sha256": "5a8c23ef540d9ca09ecd8c19270be480c70ba30c3811b03ecc87618ba585c3a7",
+      "rows": 624,
+      "shape": [
+        624,
+        5
+      ],
+      "models": [
+        "logistic",
+        "random_forest",
+        "mlp",
+        "extra_trees",
+        "hist_gradient_boosting"
+      ],
+      "source": "Frozen ImageNet ResNet18 with five sklearn heads trained on official train split",
+      "dataset": "PneumoniaMNIST official test split",
+      "dataset_source": "https://zenodo.org/records/10519652",
+      "weights_source": "torchvision ResNet18 ImageNet-1K V1"
+    }
+  ]
+}

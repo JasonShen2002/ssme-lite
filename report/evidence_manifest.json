@@ -1,0 +1,165 @@
+{
+  "note": "Reanalysis of saved experiments; no classifier training or complete benchmark reruns.",
+  "files": [
+    {
+      "path": "openi-ssme-lite/experiments/pneumoniamnist/results/nl20_nu400_m7/per_seed.csv",
+      "sha256": "a38a1edc53919fcf6d4b72fc3d36e55a8831cdc76179a883532b8229d3a98983"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/pneumoniamnist/results/nl20_nu400_m7/details.csv",
+      "sha256": "9643698e42a27d35c7d11bed05fa5bacab6e6c3ba43c96bf149444dcf20333da"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/per_seed.csv",
+      "sha256": "9aa25d8d73f0261099daab23a4a4317ffd7a3f227abe70fb2ad3e2880d12d68a"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/details.csv",
+      "sha256": "f734479aac26546190c1fa3dc2e8c6901d15c0992c3dea1971d8804a2f91dfc8"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed0.csv",
+      "sha256": "cb5218b06f65d6f1557024af7583f25530683298494d4e8e46d65f9bd99c7784"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed1.csv",
+      "sha256": "ee9a2daa12ff89f9cd75c54a7790fc3abdadbe96558ddd89b38c7fcb85a157d5"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed2.csv",
+      "sha256": "2f6acd7fb9dcedca1296738b9d6cd6d9c09ada8bf20d566c614e8e63d2d3a876"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed3.csv",
+      "sha256": "61da55f7d0d0e58378b193704bcfb86eb1a33d34590135622abc3211b305d97d"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed4.csv",
+      "sha256": "5e6980fd13b2dc88668ac6c6b32e158b35b721fb59135302169de2520b9b47f2"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed5.csv",
+      "sha256": "859cbb2d12cc7f0f27e35ac3f7359de9720c485763dc196c2193450183dd3dd5"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed6.csv",
+      "sha256": "97ebbbf570e9808c3979634a293f7a42ac0c3dcb29e2c041329d6fc6cb06ff39"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed7.csv",
+      "sha256": "233da93e93bd82f753656fa33ce827a22e5a97f3c76ed0be242df297b0fa52b0"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed8.csv",
+      "sha256": "e4c27ac962077db2fa246248aceeb90f2ce7f3ca8cea5ac01b76ec13250a5a22"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/contribution_seed9.csv",
+      "sha256": "543e8319a5b8162f896c6487801436b601a6e42ddecc9b096e0fe7db2ec51667"
+    },
+    {
+      "path": "openi-ssme-lite/reproduction/reference/civilcomments_details.csv",
+      "sha256": "12d972dd9dfb77e3e85aaaad553018ddef948827a2b8a9c859318d0bdccafc59"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl50_nu400_m5/per_seed.csv",
+      "sha256": "340a5aaa2cf9f5f4c41bdaccb47d8f251df0ef9db27c8f8d9fe3f122fe5af65c"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl100_nu400_m5/per_seed.csv",
+      "sha256": "5486c22e199753155484f7f700557e54ecdc3dadca0b8b89c5f5d1073418c02f"
+    },
+    {
+      "path": "openi-ssme-lite/ssme_lite/estimation/estimator.py",
+      "sha256": "d1c9bb4922e8e76f3e86c75bbf2c13099fa7e9e98f8acfc147f5908601aefde3"
+    },
+    {
+      "path": "openi-ssme-lite/ssme_lite/estimation/contribution.py",
+      "sha256": "de88c1d63374323a4859c41baced3e3f1a280650861f15a36b679078a9096c2f"
+    },
+    {
+      "path": "openi-ssme-lite/ssme_lite/benchmark/runner.py",
+      "sha256": "e4cdb7dbc0ccd1bdc5aac092030d1e75eab1886a397c8c5b49fef415cf2285f0"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/civilcomments/reproduce_official_split.py",
+      "sha256": "44e4f0cbf345dfe6d387c2dbdde190a0c793cf4b605c26357ff9b38a637ccdb7"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/transfer_models.py",
+      "sha256": "7042ff80d411c9b61593c2e686ec33d1133b994bbe1f8ec4389a565e9dd889a1"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/transfer_ssme.py",
+      "sha256": "9a0f8a3e90a4952fee17666cc680b6b279752af0d0896165ce2e83b3d37959a9"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/pneumoniamnist/pneumonia_ssme.py",
+      "sha256": "270535b117311fa7ccdecd9a9398f10a3574a9225e3ff34aa40a1f59553c8beb"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/pneumoniamnist/pneumonia_models.py",
+      "sha256": "a1d06bf7005a732e5237acab0772f41e969b673d4e1a9101f4cd8b1de78d1cf4"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/pneumoniamnist/results/nl20_nu400_m7/config.json",
+      "sha256": "4eb38a8d712b0ba1a5c5ac701a56b8eb9b007b433439f3896b7e8aa6174be6cb"
+    },
+    {
+      "path": "openi-ssme-lite/experiments/transfer/results/nl20_nu400_m5/config.json",
+      "sha256": "f606c87a8744061453574d42f00c5cd3ad5cd9778dd385fecf27ba891c6f4d3b"
+    }
+  ],
+  "civil_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    28,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    46,
+    48,
+    49,
+    50,
+    51,
+    53,
+    55,
+    56,
+    57,
+    58
+  ]
+}
