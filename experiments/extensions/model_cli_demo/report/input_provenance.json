@@ -1,0 +1,20 @@
+{
+  "source": "trusted_fitted_models",
+  "classes": [
+    0,
+    1
+  ],
+  "data_sha256": "6e3750c61a67b5d6c9013d8625e74ddeead26a09aa6e86432066e7cc6937c61b",
+  "models": [
+    {
+      "name": "logistic",
+      "path": "models/logistic.joblib",
+      "sha256": "f42a839abb9a76e2739cbebcc47f3bf326249b392d2519fc24487a4de06eeb52"
+    },
+    {
+      "name": "forest",
+      "path": "models/forest.joblib",
+      "sha256": "454b57b8d580cb4f6cba9292713a1a3915a9725bd9821d5cc389cb6c22d2cf2c"
+    }
+  ]
+}

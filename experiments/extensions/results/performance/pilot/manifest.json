@@ -1,0 +1,225 @@
+{
+  "study": "performance",
+  "profile": "pilot",
+  "fingerprint": "1a01adbc2379f8b574486c4dfcdaa1a69791b361d0cd0dde7957c9a8f38b3cfb",
+  "provenance": {
+    "files": {
+      "ssme_lite/__init__.py": "29c76e7c79772b7db2c3a8a92ed40f80768a7f9ec0d6833cc0720db76462f225",
+      "ssme_lite/benchmark/__init__.py": "9a1c5a6539fba275838df5aac40fe1505b80c0ae9d1ba621a8c14f6b254de165",
+      "ssme_lite/benchmark/datasets.py": "cec576a0af631fef22d0e7f2a730ad5f12db603b2986d2eba9bac91dfad657d3",
+      "ssme_lite/benchmark/runner.py": "e4cdb7dbc0ccd1bdc5aac092030d1e75eab1886a397c8c5b49fef415cf2285f0",
+      "ssme_lite/cli.py": "dad06dc6e3a6619660ae67ded06e4eb33e72c37abe6f85e7c7166e7d2d5e9dad",
+      "ssme_lite/estimation/__init__.py": "8540bbcf60d105c38b54b26b45a41a74947576545b45f63df329e14449d883bc",
+      "ssme_lite/estimation/contribution.py": "de88c1d63374323a4859c41baced3e3f1a280650861f15a36b679078a9096c2f",
+      "ssme_lite/estimation/estimator.py": "d1c9bb4922e8e76f3e86c75bbf2c13099fa7e9e98f8acfc147f5908601aefde3",
+      "ssme_lite/metrics/__init__.py": "b4dbecab2032d128b4f80dded17e3e94180d221e065f281922ed236b3edb4f91",
+      "ssme_lite/metrics/scores.py": "1a38733a65b5ba7c72b2dec9017911bbba9c192510b05f146bcb0d52d976fa0b",
+      "ssme_lite/prediction/__init__.py": "5e90045de755d2726a4ff50ddd4cbd4614cae9bb72d6963a80e01354a2c29a2e",
+      "ssme_lite/prediction/matrix.py": "e94c205fe6df7119d5e5e741e832b0d1d302fe5c934fe91a718386b145ef348e",
+      "ssme_lite/reporting/__init__.py": "4fa6d982c9054342243d98940bc4c15074b055e0605095188a671c6cacd1175f",
+      "ssme_lite/reporting/data.py": "c424c4d4afa18ce46222aadd74482b7ff965119d8bda0cd1c24c5fd2268357af",
+      "ssme_lite/reporting/html.py": "79684563a7eae977ec2198167c2cd42c3cfa7656328990ffcf7c8fdbd24af458",
+      "ssme_lite/reporting/report.py": "e8e0c73871b84438f977b05fa4a21949662b9f5f85c40bdb48b9585fcc484e50",
+      "ssme_lite/splits/__init__.py": "68822ac3c9b9087b0ef803a5892cf3e10e695c8b5a66b96f8f683d3bfa9fd282",
+      "ssme_lite/splits/split.py": "e603e2a031cf64e102f9196c964dd1a92bcbfe47d10ba6f7fa01adc98a0e91ca",
+      "experiments/extensions/analyze.py": "57055c74c4b9b7abd4f5fd2d7782d1defb2396a233b532abe7f23faccea8ef01",
+      "experiments/extensions/common.py": "165ef0d1ac90774c10a3636f103d536f39d8d3a612529bc3f34f024fbf6952f0",
+      "experiments/extensions/prepare_digits.py": "fd294259be035e0056b9ad45fe91d29671e1799d16256e7ba91b767c2c30a330",
+      "experiments/extensions/run.py": "7c34c301eb36830571e8523197e61ab4c2f95302c28721920782c490e019069b",
+      "experiments/extensions/studies.py": "05dfa9d5683dc28b8142820ddb170beb6b4a4244c10bea83dace8c80e5dad54d",
+      "experiments/extensions/PROTOCOL.md": "0801cea0496d7ad03fa63c549e6ec8f92828101ae77c93d1b886be797a8e9dee",
+      "reproduction/inputs/checkpoints.npz": "30ad2a0a821fbe5d95114f68d71566078546134c6b1fd75293f224b0e9419ed9",
+      "reproduction/inputs/transfer.npz": "5a8c23ef540d9ca09ecd8c19270be480c70ba30c3811b03ecc87618ba585c3a7"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "platform": "macOS-26.6-arm64-arm-64bit",
+      "machine": "arm64",
+      "versions": {
+        "numpy": "2.4.6",
+        "scipy": "1.17.1",
+        "pandas": "2.3.3",
+        "scikit-learn": "1.9.1",
+        "joblib": "1.6.0"
+      }
+    }
+  },
+  "expected_conditions": 10,
+  "timeout_seconds": 600,
+  "execution_jobs": 1,
+  "protocol_sha256": "0801cea0496d7ad03fa63c549e6ec8f92828101ae77c93d1b886be797a8e9dee",
+  "conditions": [
+    {
+      "id": "04161f2fe100edbc",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "real",
+        "n": 624,
+        "models": 7,
+        "classes": 2,
+        "workers": 1,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/04161f2fe100edbc.json",
+      "sha256": "49afb766da6764d77a7e353740b2a7283c20cf7f78d1c8966119b3306eca1b8e"
+    },
+    {
+      "id": "06a557bd7ba792b7",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "controlled",
+        "n": 1000,
+        "models": 3,
+        "classes": 2,
+        "workers": 1,
+        "batch": 128,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/06a557bd7ba792b7.json",
+      "sha256": "9d3e8b9f7cc018059bfa4779f8cf6d53d71cf2a4091e8e5af39fd6ebc5fcc4a1"
+    },
+    {
+      "id": "47714243d56462b5",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "controlled",
+        "n": 1000,
+        "models": 3,
+        "classes": 2,
+        "workers": 1,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/47714243d56462b5.json",
+      "sha256": "88f7134c8325d4d25eeef3196c37ab437a850f5102a353ad0a19befc7b7e68d7"
+    },
+    {
+      "id": "5752233cc60cb644",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "prediction",
+        "n": 1000,
+        "models": 3,
+        "classes": 2,
+        "workers": 1,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/5752233cc60cb644.json",
+      "sha256": "dce8b325ca9060631063d801e2f883c0eb9669e7ccacac492f9ae6d01aa4002e"
+    },
+    {
+      "id": "6e25b5ad31716d5a",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "real",
+        "n": 624,
+        "models": 7,
+        "classes": 2,
+        "workers": 2,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/6e25b5ad31716d5a.json",
+      "sha256": "49f1a6a27ce1f5ae9f20e0f476804f8c0882d0e3027b67a86027ce5c47d53211"
+    },
+    {
+      "id": "6fa9f35cfc4c1d38",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "controlled",
+        "n": 500,
+        "models": 3,
+        "classes": 2,
+        "workers": 1,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/6fa9f35cfc4c1d38.json",
+      "sha256": "cbccc98ca118b25b81dfa92e5d51b3353b21ba296b7b5680900a8e7341f03f23"
+    },
+    {
+      "id": "899a8c7aed51f756",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "controlled",
+        "n": 1000,
+        "models": 3,
+        "classes": 2,
+        "workers": 2,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/899a8c7aed51f756.json",
+      "sha256": "38782758b21d1dbeda7017ef8a343678e3e40523f2fc9c2d9273e21acef8f4db"
+    },
+    {
+      "id": "c2838e62c5468a2b",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "controlled",
+        "n": 1000,
+        "models": 6,
+        "classes": 2,
+        "workers": 1,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/c2838e62c5468a2b.json",
+      "sha256": "58e8e6ed1684ab5ebda1af91390f412979fafc5ee7d6136b32755d30c8a05fe4"
+    },
+    {
+      "id": "dc51212a266e5399",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "prediction",
+        "n": 1000,
+        "models": 3,
+        "classes": 2,
+        "workers": 2,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/dc51212a266e5399.json",
+      "sha256": "6e8b80c55ca887c12c4a19af27a10170670552feff66a3490b87bfb87f486b67"
+    },
+    {
+      "id": "fded9dd7d46f3240",
+      "status": "ok",
+      "job": {
+        "study": "performance",
+        "kind": "controlled",
+        "n": 1000,
+        "models": 3,
+        "classes": 5,
+        "workers": 1,
+        "batch": 512,
+        "repetition": 0,
+        "iterations": 5
+      },
+      "result": "runs/fded9dd7d46f3240.json",
+      "sha256": "0d09362da3af733ca8505e86683a2d8c8d0ff13f274f6761b5d2d95523361aed"
+    }
+  ],
+  "complete": true,
+  "successful_conditions": 10
+}

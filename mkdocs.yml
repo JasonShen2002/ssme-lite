@@ -19,6 +19,7 @@ nav:
       - Reports and metrics: guides/reports.md
       - Command line: guides/cli.md
       - Parallelism: guides/performance.md
+      - Extension experiments: guides/extensions.md
   - Method: method.md
   - API reference: api.md
   - Troubleshooting: troubleshooting.md

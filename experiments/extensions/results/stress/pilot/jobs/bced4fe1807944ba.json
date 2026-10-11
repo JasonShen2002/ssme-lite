@@ -1,0 +1,10 @@
+{
+  "study": "stress",
+  "classes": 10,
+  "seed": 101,
+  "budget": 60,
+  "regime": "six_diverse",
+  "pool_size": 240,
+  "iterations": 5,
+  "draws": 30
+}

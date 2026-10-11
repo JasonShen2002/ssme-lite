@@ -1,0 +1,7 @@
+classes,budget,comparison,n,mean_mae_change
+3,20,six_diverse minus three_diverse,2,-0.012638433000950945
+3,20,three_duplicated minus three_diverse,2,-0.0008535567960802869
+3,60,six_diverse minus three_diverse,2,-0.012401285035045041
+3,60,three_duplicated minus three_diverse,2,-0.0007368635079794683
+10,60,six_diverse minus three_diverse,2,0.015202459116164583
+10,60,three_duplicated minus three_diverse,2,0.014779478698392377

@@ -83,7 +83,7 @@ Returns `EvaluationReport`; `report` is an alias for `evaluate`. Metrics must be
 ## PredictionMatrixGenerator
 
 ```python
-PredictionMatrixGenerator(models, clip=1e-6, n_jobs=1)
+PredictionMatrixGenerator(models, clip=1e-6, n_jobs=1, batch_size=None)
 ```
 
 `models` is a mapping of names to already fitted classifiers, or a sequence assigned automatic names. Each classifier must expose `classes_` and `predict_proba(X)`.
@@ -91,6 +91,8 @@ PredictionMatrixGenerator(models, clip=1e-6, n_jobs=1)
 - `fit(X=None, y=None)` inspects models and aligns class columns; returns self.
 - `transform(X, y_partial=None)` collects probabilities; optional labels record labeled/unlabeled indices.
 - `fit_transform(X, y=None)` combines the two steps without training classifiers.
+
+In the current source checkout, `batch_size` optionally limits rows per candidate prediction call. NumPy, pandas and scipy sparse feature matrices retain row order; parallelism distributes models within each batch. The full output tensor remains in memory.
 
 Attributes include `model_names_`, `classes_`, and, after transformation, `sample_ids_`. Binary output is `(N, M)` for `classes_[1]`; multiclass output is `(N, M, K)`.
 

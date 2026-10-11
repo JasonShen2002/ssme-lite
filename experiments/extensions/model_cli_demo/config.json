@@ -1,0 +1,29 @@
+{
+  "source": "models",
+  "mode": "evaluate",
+  "data": "evaluation.npz",
+  "models": [
+    {
+      "name": "logistic",
+      "path": "models/logistic.joblib"
+    },
+    {
+      "name": "forest",
+      "path": "models/forest.joblib"
+    }
+  ],
+  "prediction": {
+    "n_jobs": 1,
+    "batch_size": 512
+  },
+  "estimator": {
+    "random_state": 0,
+    "max_iter": 100
+  },
+  "report": {
+    "n_draws": 100,
+    "target": "unlabeled",
+    "title": "Trusted model files \u2014 breast cancer example"
+  },
+  "output": "report"
+}

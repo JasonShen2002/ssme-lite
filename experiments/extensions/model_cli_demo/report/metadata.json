@@ -1,0 +1,21 @@
+{
+  "title": "Trusted model files \u2014 breast cancer example",
+  "primary_metric": "accuracy",
+  "random_state": 0,
+  "target": "unlabeled",
+  "n_samples": 208,
+  "n_labeled": 0,
+  "n_draws": 100,
+  "confidence": 0.95,
+  "interval_type": "conditional_latent_label",
+  "note": "Intervals are conditional latent-label uncertainty given a fitted posterior. They exclude density-fit, bandwidth and population sampling uncertainty. mc_standard_error measures numerical Monte Carlo error only.",
+  "bandwidth": 3.122862953494085,
+  "n_iter": 100,
+  "bandwidth_rule": "scott",
+  "labeled_weight": 10.0,
+  "tol": 0.001,
+  "max_iter": 100,
+  "early_stopping": false,
+  "stop_reason": "fixed_epochs",
+  "converged": true
+}

@@ -1,0 +1,11 @@
+{
+  "study": "performance",
+  "kind": "controlled",
+  "n": 1000,
+  "models": 3,
+  "classes": 5,
+  "workers": 1,
+  "batch": 512,
+  "repetition": 0,
+  "iterations": 5
+}

@@ -54,3 +54,12 @@ See the [PneumoniaMNIST](../docs/tutorials/pneumoniamnist.md), [transfer](../doc
 ## Historical protocol
 
 An earlier study used five published prediction families, including ResNet50 and auto-sklearn. It is preserved in [the historical report](archive/five_model_score_study.md) and [prediction-file audit](pneumoniamnist/AUDIT.md). Its candidate set and numerical results differ from the current seven-checkpoint inference study.
+
+
+## Unreleased extension studies (2026-10-11)
+
+The separate [extension results](extensions/RESULTS.md) add 42 performance
+conditions, 180 fixed-target label-efficiency conditions and 120 multiclass/
+redundancy conditions. They use new protocols and seeds and do not replace the
+manuscript numbers above. In particular, the new label-saving criterion did not
+pass, and multiclass missing-label failures are retained.

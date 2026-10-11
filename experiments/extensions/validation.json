@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-11",
+  "baseline_commit": "ec4b72c",
+  "source_tests": {
+    "passed": 48,
+    "skipped": 1
+  },
+  "installed_wheel_tests": {
+    "passed": 48,
+    "skipped": 1,
+    "outside_checkout": true
+  },
+  "mkdocs_strict": "passed",
+  "twine_strict": "passed",
+  "local_report_links": "passed",
+  "server_profile_executed": false,
+  "studies": {
+    "labels": {
+      "disjoint_pool_and_heldout": true,
+      "nested_labels": true,
+      "fixed_target_across_budgets": true,
+      "checked_conditions": 180,
+      "profile": "full",
+      "complete": true,
+      "expected_conditions": 180
+    },
+    "stress": {
+      "disjoint_pool_and_heldout": true,
+      "nested_labels": true,
+      "fixed_target_across_budgets": true,
+      "checked_conditions": 120,
+      "profile": "full",
+      "complete": true,
+      "expected_conditions": 120
+    },
+    "performance": {
+      "profile": "full",
+      "complete": true,
+      "successful_conditions": 42,
+      "expected_conditions": 42,
+      "max_parallel_batch_difference": 0.0
+    }
+  },
+  "sha256": {
+    "dist/extensions/ssme_lite-0.1.0-py3-none-any.whl": "291006f2a4d34376845d3ad1169a3d6c1b7b3b4c6a2b315fc0e5241daf0fd1a9",
+    "dist/extensions/ssme_lite-0.1.0.tar.gz": "94a0159bd9179a5f0f538b23173d7ffb80faf3a121fbd3335d93897a92c04b49",
+    "experiments/extensions/results/labels/full/summary.csv": "a978903585490bfcc7467f1bee4823ca5a653678aeb87944bd2e54dfe5a29f51",
+    "experiments/extensions/results/performance/full/summary.csv": "600f9407999a93ca4be0e7cbb067d68d92488b5b5e1f0ee9d17c358ed02a0329",
+    "experiments/extensions/results/stress/full/summary.csv": "e843200403173036cfd6dd016fcd320b44d83ee5d840e497621131795e78bbb2"
+  }
+}

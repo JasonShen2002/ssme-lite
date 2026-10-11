@@ -17,6 +17,10 @@ dist/
 *.tflite
 *.npz
 !reproduction/inputs/*.npz
+!experiments/extensions/inputs/*.npz
 
 
 /site/
+
+!experiments/extensions/model_cli_demo/evaluation.npz
+!experiments/extensions/model_cli_demo/report/predictions.npz

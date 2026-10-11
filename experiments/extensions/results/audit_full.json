@@ -1,0 +1,10 @@
+{
+  "profile": "full",
+  "raw_conditions": 342,
+  "checked_statistic_rows": 2358,
+  "checked_accuracy_truth_values": 8478,
+  "source_snapshot_files": 72,
+  "method_missing_class": 27,
+  "status": "passed",
+  "audit_script_sha256": "c978b4b26e35016f82c2ebf965cb6ae6ef23257051f70877c7a615924236574b"
+}

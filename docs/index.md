@@ -35,3 +35,5 @@ The core package consumes probabilities. Training models and downloading dataset
 
 - [Parallelism and workload sizing](guides/performance.md).
 - [Course requirements and evidence](course-requirements.md).
+
+- [Current checkout extensions](guides/extensions.md): fitted-model configuration and new experimental evidence.

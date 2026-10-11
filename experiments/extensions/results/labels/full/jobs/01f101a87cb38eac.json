@@ -1,0 +1,9 @@
+{
+  "study": "labels",
+  "pipeline": "transfer",
+  "seed": 102,
+  "budget": 20,
+  "pool_size": 420,
+  "iterations": 100,
+  "draws": 30
+}

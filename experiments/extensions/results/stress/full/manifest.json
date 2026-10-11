@@ -1,0 +1,1977 @@
+{
+  "study": "stress",
+  "profile": "full",
+  "fingerprint": "4cf743e61b780d8c8964affc150be79b013f0c106bcf96a63da3864dd806389a",
+  "provenance": {
+    "files": {
+      "ssme_lite/__init__.py": "29c76e7c79772b7db2c3a8a92ed40f80768a7f9ec0d6833cc0720db76462f225",
+      "ssme_lite/benchmark/__init__.py": "9a1c5a6539fba275838df5aac40fe1505b80c0ae9d1ba621a8c14f6b254de165",
+      "ssme_lite/benchmark/datasets.py": "cec576a0af631fef22d0e7f2a730ad5f12db603b2986d2eba9bac91dfad657d3",
+      "ssme_lite/benchmark/runner.py": "e4cdb7dbc0ccd1bdc5aac092030d1e75eab1886a397c8c5b49fef415cf2285f0",
+      "ssme_lite/cli.py": "dad06dc6e3a6619660ae67ded06e4eb33e72c37abe6f85e7c7166e7d2d5e9dad",
+      "ssme_lite/estimation/__init__.py": "8540bbcf60d105c38b54b26b45a41a74947576545b45f63df329e14449d883bc",
+      "ssme_lite/estimation/contribution.py": "de88c1d63374323a4859c41baced3e3f1a280650861f15a36b679078a9096c2f",
+      "ssme_lite/estimation/estimator.py": "d1c9bb4922e8e76f3e86c75bbf2c13099fa7e9e98f8acfc147f5908601aefde3",
+      "ssme_lite/metrics/__init__.py": "b4dbecab2032d128b4f80dded17e3e94180d221e065f281922ed236b3edb4f91",
+      "ssme_lite/metrics/scores.py": "1a38733a65b5ba7c72b2dec9017911bbba9c192510b05f146bcb0d52d976fa0b",
+      "ssme_lite/prediction/__init__.py": "5e90045de755d2726a4ff50ddd4cbd4614cae9bb72d6963a80e01354a2c29a2e",
+      "ssme_lite/prediction/matrix.py": "e94c205fe6df7119d5e5e741e832b0d1d302fe5c934fe91a718386b145ef348e",
+      "ssme_lite/reporting/__init__.py": "4fa6d982c9054342243d98940bc4c15074b055e0605095188a671c6cacd1175f",
+      "ssme_lite/reporting/data.py": "c424c4d4afa18ce46222aadd74482b7ff965119d8bda0cd1c24c5fd2268357af",
+      "ssme_lite/reporting/html.py": "79684563a7eae977ec2198167c2cd42c3cfa7656328990ffcf7c8fdbd24af458",
+      "ssme_lite/reporting/report.py": "e8e0c73871b84438f977b05fa4a21949662b9f5f85c40bdb48b9585fcc484e50",
+      "ssme_lite/splits/__init__.py": "68822ac3c9b9087b0ef803a5892cf3e10e695c8b5a66b96f8f683d3bfa9fd282",
+      "ssme_lite/splits/split.py": "e603e2a031cf64e102f9196c964dd1a92bcbfe47d10ba6f7fa01adc98a0e91ca",
+      "experiments/extensions/analyze.py": "9a94b17330cbcb39923c246e075ce3cf90b5d68db5add24934ef45a700fe8390",
+      "experiments/extensions/common.py": "5dd24e9a78cc7aa8e7cc2cf49a93775b0dc7ce457434366e6c301fe7fe9f43e9",
+      "experiments/extensions/prepare_digits.py": "fd294259be035e0056b9ad45fe91d29671e1799d16256e7ba91b767c2c30a330",
+      "experiments/extensions/run.py": "c84f7cb1b4dd2a5c825936165c42d9d838703981b463892a677fd2263ed31d50",
+      "experiments/extensions/studies.py": "05dfa9d5683dc28b8142820ddb170beb6b4a4244c10bea83dace8c80e5dad54d",
+      "experiments/extensions/PROTOCOL.md": "0801cea0496d7ad03fa63c549e6ec8f92828101ae77c93d1b886be797a8e9dee",
+      "experiments/extensions/inputs/digits10.npz": "d06fb7a5e027ff0e393abf618f6a485b9042c8dcf3612de2f9245917871d3dba",
+      "experiments/extensions/inputs/digits3.npz": "85be1bf1376d74887a36be891991ed73552fd23488d166024eccdcc33a47ff13",
+      "experiments/extensions/inputs/digits_manifest.json": "2e5fce238800b9dae605a9e96e01470f237dc73a1b7900515c7b2d67fb8d4165"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "platform": "macOS-26.6-arm64-arm-64bit",
+      "machine": "arm64",
+      "logical_cpus": 10,
+      "versions": {
+        "numpy": "2.4.6",
+        "scipy": "1.17.1",
+        "pandas": "2.3.3",
+        "scikit-learn": "1.9.1",
+        "joblib": "1.6.0"
+      }
+    }
+  },
+  "expected_conditions": 120,
+  "timeout_seconds": 600,
+  "execution_jobs": 2,
+  "protocol_sha256": "0801cea0496d7ad03fa63c549e6ec8f92828101ae77c93d1b886be797a8e9dee",
+  "conditions": [
+    {
+      "id": "069a855fcfe9c1b7",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 102,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/069a855fcfe9c1b7.json",
+      "sha256": "d45dcafe3c66f924c252bc8c1c82d9ad03ef2ee9471d94f599cab6aa275344a5"
+    },
+    {
+      "id": "0c0131a5f2984193",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 106,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0c0131a5f2984193.json",
+      "sha256": "3cc590f8202ab07d9a1f61670687b4ccc5f045852ce3c4e23fee0895c3ecd727"
+    },
+    {
+      "id": "0ff194965e148d56",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 103,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0ff194965e148d56.json",
+      "sha256": "82cb455b9f152031be9d5d928e12fd26362a721b66e7267f84b9272d18c36ebf"
+    },
+    {
+      "id": "10c0dd6c05150936",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 109,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/10c0dd6c05150936.json",
+      "sha256": "25a8771c78b0018740ad15a21bf9264077978117965162216b7bfa72536c9f18"
+    },
+    {
+      "id": "12eba2e819bbab48",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 109,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/12eba2e819bbab48.json",
+      "sha256": "a309c86c997511afa7b8e4c198d2abbb5103ef3f07c9388dfc3f6fe03ed53323"
+    },
+    {
+      "id": "13f229b187f8f2ea",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 101,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/13f229b187f8f2ea.json",
+      "sha256": "abd7f5f8e65d4fc1226d8238b6d750481e22c74c67f6f3af3a01dcbb75c70d58"
+    },
+    {
+      "id": "15a822611cddf24d",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 104,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/15a822611cddf24d.json",
+      "sha256": "2fa1060994b458a7bcd348b7aaa4b66a1cc0b8779867ed95fda0bf9fc4df7068"
+    },
+    {
+      "id": "16089bd6b70f13e2",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 102,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/16089bd6b70f13e2.json",
+      "sha256": "3708ebf7af57792a791376e42e5634f8dbff13bb3eef79d8e518f78d7394aa84"
+    },
+    {
+      "id": "18419bd5844c0a49",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 101,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/18419bd5844c0a49.json",
+      "sha256": "2f1fcc6f10623b8722925a1c570b8c92c551ae3e9213b9a04299c24e3bc6acda"
+    },
+    {
+      "id": "1c0cd7e7be37ec25",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 105,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1c0cd7e7be37ec25.json",
+      "sha256": "4354ef413c9c4811a6e342190f2727b9d35a6951fe2a360ac7dc7c4125e1544b"
+    },
+    {
+      "id": "1f436f2f8aad7442",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 103,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1f436f2f8aad7442.json",
+      "sha256": "9ebe0eb7f8d8422c4b023ed18d2cf37f0d31273953fb86037e0cd0c6785a7c0b"
+    },
+    {
+      "id": "1ff98f51252cdc2e",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 100,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1ff98f51252cdc2e.json",
+      "sha256": "39a80444e870015d49b01ad39c0a2e1c0f604834b7c79a69708cc422ede99c8d"
+    },
+    {
+      "id": "21548b41b18bab38",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 106,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/21548b41b18bab38.json",
+      "sha256": "f6fae543469623e3208d41253d87a15151c923a518ffcc7fee088f272ab929c0"
+    },
+    {
+      "id": "219ab8a3d4fc84fc",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 104,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/219ab8a3d4fc84fc.json",
+      "sha256": "3cfeaba26293a55f978f7ce6913551d270d7ae18a725216fadc64e3f82e6685f"
+    },
+    {
+      "id": "2217b4eb97d542b1",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 103,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/2217b4eb97d542b1.json",
+      "sha256": "3393963e694e4d2eab3605b91d490a234b6e6ce2d394f0e205edc21bd3e4f8ab"
+    },
+    {
+      "id": "2747ed14b39019c1",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 109,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/2747ed14b39019c1.json",
+      "sha256": "cb4cc4e001fdaa0af25ff6fb8b4266b6d4c4b1f909a9ed009c9ddb3131c6e8c1"
+    },
+    {
+      "id": "2749ca49567b6b3e",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 104,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/2749ca49567b6b3e.json",
+      "sha256": "85f767d5f5318750925e45df99be05593896b7df1d3d2ed1d88f6a9ae1833e52"
+    },
+    {
+      "id": "27dcca7854a5833a",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 106,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/27dcca7854a5833a.json",
+      "sha256": "88b3a1466d42ab1ed3041bcd4b4cedab4a3371d352b3e799203aed6f4cc65a63"
+    },
+    {
+      "id": "2e29138965a4f14d",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 102,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/2e29138965a4f14d.json",
+      "sha256": "8b5bc23fa6e9caa4a28b8142bd5d647ca19f5315235e6cb2b5715f0dd829c9c1"
+    },
+    {
+      "id": "2ea15d5cae614eed",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 106,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/2ea15d5cae614eed.json",
+      "sha256": "0a176aa03ba73e3677953be370a66fab54f51a4234ad34e9cf51a6a1f9dab346"
+    },
+    {
+      "id": "328617ae09347e79",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 109,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/328617ae09347e79.json",
+      "sha256": "df09550f8084da35074ec79bffd38115a28c69898900633a4a8c59ef509e5d1d"
+    },
+    {
+      "id": "34c13a9979dad46a",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 107,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/34c13a9979dad46a.json",
+      "sha256": "9f4374b989183fd3ba0343521208623b760a0615f5479c8dc3f0d86e21320718"
+    },
+    {
+      "id": "392af3b238b25f8c",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 107,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/392af3b238b25f8c.json",
+      "sha256": "1fcc33b784c7a887bb46bfc4c99b5ccc47e80e374fc753ac0c29f63fc0a53dd3"
+    },
+    {
+      "id": "3b3ba4ef140b3d12",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 107,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/3b3ba4ef140b3d12.json",
+      "sha256": "96963eb38645b9258f621ae6e8d330cb389ac8fd9d4f6f85a777562011ab197b"
+    },
+    {
+      "id": "3ee9c1203fae46d1",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 109,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/3ee9c1203fae46d1.json",
+      "sha256": "4beb965d6054a67a4aa2f074394df09d48a8201ca24bfe9687aa80a4d832256c"
+    },
+    {
+      "id": "3f161376ed572322",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 109,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/3f161376ed572322.json",
+      "sha256": "09172509611b9655af51ad50126c779719ce595b9efbe02be93880aefc7a22f2"
+    },
+    {
+      "id": "418d2d85a0c66a14",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 105,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/418d2d85a0c66a14.json",
+      "sha256": "3d88cf0b47d49d59948020fce3531c025038c76b75c14804bb3a88d368650dd9"
+    },
+    {
+      "id": "4208f9b3b586c687",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 100,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4208f9b3b586c687.json",
+      "sha256": "f4698559f501cd6a45fc007622861a55852d71885b73594cf681260a8cc763f9"
+    },
+    {
+      "id": "44e567c7c0fa795e",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 109,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/44e567c7c0fa795e.json",
+      "sha256": "bde8f9f3ec80e36ac9856f8116b0459961da3404797fc2b329fa224041169e4f"
+    },
+    {
+      "id": "48b46a2e49d45ca7",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 105,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/48b46a2e49d45ca7.json",
+      "sha256": "fba17634993f6746406d9f316fe71e5281a31e6606cb1a5bd80711203cb212cf"
+    },
+    {
+      "id": "4a6794dcf00223f5",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 103,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4a6794dcf00223f5.json",
+      "sha256": "d4884083a8dd7310b9c224daea9de3af645f554913f2e141441c705de88f5787"
+    },
+    {
+      "id": "4b080494a177fb26",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 106,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4b080494a177fb26.json",
+      "sha256": "9c91d13118c78691619f236dd850f196f40d2c4584b447c09681a1d0b102b9ad"
+    },
+    {
+      "id": "4eabde25ecf19613",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 101,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4eabde25ecf19613.json",
+      "sha256": "2fb702921ea8d837688a8a5a81edb5ca5075a2103c6a1b72e5f4c9b09d628888"
+    },
+    {
+      "id": "5099ce85a4d03a76",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 109,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5099ce85a4d03a76.json",
+      "sha256": "9dbfb436a73e3119c0ec9c2bb7cded9a3c0911f792813f988fe7e0ec742b0bc8"
+    },
+    {
+      "id": "50def3bfa40e4887",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 109,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/50def3bfa40e4887.json",
+      "sha256": "70e6a03b074ec158f92c8d893c46179b0af2066e6768eab0f4f730265704897d"
+    },
+    {
+      "id": "5160ea449039bd57",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 106,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5160ea449039bd57.json",
+      "sha256": "1bf253494987f651795b41d061ba57bd83e5280c91449cc12b80198121971fc2"
+    },
+    {
+      "id": "520dced1c670ac1e",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 102,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/520dced1c670ac1e.json",
+      "sha256": "ad45b1e2929a8b8356bade29d7fdbddcb7ab9a7cfe776ed65519119ae3ccabba"
+    },
+    {
+      "id": "53b8a546ff7539df",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 108,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/53b8a546ff7539df.json",
+      "sha256": "8f3b59938dec0257488266f80812251221d12b5e5a9dabda1931a9d39b2cce46"
+    },
+    {
+      "id": "559e9485b57e13f9",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 100,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/559e9485b57e13f9.json",
+      "sha256": "a6cce6e392c39dfeee1cdc6a0e5ab472777361ccee8ca9c3a7dab7f16aeaac0b"
+    },
+    {
+      "id": "55d26f7d776b47f9",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 101,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/55d26f7d776b47f9.json",
+      "sha256": "a648d5512595bdcd984dfe00e786173aa3aabfe987fc069909413701d9f4e755"
+    },
+    {
+      "id": "5644da7de3269154",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 100,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5644da7de3269154.json",
+      "sha256": "084c35e8cfc56c28e904a7994cfa69c2f96924f7b4899aa6c4a37f82400b54db"
+    },
+    {
+      "id": "5b4f1329d6acc9ba",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 107,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5b4f1329d6acc9ba.json",
+      "sha256": "2148cca6ae4c095fc0e4e75a5f42a06a61b16c4c22a67768cb16a47745fbcd17"
+    },
+    {
+      "id": "5ccece38242a26b8",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 108,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5ccece38242a26b8.json",
+      "sha256": "c229e9d1d5233613ecf210d3b66e31d083ce199c066e0550972fdb75935e7062"
+    },
+    {
+      "id": "5f22487af14ab388",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 101,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5f22487af14ab388.json",
+      "sha256": "6cb5a372c75599fa2d90b29a48ab315eac841289f335d60a2b292bf1a30918c2"
+    },
+    {
+      "id": "5f22bb687e0b6942",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 103,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5f22bb687e0b6942.json",
+      "sha256": "1adeef4575bc228718e51017157af226e8bf45a43b7242bbcd07743c3f5e37bb"
+    },
+    {
+      "id": "6150e142d25f1bd3",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 101,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6150e142d25f1bd3.json",
+      "sha256": "500a87602f621e46dab4120ac4c4eaf538e596f4291616c8a97b7935db24bc88"
+    },
+    {
+      "id": "62d431ff33ea307f",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 105,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/62d431ff33ea307f.json",
+      "sha256": "069230840f8d8db3527b509dfb766c247754b059f491435249c856285627bf14"
+    },
+    {
+      "id": "636555224d02f2c3",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 100,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/636555224d02f2c3.json",
+      "sha256": "26d77a56da468d7d9b8582ddea3e2af1963373152ef83e18dc0334eafbbfe80e"
+    },
+    {
+      "id": "654c394200a2659f",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 108,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/654c394200a2659f.json",
+      "sha256": "656d9cb3de94469cb0b79c143cc38c3346fc9802eec5c2037e2bddfe8b76a585"
+    },
+    {
+      "id": "695628c839704bae",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 106,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/695628c839704bae.json",
+      "sha256": "2b078d528538e0ee0e6c3f36c80d52a2f9de8c18f5c7fb46c724f5d9308e75e1"
+    },
+    {
+      "id": "6a58e1aa1e3943a0",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 102,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6a58e1aa1e3943a0.json",
+      "sha256": "10d08f6c1c0e811e3ee6cfa0ade5cfb8c101e3eaeb4b24b13559b37202ec569b"
+    },
+    {
+      "id": "6aedad2537a7cb15",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 107,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6aedad2537a7cb15.json",
+      "sha256": "7fbb4745ef021c32ebb8632e62a90abe508d8afd484657d41c6829b65dd002c9"
+    },
+    {
+      "id": "6bc8bb24f267129d",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 102,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6bc8bb24f267129d.json",
+      "sha256": "b0a44e7baacdd5ae3b0326c66276a8a10116d64bd68e3f4a4b6056555f0e07aa"
+    },
+    {
+      "id": "6ce5f93e056c9523",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 106,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6ce5f93e056c9523.json",
+      "sha256": "87850ca2bc9016ac279e2edd30707a19295d36ea50438f18f8bb9acae8333b67"
+    },
+    {
+      "id": "6dd624ab70e2ee17",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 100,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6dd624ab70e2ee17.json",
+      "sha256": "beaa819429cec23c10d5b83e703b32927c6187fb36a040b0aafba04beb0161c2"
+    },
+    {
+      "id": "70374779e96a9482",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 102,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/70374779e96a9482.json",
+      "sha256": "47af1c6958272e70bffa6eea4ba9588cb26c71e073c3706d26610e0d7e2f6415"
+    },
+    {
+      "id": "70448b89c5d65e8c",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 106,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/70448b89c5d65e8c.json",
+      "sha256": "6b322fb9c033883b7e6546548bcfdd13aecaea41a627abe487d634e2b8c4acc4"
+    },
+    {
+      "id": "7048ccc65a858a33",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 105,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7048ccc65a858a33.json",
+      "sha256": "6e8be2295aad2c62ae30908982a7f0d3ee349139605b46c5ea8ee3cb20ca8c04"
+    },
+    {
+      "id": "719fb587a7ed9c42",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 102,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/719fb587a7ed9c42.json",
+      "sha256": "ad42cda1935c8964def2418f93a17a72763332d1eb626f8df246e25303ad31b9"
+    },
+    {
+      "id": "720c5761c851b379",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 100,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/720c5761c851b379.json",
+      "sha256": "e8fef6dd940e2d53b57c6d1f34594ca5b7388bb0ae297fb0a88ea8b6c64f2fcd"
+    },
+    {
+      "id": "74e83234993b6c2d",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 104,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/74e83234993b6c2d.json",
+      "sha256": "f64119f57b69408536659569d18ef2f82736b0f8f3a4ba445ad66c2c831b4f5b"
+    },
+    {
+      "id": "75d48bb6eb14083f",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 103,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/75d48bb6eb14083f.json",
+      "sha256": "62571806b76d2d77bb3c081c6177e902010cb4ff0f83b9af8547337d75985856"
+    },
+    {
+      "id": "7ca5064793c912f2",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 100,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7ca5064793c912f2.json",
+      "sha256": "8ed15c25f7a398e1e5403cc337d0e8dfad54b963ec5bed2af10594f43d55dcb3"
+    },
+    {
+      "id": "7cf454e64b7359b6",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 106,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7cf454e64b7359b6.json",
+      "sha256": "ec91d98c7ca87c59877369fa0304002ddfcf51d6961124ced12fe7c2d7f8f8d2"
+    },
+    {
+      "id": "8326c42bc120d2f3",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 104,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8326c42bc120d2f3.json",
+      "sha256": "2a1996e0c88cbac4d02e9b8e84b5227861e3ca92509b9a255e3906e497a02730"
+    },
+    {
+      "id": "858bc2bfdd3ce5aa",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 108,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/858bc2bfdd3ce5aa.json",
+      "sha256": "97d26d89a3e756b0de34a307ea8226b69a7b729d7ae20b81f978a51c6861160a"
+    },
+    {
+      "id": "8602027b76c4f296",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 102,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8602027b76c4f296.json",
+      "sha256": "2b9f2b1565079ea131a81cc053abd696b9a230f79c4fadd10fe915b1e8a4e3ca"
+    },
+    {
+      "id": "883ea8d0149ca441",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 104,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/883ea8d0149ca441.json",
+      "sha256": "cc78823d11b11bf72c92ea907fe024705da4fe8af3443ccabd4a8974406fd5c7"
+    },
+    {
+      "id": "8af3f6b717e17221",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 106,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8af3f6b717e17221.json",
+      "sha256": "9f234428f69aba72d5e34b97183ea6f08a139a42ef638b7b10fe3082d2892537"
+    },
+    {
+      "id": "8da11ca0b1a40c39",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 103,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8da11ca0b1a40c39.json",
+      "sha256": "a08b4fdb0e5fb815551dd2d59b7ff3fc63f8d4e18ff8e3ecccb2f9214769780b"
+    },
+    {
+      "id": "8f0a5f4d1edc123d",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 101,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8f0a5f4d1edc123d.json",
+      "sha256": "3af822a91e7339edbe26f13360a8884b769e0196dd2023911b7df33338cd3bf5"
+    },
+    {
+      "id": "8f33ac41a4dd0053",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 107,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8f33ac41a4dd0053.json",
+      "sha256": "b69627f9c1661e03add52e5e411b838c8c0a840869af14b9993e37c5120eff38"
+    },
+    {
+      "id": "92fbe8f914d7fabd",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 105,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/92fbe8f914d7fabd.json",
+      "sha256": "c453375e2604cf19eb7bf02c0129424231b72b79757c3b08e48033acd3f54eca"
+    },
+    {
+      "id": "930f0d00c3624f8b",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 107,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/930f0d00c3624f8b.json",
+      "sha256": "b6daefa9c8e16591ac28460d49199cc1cf6cdddabe249d705fb475ad936d5260"
+    },
+    {
+      "id": "9481a7a053ba8052",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 104,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/9481a7a053ba8052.json",
+      "sha256": "ab8a0464dfc32d206d4b20e2e837dd3ae135b495240a1d691e291041f0ec727c"
+    },
+    {
+      "id": "9bed25a4e4138bae",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 105,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/9bed25a4e4138bae.json",
+      "sha256": "8d8dd4fe691b0462b50cfb9717167723edf9a2c7a7ed3da7a205b42200035961"
+    },
+    {
+      "id": "9e1f30b881f9bddc",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 108,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/9e1f30b881f9bddc.json",
+      "sha256": "02415da6c3cbe48abbb4afb1b608a60fa7a786fb99c81cc7c104ee094936da8d"
+    },
+    {
+      "id": "a22f93fe656c8053",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 107,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a22f93fe656c8053.json",
+      "sha256": "b899e5fa2ac3ca87ea804e3e135b6651bf6fec680ca73077c8460077d93434b7"
+    },
+    {
+      "id": "a35dc32363ba8eae",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 103,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a35dc32363ba8eae.json",
+      "sha256": "6dd0c10918443b1d93b03e11b03a450b8349880f82325ab79ee52130bee55705"
+    },
+    {
+      "id": "a38ce56f6fd3a807",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 103,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a38ce56f6fd3a807.json",
+      "sha256": "99077ce8267d034e86f495af480b32af6a802789db152ba7af7653c09fc8a768"
+    },
+    {
+      "id": "a7df8ad23baccf4b",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 101,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a7df8ad23baccf4b.json",
+      "sha256": "887382107de7b6fad31da23023ea9cb5e3cfce32c5ac8008b95829c41adf2413"
+    },
+    {
+      "id": "a8c6112d4766b2eb",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 108,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a8c6112d4766b2eb.json",
+      "sha256": "9476daf5bb24319da17e9bc4d6b46d090781407692a6f29b7df8306373f9be61"
+    },
+    {
+      "id": "a9d24487efb05e4a",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 105,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a9d24487efb05e4a.json",
+      "sha256": "6cfd4bae204d50d85be046c817227a7bc519dd8e2e543ef39a3981a5f4274219"
+    },
+    {
+      "id": "b544d0e05c90c539",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 107,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b544d0e05c90c539.json",
+      "sha256": "c497ca1474b7b341592c8c40f60a54d50fc3f9866a9f95f96d0815799c18d160"
+    },
+    {
+      "id": "b8726528aa15f5d9",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 101,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b8726528aa15f5d9.json",
+      "sha256": "2a043b029c1d9677fc5dbdd99f15d38fe2db0e8eada80c0dceca25ef3d988283"
+    },
+    {
+      "id": "b9c9419d9d961974",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 104,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b9c9419d9d961974.json",
+      "sha256": "65563aa300a8de4b17194548339c3d56e778f06b95d1c9b74470e2e15d30c806"
+    },
+    {
+      "id": "bba260f5bf201c2f",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 101,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/bba260f5bf201c2f.json",
+      "sha256": "3b6c8a1da8aaf8cdae7e08e68963b3f9e7664ba8af89c069600de25252ef99fc"
+    },
+    {
+      "id": "bd0abf3bb1cf2575",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 109,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/bd0abf3bb1cf2575.json",
+      "sha256": "54e276880d35e9b1b9b8839625f9c5abd2c0052ffeac8a9fb166ef53ab0d1ac7"
+    },
+    {
+      "id": "c0cdd67c583ade60",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 100,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c0cdd67c583ade60.json",
+      "sha256": "ef9c99abe17887bcee45094a2eea71f5a7e8490807b9b11809c28c2920b6a299"
+    },
+    {
+      "id": "c10425b5855c2276",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 102,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c10425b5855c2276.json",
+      "sha256": "0441bede44d8f1e9c0e8b78ed35ee8a4ef3e65c042db0ef03071690ebc788649"
+    },
+    {
+      "id": "c2560cc20df273e7",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 105,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c2560cc20df273e7.json",
+      "sha256": "1796b3b593a981c759641a670f4c32a7851098471679125ae00c7ae6feeaa31b"
+    },
+    {
+      "id": "c28305a5e2f89e11",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 101,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c28305a5e2f89e11.json",
+      "sha256": "7b2398fe3b76259cb6b190ca2b6fdac9dc37a5070e85843d76b30bc83d8081d7"
+    },
+    {
+      "id": "c2a0317085c72f49",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 104,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c2a0317085c72f49.json",
+      "sha256": "5c32ca756d98cae877acff5c7f03faa17cd7da4ec6cb416ac87a6bb5eda415db"
+    },
+    {
+      "id": "c538bfb24af4d34e",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 108,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c538bfb24af4d34e.json",
+      "sha256": "06dd6c9abda4bcfcaeaa51f749f18eef87a3c10b5666ae485d299e27c7025566"
+    },
+    {
+      "id": "c5a16374976774f8",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 105,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c5a16374976774f8.json",
+      "sha256": "263bc5563fd7eb3e707f0d166bba73ad1f858dc37385e388926be080cc076ef3"
+    },
+    {
+      "id": "cb1c36294b230367",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 102,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cb1c36294b230367.json",
+      "sha256": "0f72513d9b08958d07ea8a1ce11772a2ace466014794214c84866edb4a544b35"
+    },
+    {
+      "id": "cd4fe7195e653a26",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 109,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cd4fe7195e653a26.json",
+      "sha256": "034df56b97c8faa7aa31ff3172484a8e73f7f825020cd01c154378239f894327"
+    },
+    {
+      "id": "cf9183550013f27a",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 108,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cf9183550013f27a.json",
+      "sha256": "05584ddcae41ce3ffed7d630c5bf42cc2b53417486d589b3f3aee339678ffd07"
+    },
+    {
+      "id": "d0adbe02c8417ed0",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 105,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d0adbe02c8417ed0.json",
+      "sha256": "dba2ac5bde4260e7c9449bd3d24e7427083b0d755d69ae7318d725fbb8d1a44d"
+    },
+    {
+      "id": "d0f1c04ac8e26aed",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 103,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d0f1c04ac8e26aed.json",
+      "sha256": "f1fb864ffb0245195830a99a81dfe7d61f65aa56cdb767b831f5e8c450781c1d"
+    },
+    {
+      "id": "d47ff9ae5a7cfef2",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 107,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d47ff9ae5a7cfef2.json",
+      "sha256": "348ea82049ca2fd6beda2bd7a1057ddfbbe3de6eb0b8a964caa38a1a72ab2306"
+    },
+    {
+      "id": "d7eb39027ce5bd48",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 100,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d7eb39027ce5bd48.json",
+      "sha256": "52e147ecbff311f902883119d41dff6504706644c992669b22a908ecd548d2dc"
+    },
+    {
+      "id": "db40f41579de4259",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 106,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/db40f41579de4259.json",
+      "sha256": "0b59d85136a38a10a877809d5f2ef6e082df8168414204fc9fac65a2b799cbc2"
+    },
+    {
+      "id": "df2216a4a154d382",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 108,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/df2216a4a154d382.json",
+      "sha256": "2d57a0792f7fcfb5b93f18622c710af49912a9efe46e2e3dd758bd8f4671ecec"
+    },
+    {
+      "id": "e14e2a6ccb7a7f31",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 100,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e14e2a6ccb7a7f31.json",
+      "sha256": "963bc0602893c3db708a6117b8026bec4dab70cf927d5da5b9cc6559f9a686d0"
+    },
+    {
+      "id": "e34c0dbdd6abffa0",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 104,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e34c0dbdd6abffa0.json",
+      "sha256": "bd4444c0fab0db7d6c9270091f70fd79af338ed396479005fbb26781eb8aec94"
+    },
+    {
+      "id": "e4ec57cb8ceea480",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 107,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e4ec57cb8ceea480.json",
+      "sha256": "a9636145c269c760110f16506df23023270d38b68ea2b4beef7232d7508e6441"
+    },
+    {
+      "id": "e7ef2869799cc342",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 108,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e7ef2869799cc342.json",
+      "sha256": "30f4e4e050c173739df6d7397bc19df9da54d16f66ecc7dc817d0b65c5dd62b7"
+    },
+    {
+      "id": "e985f90fb3a05560",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 102,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e985f90fb3a05560.json",
+      "sha256": "c6b194190b903fc74ddbe0fe5291899d2c7ee3f97cc8a1c9879d70c49621c178"
+    },
+    {
+      "id": "ed682ad0fe5d3e65",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 103,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ed682ad0fe5d3e65.json",
+      "sha256": "a63d2db419ee16ef87c280810374fdbc09cd9c5d6705a137d6e051d88bb768bc"
+    },
+    {
+      "id": "efc3031605932f33",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 108,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/efc3031605932f33.json",
+      "sha256": "38489985e9c3789f254fcd3d24ca8b025ea539aba8e40edc8429e1c3d8170d23"
+    },
+    {
+      "id": "f06b1da71994ca63",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 105,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f06b1da71994ca63.json",
+      "sha256": "b6a93ad27892679f8095b5d4dcd5e11ea68a7403f53886f145f811d31282cb91"
+    },
+    {
+      "id": "f18366195e3ec3b5",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 101,
+        "budget": 20,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f18366195e3ec3b5.json",
+      "sha256": "6aba80d8473bb2460721bbc677b22ae8941b725d0cfe80d479ea22f7604fe649"
+    },
+    {
+      "id": "f1dabc6d1811616e",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 109,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f1dabc6d1811616e.json",
+      "sha256": "bf2ed008076f5f29a6595267fca149002390170233237083e9afb8f5095af1be"
+    },
+    {
+      "id": "f54a8ea44847069a",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 108,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f54a8ea44847069a.json",
+      "sha256": "1f419632b66c9a943e1ef45900f85c3b2f53d580931030d26a5b3dd284bbc106"
+    },
+    {
+      "id": "f56d39cd08b7bfba",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 100,
+        "budget": 60,
+        "regime": "three_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f56d39cd08b7bfba.json",
+      "sha256": "10577c15507f8ab0fdb7a0507f5369b5e86d9a88465e98189d94a3522b4ca290"
+    },
+    {
+      "id": "f64607ea0c86cb7f",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 107,
+        "budget": 20,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f64607ea0c86cb7f.json",
+      "sha256": "2d1dba71bb2ebd810c5ac113ba7a195da8ebf35c56cc91d65d8c694e5c7bc8ad"
+    },
+    {
+      "id": "fc94ae60793e051b",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 10,
+        "seed": 104,
+        "budget": 60,
+        "regime": "three_duplicated",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/fc94ae60793e051b.json",
+      "sha256": "dd209aec182ade35c130cc5f56650bf00860bc8196d5eda415a7152e4e44c740"
+    },
+    {
+      "id": "ff4ad29a7b6f8d31",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 104,
+        "budget": 20,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ff4ad29a7b6f8d31.json",
+      "sha256": "46ae1b2850ad4e66bc05b7db0489c6046ab5b755083059d006e819b4c772b5b3"
+    },
+    {
+      "id": "fff746004bad9fcd",
+      "status": "ok",
+      "job": {
+        "study": "stress",
+        "classes": 3,
+        "seed": 103,
+        "budget": 60,
+        "regime": "six_diverse",
+        "pool_size": 240,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/fff746004bad9fcd.json",
+      "sha256": "367e8e61cd32f30993c36d805e7a57701f1ffaf630e2626378dbf6dd8c155483"
+    }
+  ],
+  "complete": true,
+  "successful_conditions": 120
+}

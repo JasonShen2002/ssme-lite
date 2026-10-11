@@ -4,6 +4,7 @@ recursive-include examples *.py
 recursive-include tests *.py
 recursive-include ssme_lite *.py py.typed *.html *.css *.js
 prune experiments
+include experiments/extensions/common.py
 prune data
 prune results
 prune site

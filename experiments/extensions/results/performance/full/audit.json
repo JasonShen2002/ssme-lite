@@ -1,0 +1,7 @@
+{
+  "profile": "full",
+  "complete": true,
+  "successful_conditions": 42,
+  "expected_conditions": 42,
+  "max_parallel_batch_difference": 0.0
+}

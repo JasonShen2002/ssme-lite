@@ -1,0 +1,6 @@
+{
+  "analyzer_sha256": "f23477c32e7598b9aeefd25bf90b6bfb5a907bd22abe13addc0ecbaabd6106f2",
+  "statistics_helpers_sha256": "5dd24e9a78cc7aa8e7cc2cf49a93775b0dc7ce457434366e6c301fe7fe9f43e9",
+  "measurement_manifest_sha256": "950d6a86bc7a01d0e77ffab5f108c592b47ab14573993c8b4def8f561d9958e7",
+  "note": "Post-run analysis; measurement source_snapshot remains unchanged. Stress plot uses full-coverage budgets."
+}

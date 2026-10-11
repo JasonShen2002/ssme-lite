@@ -1,0 +1,2756 @@
+{
+  "study": "labels",
+  "profile": "full",
+  "fingerprint": "3ae64847b5706d274b0f9a609dabe85e9ff1e9ac3842486d1bf314a027028ccd",
+  "provenance": {
+    "files": {
+      "ssme_lite/__init__.py": "29c76e7c79772b7db2c3a8a92ed40f80768a7f9ec0d6833cc0720db76462f225",
+      "ssme_lite/benchmark/__init__.py": "9a1c5a6539fba275838df5aac40fe1505b80c0ae9d1ba621a8c14f6b254de165",
+      "ssme_lite/benchmark/datasets.py": "cec576a0af631fef22d0e7f2a730ad5f12db603b2986d2eba9bac91dfad657d3",
+      "ssme_lite/benchmark/runner.py": "e4cdb7dbc0ccd1bdc5aac092030d1e75eab1886a397c8c5b49fef415cf2285f0",
+      "ssme_lite/cli.py": "dad06dc6e3a6619660ae67ded06e4eb33e72c37abe6f85e7c7166e7d2d5e9dad",
+      "ssme_lite/estimation/__init__.py": "8540bbcf60d105c38b54b26b45a41a74947576545b45f63df329e14449d883bc",
+      "ssme_lite/estimation/contribution.py": "de88c1d63374323a4859c41baced3e3f1a280650861f15a36b679078a9096c2f",
+      "ssme_lite/estimation/estimator.py": "d1c9bb4922e8e76f3e86c75bbf2c13099fa7e9e98f8acfc147f5908601aefde3",
+      "ssme_lite/metrics/__init__.py": "b4dbecab2032d128b4f80dded17e3e94180d221e065f281922ed236b3edb4f91",
+      "ssme_lite/metrics/scores.py": "1a38733a65b5ba7c72b2dec9017911bbba9c192510b05f146bcb0d52d976fa0b",
+      "ssme_lite/prediction/__init__.py": "5e90045de755d2726a4ff50ddd4cbd4614cae9bb72d6963a80e01354a2c29a2e",
+      "ssme_lite/prediction/matrix.py": "e94c205fe6df7119d5e5e741e832b0d1d302fe5c934fe91a718386b145ef348e",
+      "ssme_lite/reporting/__init__.py": "4fa6d982c9054342243d98940bc4c15074b055e0605095188a671c6cacd1175f",
+      "ssme_lite/reporting/data.py": "c424c4d4afa18ce46222aadd74482b7ff965119d8bda0cd1c24c5fd2268357af",
+      "ssme_lite/reporting/html.py": "79684563a7eae977ec2198167c2cd42c3cfa7656328990ffcf7c8fdbd24af458",
+      "ssme_lite/reporting/report.py": "e8e0c73871b84438f977b05fa4a21949662b9f5f85c40bdb48b9585fcc484e50",
+      "ssme_lite/splits/__init__.py": "68822ac3c9b9087b0ef803a5892cf3e10e695c8b5a66b96f8f683d3bfa9fd282",
+      "ssme_lite/splits/split.py": "e603e2a031cf64e102f9196c964dd1a92bcbfe47d10ba6f7fa01adc98a0e91ca",
+      "experiments/extensions/analyze.py": "9a94b17330cbcb39923c246e075ce3cf90b5d68db5add24934ef45a700fe8390",
+      "experiments/extensions/common.py": "5dd24e9a78cc7aa8e7cc2cf49a93775b0dc7ce457434366e6c301fe7fe9f43e9",
+      "experiments/extensions/prepare_digits.py": "fd294259be035e0056b9ad45fe91d29671e1799d16256e7ba91b767c2c30a330",
+      "experiments/extensions/run.py": "c84f7cb1b4dd2a5c825936165c42d9d838703981b463892a677fd2263ed31d50",
+      "experiments/extensions/studies.py": "05dfa9d5683dc28b8142820ddb170beb6b4a4244c10bea83dace8c80e5dad54d",
+      "experiments/extensions/PROTOCOL.md": "0801cea0496d7ad03fa63c549e6ec8f92828101ae77c93d1b886be797a8e9dee",
+      "reproduction/inputs/checkpoints.npz": "30ad2a0a821fbe5d95114f68d71566078546134c6b1fd75293f224b0e9419ed9",
+      "reproduction/inputs/transfer.npz": "5a8c23ef540d9ca09ecd8c19270be480c70ba30c3811b03ecc87618ba585c3a7"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "platform": "macOS-26.6-arm64-arm-64bit",
+      "machine": "arm64",
+      "logical_cpus": 10,
+      "versions": {
+        "numpy": "2.4.6",
+        "scipy": "1.17.1",
+        "pandas": "2.3.3",
+        "scikit-learn": "1.9.1",
+        "joblib": "1.6.0"
+      }
+    }
+  },
+  "expected_conditions": 180,
+  "timeout_seconds": 600,
+  "execution_jobs": 2,
+  "protocol_sha256": "0801cea0496d7ad03fa63c549e6ec8f92828101ae77c93d1b886be797a8e9dee",
+  "conditions": [
+    {
+      "id": "0043c023e04e8e29",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 102,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0043c023e04e8e29.json",
+      "sha256": "85369594d3d5b72dae612c744a7aeeb4863e57c040701877ebd6109dfe9a8c37"
+    },
+    {
+      "id": "01f101a87cb38eac",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 102,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/01f101a87cb38eac.json",
+      "sha256": "ada1e38cbf06a06be864977bc1123e658222727d88d42f51db6323bc4d079da9"
+    },
+    {
+      "id": "01fbbfe0cdf9407e",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 104,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/01fbbfe0cdf9407e.json",
+      "sha256": "931d9e11b78d81e2f003f7f97d51c2d4e919bad983f90ac4663de4ea692aa38a"
+    },
+    {
+      "id": "02dc25667733a708",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 101,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/02dc25667733a708.json",
+      "sha256": "628831aaa20cb8f5a34eb516188e17ecb47248f852b007589b3aa5407db814c4"
+    },
+    {
+      "id": "050251fc1a5fa00c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 116,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/050251fc1a5fa00c.json",
+      "sha256": "4f484dd7661ccc810be3b3c7cbd408a0562eef11d5edb71ad1705938f5c83ba0"
+    },
+    {
+      "id": "066f46639ca1d6b0",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 117,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/066f46639ca1d6b0.json",
+      "sha256": "eccbc8a64cac1100bd1a985a09023cb3ca16fd258802cd78d899c2b5bd639f7d"
+    },
+    {
+      "id": "0778cbed76b0004e",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 103,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0778cbed76b0004e.json",
+      "sha256": "bbe648a62b747f880fa9f9a2f50b281bdef734def93cdc8297098abf3094dc64"
+    },
+    {
+      "id": "0a56955c5d12576d",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 114,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0a56955c5d12576d.json",
+      "sha256": "d8a2c412e3080de199439c3d187aacf9e906e814b6576e7344c0f5e9d4e857fb"
+    },
+    {
+      "id": "0ca47b04352c8fd2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 124,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0ca47b04352c8fd2.json",
+      "sha256": "690963f93a3ca59dc4ea30794a232beb64b5ce7eb7716f87a44e3d8705d3478a"
+    },
+    {
+      "id": "0cc37fe069ba36a6",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 129,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0cc37fe069ba36a6.json",
+      "sha256": "4643f1f8d7389a125acd9590ce1f94b71959700e3ca015abd0f312dc91049fa8"
+    },
+    {
+      "id": "0db36b9f87659b59",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 100,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0db36b9f87659b59.json",
+      "sha256": "a76b4276c3c35cfa42fbc166fdeebce546a2abaa5ed1097ee8d7399027fdfc3c"
+    },
+    {
+      "id": "0e00d05d53876dfd",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 123,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/0e00d05d53876dfd.json",
+      "sha256": "0d03c12838aee5eeeeb250a7096387192132b99b23c5e803c0caabb56f6e1058"
+    },
+    {
+      "id": "108601fbed114b44",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 109,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/108601fbed114b44.json",
+      "sha256": "5240033e161bd4037c510ba24cb8411e60cd95876cca40f0eb15a12f498d3c74"
+    },
+    {
+      "id": "10aa2182b1007280",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 114,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/10aa2182b1007280.json",
+      "sha256": "33945edaa335786269ebccd8280a11fb876faddf6c3566c0e3aa88a6605d3b87"
+    },
+    {
+      "id": "13e595f393ff41c2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 101,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/13e595f393ff41c2.json",
+      "sha256": "a4d483fbef0391e16fc934b22a0ae9d56f3419237dde6654f8728502570f0397"
+    },
+    {
+      "id": "14a31316e70ec2de",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 129,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/14a31316e70ec2de.json",
+      "sha256": "f103d4bdac45c0ed55f3b26a2bf418b5c37c8be44527f4ef458f86223609a2d5"
+    },
+    {
+      "id": "152d0bcfbf6aaa01",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 101,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/152d0bcfbf6aaa01.json",
+      "sha256": "7035d77c32ddb2d3e54aca43c7918cc4c049d5e2c8d16dcca4540158f662badb"
+    },
+    {
+      "id": "169c66c375828c4b",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 111,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/169c66c375828c4b.json",
+      "sha256": "7742fcbb2ca6574206d49d43395b1d906765958377b0f8039136ffa3a0c79bc4"
+    },
+    {
+      "id": "1779b60e4e8194dc",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 123,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1779b60e4e8194dc.json",
+      "sha256": "28d1145db3c6402a7bc619f3e257652d49a6706f645d959031f2d0b6e0bddfc3"
+    },
+    {
+      "id": "18549f5f14867565",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 113,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/18549f5f14867565.json",
+      "sha256": "cc51bb5b10404dd30ffa678cd6bc4cf0b83724334418032fefdc9fccd4d1d21d"
+    },
+    {
+      "id": "187677c62728675f",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 105,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/187677c62728675f.json",
+      "sha256": "d169c65dbb55c4715e092aa8911168844fb19e3661f16e4c903b624184a4b889"
+    },
+    {
+      "id": "1a7057bb491aeb27",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 112,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1a7057bb491aeb27.json",
+      "sha256": "b00c8dbffd916074c47711a22a6cd9c51f099d1dd8ead0fc1e3e14150736131d"
+    },
+    {
+      "id": "1a9930bb1dce8de6",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 120,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1a9930bb1dce8de6.json",
+      "sha256": "065e1b465337dd3ace5daaaa4318c9498e3a51f06423f60ed6cf274414c474dc"
+    },
+    {
+      "id": "1caa090eeb0c2d83",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 125,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1caa090eeb0c2d83.json",
+      "sha256": "761a8677e1654285e7752727a4fb0e437ed61880a1f0408db5ef43a74e9250a9"
+    },
+    {
+      "id": "1f48913373f9b880",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 103,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/1f48913373f9b880.json",
+      "sha256": "6b04d150ee2d62522974c7854ecd8f0282946b52badeb2da61ada34116eb7a23"
+    },
+    {
+      "id": "21da150aeccbb5f0",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 106,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/21da150aeccbb5f0.json",
+      "sha256": "abdc3e9d1ed2856f16c3983bf745d7294fdade3accd71f6bd67baf2c486fa25e"
+    },
+    {
+      "id": "24a3886d4e779c8a",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 118,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/24a3886d4e779c8a.json",
+      "sha256": "2b2b85aadebc8df61c9e134887fb5c9e8d509977dfe4525b6b10985e0aeb3add"
+    },
+    {
+      "id": "26e9f0f1684c16de",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 127,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/26e9f0f1684c16de.json",
+      "sha256": "acddcfdf19bf82c40e0c8034b3b690805264c284765cc5e6f8839e9b34ea0326"
+    },
+    {
+      "id": "2a9c388c9c018522",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 116,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/2a9c388c9c018522.json",
+      "sha256": "c70d08055e84362ea46a8fa1530b5380b09763fb279f77f892f65600f72e4cc9"
+    },
+    {
+      "id": "2d9611cf51127e17",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 118,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/2d9611cf51127e17.json",
+      "sha256": "2eb17edbfcaaa347dcda719dce18b78600259c90136f680d91deb2888a73e2a2"
+    },
+    {
+      "id": "341e02673cbaa649",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 121,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/341e02673cbaa649.json",
+      "sha256": "a3316a02384a072292d507c05b600eacad1e61f66c1723284eda83f3cc7eeb55"
+    },
+    {
+      "id": "349b6f2715b0f689",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 108,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/349b6f2715b0f689.json",
+      "sha256": "33228b23141831eb2dc1227b3c5d0cc069edde4d2a83bebae11ab4153847457e"
+    },
+    {
+      "id": "34b3dfcdbd59c77d",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 122,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/34b3dfcdbd59c77d.json",
+      "sha256": "6c3ba5b34f3aa6734bea8233878cc9230aa20f649e19c92227282b841c388ec7"
+    },
+    {
+      "id": "351c5a3dc386a8ee",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 107,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/351c5a3dc386a8ee.json",
+      "sha256": "87ad042231472ca76732222326cb6cff6e282b4ecc083b094750216ef2c6cd00"
+    },
+    {
+      "id": "365c206c4e20f97b",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 101,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/365c206c4e20f97b.json",
+      "sha256": "9c35ea0c698d9f917809f9c9aeb78af06edc892f0a586b02eb32eb44d02556bd"
+    },
+    {
+      "id": "39b4372d3b7917da",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 103,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/39b4372d3b7917da.json",
+      "sha256": "c51dad54c53fd9d9032bb55c1c4023101a638686942ef44e726e36ce1e5e700d"
+    },
+    {
+      "id": "39bb6d99561de3d4",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 108,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/39bb6d99561de3d4.json",
+      "sha256": "58a3c139e45680e9b72617594a2132e4d1bf67a4b7ce731f43b33346678d1730"
+    },
+    {
+      "id": "39d7197cfe09e491",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 126,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/39d7197cfe09e491.json",
+      "sha256": "282ff173e9bc4fb7b0a2e6c572c7ea9786a49866e95cb5acc97a61e05d27bd3b"
+    },
+    {
+      "id": "3b40d5024443fd4d",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 127,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/3b40d5024443fd4d.json",
+      "sha256": "0d4a831e8fea790e1f3848701af30bd17c17c23305d3b3c188d799266dbd81b5"
+    },
+    {
+      "id": "3b58c4e2745623ab",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 110,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/3b58c4e2745623ab.json",
+      "sha256": "f7e7dd30e3f0858e5de9dbfd92937051c20d4e02edc25bd904f1a40c9a5db207"
+    },
+    {
+      "id": "40664b23e141b5eb",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 105,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/40664b23e141b5eb.json",
+      "sha256": "ea7a01c7aff2df7002bb28c1b8ebb4ea37ad36c0a20ff74864a57c15487622e2"
+    },
+    {
+      "id": "40ef06e1551e770f",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 123,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/40ef06e1551e770f.json",
+      "sha256": "884ebfbc8c8cba51d9fffd6f7aa71c6ac9a19a320ed547e36dce54310e0c3627"
+    },
+    {
+      "id": "42491e9215943a26",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 129,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/42491e9215943a26.json",
+      "sha256": "637a84b9ba06cb4b22ea14dc6b566ddd5b1f165d2346b65611852db9f07ba02d"
+    },
+    {
+      "id": "436da455176fe3d4",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 124,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/436da455176fe3d4.json",
+      "sha256": "51e1c2378009b49c933e51b883ab96db8d7385f0dfbc9a3e5307f2ae4e52fdb9"
+    },
+    {
+      "id": "468d0e3c3adba398",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 104,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/468d0e3c3adba398.json",
+      "sha256": "2e03f98d87e51bbd8d09a39970a3450c44b9b5c9834d297a556e895988737af0"
+    },
+    {
+      "id": "490ab4c071461ba7",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 115,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/490ab4c071461ba7.json",
+      "sha256": "3ee8923470ea38c8205f64cfb90363a3d4c44f6c19bece511e0bf6449735e974"
+    },
+    {
+      "id": "4991d6ab4572c686",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 121,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4991d6ab4572c686.json",
+      "sha256": "dc5063ae2d92df25a3a65bc7a3c931d4928bea1ed722b5c965188d55f76fdda9"
+    },
+    {
+      "id": "4a740fab76fcaca5",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 122,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4a740fab76fcaca5.json",
+      "sha256": "db1d9f5adb6cde8c424c50588770f34437f8f1e51f090a9c0a145e96b120c4a6"
+    },
+    {
+      "id": "4ace254383c8f24d",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 128,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4ace254383c8f24d.json",
+      "sha256": "b13ef133836618caf269f3f872646c042ba8d41ce53a66a1a79184f13ca4610a"
+    },
+    {
+      "id": "4b803ef46aafd924",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 113,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4b803ef46aafd924.json",
+      "sha256": "27234f5e1fe8b4449bf62eb222dafc706ac92d3691ad92f5e602ff8970fb5897"
+    },
+    {
+      "id": "4b8fe22afc0c67f8",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 126,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4b8fe22afc0c67f8.json",
+      "sha256": "13f88419c4bf73e3a4b24c5579abafc51081878e26cef3e8d1ea6a65f923fc7c"
+    },
+    {
+      "id": "4bfc2de5f7dd1621",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 113,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4bfc2de5f7dd1621.json",
+      "sha256": "6b07eab2d14e306eb4d2d7b0d318d5db344a9a53ce8d69725ab589d2a1361461"
+    },
+    {
+      "id": "4c102f2d4245d129",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 110,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4c102f2d4245d129.json",
+      "sha256": "e731268fb3cbb1fc736ec93c753827f81e086b9395caab4741213a9120fdff15"
+    },
+    {
+      "id": "4c5dfba99a634377",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 102,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4c5dfba99a634377.json",
+      "sha256": "c25083bdd1ce645ca81914d147c61f16f100bf9311474248ab2aa59b6211e8c7"
+    },
+    {
+      "id": "4c933742fa056aed",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 112,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4c933742fa056aed.json",
+      "sha256": "1f882ffa1f984addd4c36524683c5ea3cdfbbe3baf8cd96dad8c47a635d72bef"
+    },
+    {
+      "id": "4e0c1355b3d90d99",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 119,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4e0c1355b3d90d99.json",
+      "sha256": "4bc3abe9c0db9462c81a5e09d00f61e87b44413a07f5615c85998fb8efdeeb0d"
+    },
+    {
+      "id": "4e217b4bab6cf2df",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 114,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4e217b4bab6cf2df.json",
+      "sha256": "6988cc5206a9926102d4703421f5448ff661d284162587c8c7a68d6cd47d2393"
+    },
+    {
+      "id": "4f8d6f70b6b286cd",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 119,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/4f8d6f70b6b286cd.json",
+      "sha256": "1cd9a32883c256c4391de3b8fdcb5491169202886ddcd720995e05b73d11097b"
+    },
+    {
+      "id": "500435516bfe544d",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 105,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/500435516bfe544d.json",
+      "sha256": "95814726e45570803555752d66a7d874c3084e06a8b3d0145855a56d06f5da77"
+    },
+    {
+      "id": "508efa7781dad681",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 100,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/508efa7781dad681.json",
+      "sha256": "8c541900d84ff75259be9c737b0d4617551bf0c1aad5c1b0c8ed8774b8ea52f6"
+    },
+    {
+      "id": "52a9dd3e954b0a03",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 102,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/52a9dd3e954b0a03.json",
+      "sha256": "29ed4fd5d48287aada34c8c9ea5dcfb23d5daad95cd55a7725e8c63d50a68c0e"
+    },
+    {
+      "id": "53437d058e9e4cdd",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 110,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/53437d058e9e4cdd.json",
+      "sha256": "2799f7146c6b77dbfd4dda95055822f8ca819309edf85523f65e797438c64493"
+    },
+    {
+      "id": "5598c2c4fa32517c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 107,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5598c2c4fa32517c.json",
+      "sha256": "c02e432adf17344b7aa086b1af6687fe9b5e382fcbec1bb78d6514d5a3e19155"
+    },
+    {
+      "id": "576c1ad7c8feac86",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 126,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/576c1ad7c8feac86.json",
+      "sha256": "e5a94d9d63cfda062945da20d6e4d19d65f73f6d2a56f48ca1343d169e0a8323"
+    },
+    {
+      "id": "589bef06b7af335f",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 108,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/589bef06b7af335f.json",
+      "sha256": "72118aa061729b8d50517b08bfe3599f929f610087e5c7cf25b7551da91c5752"
+    },
+    {
+      "id": "5ab0109fa7920a3f",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 121,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5ab0109fa7920a3f.json",
+      "sha256": "e4c48a7c19065815d51eb11135b2d05232e8b39faca9917282bcd1aea8a4555b"
+    },
+    {
+      "id": "5ad95b178e426553",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 114,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5ad95b178e426553.json",
+      "sha256": "2ffcea648cf344027210b03211f28fc885eb5e064bbc622d90e75e3cca2865f7"
+    },
+    {
+      "id": "5b804db22ddc0552",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 128,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5b804db22ddc0552.json",
+      "sha256": "9deecde0d6d03b2992345ffd3f0bbd5651146ae4f434f17d1e693a9d25324b97"
+    },
+    {
+      "id": "5ba2b715827679ad",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 122,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5ba2b715827679ad.json",
+      "sha256": "403641433e72b3e4ed7767769262251685ed31c9229f3f51b6bcc09f590cc113"
+    },
+    {
+      "id": "5d1eb04053a87363",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 123,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/5d1eb04053a87363.json",
+      "sha256": "8e01cf3cf3186e1d283af289c32109f4f181976f1084b78f37077b846fe3a37c"
+    },
+    {
+      "id": "6018bd2625d82acf",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 100,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6018bd2625d82acf.json",
+      "sha256": "02ba70e9328839f13d221d3032cd1c5fa8a041cb8368f9727c554a74ca6a7973"
+    },
+    {
+      "id": "631ed3ad3a6a314c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 111,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/631ed3ad3a6a314c.json",
+      "sha256": "df384783821525c591802c761c96456ef5fb463ed87cd2b2193ecf9fa3f5f1dc"
+    },
+    {
+      "id": "6761df037f4bb968",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 119,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6761df037f4bb968.json",
+      "sha256": "49e725e23b12f4693082e9bc75d96b10881aa5b9c587a63f5b2339c102c73434"
+    },
+    {
+      "id": "68855576d18ab2c1",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 113,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/68855576d18ab2c1.json",
+      "sha256": "61c682c8687349336ebed4f0f5877990ac1a0c58532bf91c1c2d1866e5641617"
+    },
+    {
+      "id": "692cede2f3c906d9",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 112,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/692cede2f3c906d9.json",
+      "sha256": "bb2813a26f69b6bb639c70f949126d7e4ceeb215d3d5451e0de1d22b7a1bee2b"
+    },
+    {
+      "id": "6c341623546dbf9f",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 116,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6c341623546dbf9f.json",
+      "sha256": "9ffb15e1d18bea618f05204165bbe15f64bb7096a193963cd952333f00282c63"
+    },
+    {
+      "id": "6c76845a9f747159",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 125,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6c76845a9f747159.json",
+      "sha256": "69bc9441afbcc24ffb7e9c61b799197df0989dcbae58287c21ed65be2a33ba77"
+    },
+    {
+      "id": "6ccfe8601f85b6cb",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 105,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6ccfe8601f85b6cb.json",
+      "sha256": "4693e02a6160e1f7b0c6e11aa0e9ab8d7d4369d4f4d2d0cd48f12b2b25a0632c"
+    },
+    {
+      "id": "6e6fe3917f2ccbce",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 122,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/6e6fe3917f2ccbce.json",
+      "sha256": "48b60f5d68f96b88c6816ed52ce393894569a2b166931dba30aab1dcb12a75f4"
+    },
+    {
+      "id": "7109c1a97220b213",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 115,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7109c1a97220b213.json",
+      "sha256": "554b6af152f4c8f2904762dd8e47a5b0de396bfa300e1dde282402595c3c1aab"
+    },
+    {
+      "id": "7172f2d02249e551",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 111,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7172f2d02249e551.json",
+      "sha256": "f4e6ae764d8a17845ec0524b29e0e5f54d80793e881b24f9f5a3b19603761bcb"
+    },
+    {
+      "id": "72dc90cc2b7aad5d",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 123,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/72dc90cc2b7aad5d.json",
+      "sha256": "bf3ad260c3ddc805e32fb093cc12350f8d1e1965c5191048647bbd8e8d041f4f"
+    },
+    {
+      "id": "73ee5a124bc639f2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 104,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/73ee5a124bc639f2.json",
+      "sha256": "dcb67f5eebebbb5fe93cd4f8c0d704f3cfde579d50b9becca16b3d047771297c"
+    },
+    {
+      "id": "74f289879e000d4c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 125,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/74f289879e000d4c.json",
+      "sha256": "06dbd6fa7c0f414aeb90d37f81a9a8a4482c227aec9addb687f6ba7bdcd232ee"
+    },
+    {
+      "id": "75f3ad4a28f40fb6",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 122,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/75f3ad4a28f40fb6.json",
+      "sha256": "7a204aa38b3db4e96bbb1609a4383a9eef21cedff3f322eae9b9bbd438c0cc0a"
+    },
+    {
+      "id": "7953083297137702",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 115,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7953083297137702.json",
+      "sha256": "438c81a8ec71ff2c28711c3b55d97b5f92f27f62ca48841bcc35f8b279aaaa79"
+    },
+    {
+      "id": "7a09de3aaa59399b",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 109,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7a09de3aaa59399b.json",
+      "sha256": "48a7838ed6638f758b2bb641d53919ade2f70792097ce142baf9598b38b2b24d"
+    },
+    {
+      "id": "7b22cf7a8338509d",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 124,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7b22cf7a8338509d.json",
+      "sha256": "bc3597e54ac17f7629e86044da66e421a980ad695f73c4cc5389c5fc6a80d7d4"
+    },
+    {
+      "id": "7b2f4561a79986d5",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 107,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7b2f4561a79986d5.json",
+      "sha256": "80adc454f8c791009ab4faf7d64f88669bb71e1f1bbb968c2b7fafe53d93f9e2"
+    },
+    {
+      "id": "7cd12bebec7c52c2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 128,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7cd12bebec7c52c2.json",
+      "sha256": "54c0e76ea94e28ac3703f0d0b99d014d8a28c34bf8e03b69c488c1d0010ed50e"
+    },
+    {
+      "id": "7f85cbe8ffeffe53",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 128,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7f85cbe8ffeffe53.json",
+      "sha256": "8803de731129ea90db95a87278f87b0afb6d223e097fb43428614472f58f416d"
+    },
+    {
+      "id": "7fe3c099cb5ec78a",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 104,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/7fe3c099cb5ec78a.json",
+      "sha256": "22d3f4405450b6588115fbd092cfab762ecc9e8b0cba38fc19081239572bcad7"
+    },
+    {
+      "id": "8142d91acb32b8f5",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 110,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8142d91acb32b8f5.json",
+      "sha256": "26223134e48a5eaaa74eb223bf147a0dd171d225c7bc580c2376def536c0f7b2"
+    },
+    {
+      "id": "82d555ecfc5eafa3",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 100,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/82d555ecfc5eafa3.json",
+      "sha256": "2445b66c4ec086e8e80964bff7b3ff212bae64aa4cd74dea3cde3d5cb6bf77fa"
+    },
+    {
+      "id": "82fba79fa104d4fc",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 107,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/82fba79fa104d4fc.json",
+      "sha256": "6e76bafa2cd708f937f8a45027d7259c6cbf9b27ec0c7f4f9bdac10e5e2afe98"
+    },
+    {
+      "id": "83a26b75b54f0ba6",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 117,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/83a26b75b54f0ba6.json",
+      "sha256": "5031f51c11a626a2b587788af37494184f1647f1af0765ee8dd61d2a4467eae7"
+    },
+    {
+      "id": "871ca98967c10abb",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 108,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/871ca98967c10abb.json",
+      "sha256": "748f9624b5545f5219d78a24b9d1412429e5d4475b04a1acba9b70c176172120"
+    },
+    {
+      "id": "88bdd40e6de11a72",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 117,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/88bdd40e6de11a72.json",
+      "sha256": "d4381b21b4f27e500828d1b50b6b720c2f80f41502353b5093f9554ff0ece993"
+    },
+    {
+      "id": "8a50e279ec3b76ac",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 109,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8a50e279ec3b76ac.json",
+      "sha256": "d452fb6caa130694609ec329c6cab860470083a89f8747c71fd2337e1c77233a"
+    },
+    {
+      "id": "8aa098f257d9b2e2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 105,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8aa098f257d9b2e2.json",
+      "sha256": "5d1cbb0e8de92f3e0313ab3b08b3b822f254f68fce8d39084bdcff296320edf5"
+    },
+    {
+      "id": "8b999d175d4da54a",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 120,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8b999d175d4da54a.json",
+      "sha256": "db8e4611aa09124897594fae33f37aba8595a7e1ce099908c45aa16c907211bf"
+    },
+    {
+      "id": "8e33c6bcc97faa8c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 118,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8e33c6bcc97faa8c.json",
+      "sha256": "2f6f1d01e73946c956d7cc740208bc0eeaafc85c9eb6d11af287ebac5a7de89f"
+    },
+    {
+      "id": "8e92676f3fd6a940",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 114,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8e92676f3fd6a940.json",
+      "sha256": "53968fa00931bfdd481460e69a5dc03e272bde5771974277d76d759d42c03124"
+    },
+    {
+      "id": "8ee8f2a9c589cbcf",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 112,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/8ee8f2a9c589cbcf.json",
+      "sha256": "8202c200acd30fec8ff94b5cab97f61a6b21fe4360ec86920134a55fc0f6fc29"
+    },
+    {
+      "id": "90fc0d1987e67cb4",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 128,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/90fc0d1987e67cb4.json",
+      "sha256": "ca1177ba56ca212f8a39239191ec74cf048b9c7f2a596750fc3d249e1d03dcbb"
+    },
+    {
+      "id": "92e338e59a82b201",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 113,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/92e338e59a82b201.json",
+      "sha256": "02bd3c46da6b6b1287669e62597a00964ce33c39bcb5d5b69130ac67abbdd68a"
+    },
+    {
+      "id": "9394d60915dbf206",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 115,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/9394d60915dbf206.json",
+      "sha256": "f692fbb04b454c6bebfd56755a98a27e837353aa99bfdd4656bfdf7139d226a3"
+    },
+    {
+      "id": "94269f6a228b4a86",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 119,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/94269f6a228b4a86.json",
+      "sha256": "a1bb6e27e411f35bca1cb83ad8aece1a360700162ea27b2a72bf68292dac2f4b"
+    },
+    {
+      "id": "95341320eb34dd65",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 100,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/95341320eb34dd65.json",
+      "sha256": "b510653618c2b817d0e111e583d66a9e7371922700273b55241e7066730ae3ce"
+    },
+    {
+      "id": "95ae33ae567314d1",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 124,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/95ae33ae567314d1.json",
+      "sha256": "5be1a68011a89998a07d0e924403eb21a5b05b3527f979b5f4a722eb87b7f24d"
+    },
+    {
+      "id": "95c7d9f66654501f",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 121,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/95c7d9f66654501f.json",
+      "sha256": "cfda8ba379afd44b3bc8b355c97a711e522c3b1f6afd8e99cb8196dca1ec656d"
+    },
+    {
+      "id": "97cdaf3704c834c1",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 120,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/97cdaf3704c834c1.json",
+      "sha256": "0fd3e1b2473204617afd2e60a7fd5e700c369187083907de908208f99d9654f1"
+    },
+    {
+      "id": "9b85dc8234875298",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 121,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/9b85dc8234875298.json",
+      "sha256": "a5fe7dc25e53a298cb36404f721cb79593aa8feceed5950a5c3c6386b926e024"
+    },
+    {
+      "id": "9c8da50938fce2cb",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 126,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/9c8da50938fce2cb.json",
+      "sha256": "eb28040f3ad83d255591843f18dfdf441a4a8bd8dca46e50221ce9ee054bca43"
+    },
+    {
+      "id": "9cc9ebb6d8ace297",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 125,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/9cc9ebb6d8ace297.json",
+      "sha256": "d7da46ea49c04c6173a21411ed836b921eccb2aa0f2ac7ee4b3d7c26f709f766"
+    },
+    {
+      "id": "a11cdce4ac817765",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 119,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a11cdce4ac817765.json",
+      "sha256": "fe71475f3f4732fc8cd44a27c5655a4aa36020b516678e1f9e8e87d28cff86b9"
+    },
+    {
+      "id": "a1b7586a67dbceac",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 125,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a1b7586a67dbceac.json",
+      "sha256": "27fc3a69fb704f9f99aa48cb4e36193e315d7d1cfb540487184d24f0bb2cc96b"
+    },
+    {
+      "id": "a566b7965117f45c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 100,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a566b7965117f45c.json",
+      "sha256": "9cc88b4c99f5a28e43d54c0c350dd050b597c7eb3c2b928c080be44a321cab3b"
+    },
+    {
+      "id": "a81df19f0bf4b437",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 120,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a81df19f0bf4b437.json",
+      "sha256": "8adccd61e827b6dfaaadeb7ce06c885ddec9dbe8cbe84d147f4b671917b5f715"
+    },
+    {
+      "id": "a86505a72033fbb1",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 115,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a86505a72033fbb1.json",
+      "sha256": "213597e6d1a280d051ad769ad9af3abfa6d65e8b54d40313543df3386918c427"
+    },
+    {
+      "id": "a892406ab62e6a62",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 106,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a892406ab62e6a62.json",
+      "sha256": "9698a8d894bbe5763b7c6142e42c924e0168bd51cb1dd49840a056c3a7e5c9bc"
+    },
+    {
+      "id": "a8ea4b4d4e970962",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 125,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/a8ea4b4d4e970962.json",
+      "sha256": "fed9737f05f9377ab3b64c60317a1afa4e7159ebda77a3bba4e907c61d8011f5"
+    },
+    {
+      "id": "aa8f5c03c28e11b3",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 106,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/aa8f5c03c28e11b3.json",
+      "sha256": "06b1d51b0fcb15fcd645f1bd39d2ff0daaa04e01a090ef5c8fbd0f5755e79083"
+    },
+    {
+      "id": "ac5bf22da32769b0",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 103,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ac5bf22da32769b0.json",
+      "sha256": "aed3f62c316ea472f895ccf5c152da79bb14d7909783b6659c5f9da5fc47c782"
+    },
+    {
+      "id": "b00bfe1fb6dc1039",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 105,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b00bfe1fb6dc1039.json",
+      "sha256": "afc60fc28dc11205a106ecf1ff0727a74077dc80e6673ec1d95a080d41497e9a"
+    },
+    {
+      "id": "b1f88355814e7e5a",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 110,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b1f88355814e7e5a.json",
+      "sha256": "707a5182fb0c42feaf7eeee409147e8a09a075111ceb8a7ae1d904239795b094"
+    },
+    {
+      "id": "b43a2ed9d1d1eb07",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 107,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b43a2ed9d1d1eb07.json",
+      "sha256": "08f994b122e49562a9f7d7a3fc6e0aa0222ab1f901839c566440b07a69dbd7b2"
+    },
+    {
+      "id": "b742c5f5d128b462",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 101,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b742c5f5d128b462.json",
+      "sha256": "5879d7eae76fd0581b9562f604fd4522b9d4b3db8f3daafc16f3e31b9e21673a"
+    },
+    {
+      "id": "b973b60739480b37",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 118,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/b973b60739480b37.json",
+      "sha256": "d28d5be5af9b78005c08eed1d5b241c23053e951bfab7322d474e0d31123dee9"
+    },
+    {
+      "id": "bc571506ad676a9a",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 106,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/bc571506ad676a9a.json",
+      "sha256": "af230e332ff5e0699a80b6bd73b199928cad719637a8999286189fb0590362c7"
+    },
+    {
+      "id": "bcc9ff1ef36b8221",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 114,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/bcc9ff1ef36b8221.json",
+      "sha256": "ed6d39255049ff843963137177e984b9fbf9f760daa88b74890199c7a3d97a8f"
+    },
+    {
+      "id": "bdc9b82e020acf87",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 116,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/bdc9b82e020acf87.json",
+      "sha256": "b1bdaa45e122e973dd0321fd208306b80484ea45965c6d808c356a921d4899ee"
+    },
+    {
+      "id": "be3718c48f10a9cc",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 106,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/be3718c48f10a9cc.json",
+      "sha256": "430731574eb78c20a7ea204cdb240c336bba8708f82a1065383cf58f87749495"
+    },
+    {
+      "id": "beb4cc83fd13e2c4",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 116,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/beb4cc83fd13e2c4.json",
+      "sha256": "116d3222dbba5102c114136b0b1c5d5673b211ef2d8752565f662f9f2605a7e8"
+    },
+    {
+      "id": "c05bde73f4c9d82c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 109,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c05bde73f4c9d82c.json",
+      "sha256": "49a6bfd03720f15915b7c09a1c34b886051c9626271b2b1832db66c749efa2b9"
+    },
+    {
+      "id": "c0f85a30c7c9df14",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 118,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c0f85a30c7c9df14.json",
+      "sha256": "ac78bcb9166f6e1acde5fb36df632408412f4473c8345083625ab2b58bf48fb0"
+    },
+    {
+      "id": "c313df7ac71e72e2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 107,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c313df7ac71e72e2.json",
+      "sha256": "f9e64c61c4b07b46b619f76958d8c0cf0dd30d520b701dc8be2a3df85d459e63"
+    },
+    {
+      "id": "c313fb3edd4d6dff",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 104,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c313fb3edd4d6dff.json",
+      "sha256": "e0d697695c48a77fb671df33d34e8ca6e6090be519db5630723457b31eae26a8"
+    },
+    {
+      "id": "c4004147b6df5946",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 117,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c4004147b6df5946.json",
+      "sha256": "0ca42fc762ecf7d956b56315498ea9b9dc668d6852879b573245e608e9353c1a"
+    },
+    {
+      "id": "c497f756c0746cdc",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 112,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c497f756c0746cdc.json",
+      "sha256": "aff21bd94cffc8792bcafa68174e9792a2f25ee6ef30f3431502d007eb40e781"
+    },
+    {
+      "id": "c54d1b53900b96a0",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 126,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c54d1b53900b96a0.json",
+      "sha256": "043b6ac48b13ad7b7c2dca08e91fbb9ac9767b00abcac9f511467414adfa3fa9"
+    },
+    {
+      "id": "c61c689cd63aecab",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 110,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c61c689cd63aecab.json",
+      "sha256": "ccd8230d7d34d5ba5688b90025afefcdd2a3103639f324c6f140c123ecf572c7"
+    },
+    {
+      "id": "c64ab80716a168dd",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 112,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c64ab80716a168dd.json",
+      "sha256": "0cd0f301e81fd44dbfca475dae362db8f978e355aa2975737fc3f566a81831bd"
+    },
+    {
+      "id": "c6fcb8b409486400",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 126,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/c6fcb8b409486400.json",
+      "sha256": "e45f56122ebf766dc3ec1248e8d5ff1ef796bbe4530908edc0f29735cec45bd7"
+    },
+    {
+      "id": "cc6e43130614a4a8",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 109,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cc6e43130614a4a8.json",
+      "sha256": "ed8e00a8b1c33d7bfa8d024e7d5bb9679cb44d070c1ee5543ac84e6a0d604ea1"
+    },
+    {
+      "id": "cd325fcd027d0b8f",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 111,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cd325fcd027d0b8f.json",
+      "sha256": "7229eabe7e98f80f4c005e9c0e724571f4f5b7a3b80d934e3b4b1caed6bebe50"
+    },
+    {
+      "id": "cd7dab1f85f6c8e8",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 124,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cd7dab1f85f6c8e8.json",
+      "sha256": "24e19fddafd1ba1c1fdd4d3e33633ec156bdc20d6aa8095540ea2c412bdce75b"
+    },
+    {
+      "id": "cd946d4e85a20666",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 120,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cd946d4e85a20666.json",
+      "sha256": "bbaa6d4f13c33373df8c039f00b51a956469abdafc50c2ebb51622054cd2f3ef"
+    },
+    {
+      "id": "cedb0613f52ab2f2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 101,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/cedb0613f52ab2f2.json",
+      "sha256": "785e0dab0f9b7e63052b57721ca232ae4c1e20a173462c293c5e2b4c0c62282e"
+    },
+    {
+      "id": "d216e3b0bb78e799",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 127,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d216e3b0bb78e799.json",
+      "sha256": "8c542bc193a8493a99813fe7643c690e313adaa334d7a394a2dc5f5f50535251"
+    },
+    {
+      "id": "d22ef711a39e3a81",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 129,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d22ef711a39e3a81.json",
+      "sha256": "ade431f6bd9bea6ca884add5c789cd1f0a7454a79174ad968c5ffacfa0858e6b"
+    },
+    {
+      "id": "d266ec8315f21cc5",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 115,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d266ec8315f21cc5.json",
+      "sha256": "1e49313821038b261fd8cb1fe594ce3415cbc1b5d9f97c20c51e15fa0e130d65"
+    },
+    {
+      "id": "d2ecb8c082957dc2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 102,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d2ecb8c082957dc2.json",
+      "sha256": "bf8e033b4ecf1ddb2dc06f5232476e904c58acabe08d7a51cea14fcccf9de1e7"
+    },
+    {
+      "id": "d4efe631f2d09f32",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 116,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d4efe631f2d09f32.json",
+      "sha256": "45233ddc9eea20aa2d3694d2c5976ef14dee1c66c2b0843fba45607a20deb496"
+    },
+    {
+      "id": "d6121d463608924b",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 103,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d6121d463608924b.json",
+      "sha256": "9dd3e255192033789505fef4f808dca1b9cb12f801a5fa4d8cb1e4f498d4c28f"
+    },
+    {
+      "id": "d7fc514b832b45ca",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 123,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/d7fc514b832b45ca.json",
+      "sha256": "884260e8adc02317d336c5f7fbf49db3a805e8a38cdb3f2d00a7efbafce9031d"
+    },
+    {
+      "id": "db8ee42edf068483",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 129,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/db8ee42edf068483.json",
+      "sha256": "1a15900b1fcf3d5b5f65f47ddd5d516337b0bf9967445663b69a6b4edc6266ae"
+    },
+    {
+      "id": "dc0c478faf4a7a43",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 109,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/dc0c478faf4a7a43.json",
+      "sha256": "752ecd596f6e31c7a4d1ea228adbc38f57b3e3a20328758caa60b822d6bb7dc7"
+    },
+    {
+      "id": "dd66e7baa9519e44",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 108,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/dd66e7baa9519e44.json",
+      "sha256": "1ec380acaf0a82f68511dbf94d9a6e7de8ff96401d6ce373b9141239c8c862fd"
+    },
+    {
+      "id": "dde2d6b7519b49d2",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 106,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/dde2d6b7519b49d2.json",
+      "sha256": "02d433fb0a66fe5679da8c1a1f6bad2e9a875ef83f2342e2f70f789ac67df7aa"
+    },
+    {
+      "id": "dec2ba9d3586d6b6",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 108,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/dec2ba9d3586d6b6.json",
+      "sha256": "fd182b4a146cfe410e8117d080971170a6f389619661f1f1d2116ffc0a69aea5"
+    },
+    {
+      "id": "e0aed569782249a1",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 111,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e0aed569782249a1.json",
+      "sha256": "e224a46a2e3d8ea05ce7cf38603a1038d065f1aaf09e19f253e94d1692a9f6b3"
+    },
+    {
+      "id": "e6e222a2000b01a7",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 120,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e6e222a2000b01a7.json",
+      "sha256": "e326700831a89101af13ba901766d028dbaa27f0401c3d74f23ae9e80e485562"
+    },
+    {
+      "id": "e9b4fa481a41982e",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 127,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/e9b4fa481a41982e.json",
+      "sha256": "eb6d4e844f3d8dd843a330eef146b6351fbfc5b84639a171be85303557972d99"
+    },
+    {
+      "id": "ead9478588197ad5",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 111,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ead9478588197ad5.json",
+      "sha256": "17c4199a309e2ea7e14a2af440e3e3eeac85e48f3c1b3fe3508cd70363120d19"
+    },
+    {
+      "id": "eb630aebadf584d3",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 121,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/eb630aebadf584d3.json",
+      "sha256": "40a743ca486c24e4eb75edc5671169f4e1c0adb30c590deaaabdbc77e006138e"
+    },
+    {
+      "id": "ebc0ec9ccaad50a8",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 104,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ebc0ec9ccaad50a8.json",
+      "sha256": "09b47b4e17c7b47e69d5ee9099b4a8cbcf17e730ce5df37897dec625fb43c90e"
+    },
+    {
+      "id": "ebc82e269629278c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 118,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ebc82e269629278c.json",
+      "sha256": "cd1ec064b12c5e81d128529521b6abc57cc391923d5d04add2ee3eca5dc66c09"
+    },
+    {
+      "id": "ebd467313feedcde",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 113,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ebd467313feedcde.json",
+      "sha256": "a3301671f4f044b669aaf3687a20b51b88078ceae2ea877fe0dfee1c5970a062"
+    },
+    {
+      "id": "ec276dfb053e30be",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 117,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/ec276dfb053e30be.json",
+      "sha256": "7289b0675a55b55903f4ca0f1894aa0f323616c0242b7f349f4274a3a72a8f92"
+    },
+    {
+      "id": "edb90ba29486a459",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 128,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/edb90ba29486a459.json",
+      "sha256": "ce695124f894eb269d758cd56db327e7dde0061abc4c33c7ad00a9442aed34b0"
+    },
+    {
+      "id": "f3a7972f6f5380d6",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 129,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f3a7972f6f5380d6.json",
+      "sha256": "5ad025efa740da6eba53af2d46168bc4ba54ec3de461f2f47cad5faa02a44953"
+    },
+    {
+      "id": "f49560a83a09f001",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 117,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f49560a83a09f001.json",
+      "sha256": "bf8507a6f9a3c2d00a7d5e082a7ed2ab51e7f3adee7e35d91f610007939605cb"
+    },
+    {
+      "id": "f4a255ea69ab8e49",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 102,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f4a255ea69ab8e49.json",
+      "sha256": "03aadc2e9a7f13fcd0d7756e154b74877d1c7b5606062e5142945f24bb9f4d71"
+    },
+    {
+      "id": "f4d67fcb72b7444c",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 119,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f4d67fcb72b7444c.json",
+      "sha256": "ebf8d3036586ba2f4e7569cd13e9de78337a5b7f0d563176efc4540746dae776"
+    },
+    {
+      "id": "f6d57a04d37655e5",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 103,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f6d57a04d37655e5.json",
+      "sha256": "effba6fdcea575a5942bb72fd9c6875a4a10c03e542c1ae865648c34bac29bb5"
+    },
+    {
+      "id": "f84789d152d1cad6",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 122,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f84789d152d1cad6.json",
+      "sha256": "5ae8960b7b4530e7f1967363969d743a3b00c79ddd32e1a66fd0e84dc3738c9e"
+    },
+    {
+      "id": "f920065ee0e7709b",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 124,
+        "budget": 20,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/f920065ee0e7709b.json",
+      "sha256": "c7f9c28429c5c40377972c77e833acc5119442d9077ada218106e8df7dba2f39"
+    },
+    {
+      "id": "faa749b562f7ac89",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "checkpoints",
+        "seed": 127,
+        "budget": 100,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/faa749b562f7ac89.json",
+      "sha256": "a28f6aa4ea0fae6cc4395dad55cadc18a40b01620134961eb106d17461f15d91"
+    },
+    {
+      "id": "fedb1e35ef14be84",
+      "status": "ok",
+      "job": {
+        "study": "labels",
+        "pipeline": "transfer",
+        "seed": 127,
+        "budget": 50,
+        "pool_size": 420,
+        "iterations": 100,
+        "draws": 30
+      },
+      "result": "runs/fedb1e35ef14be84.json",
+      "sha256": "9530cfa613cb16c5aa201bd23b5de13d95ace1a09f69129d5b3b613bca4d6245"
+    }
+  ],
+  "complete": true,
+  "successful_conditions": 180
+}

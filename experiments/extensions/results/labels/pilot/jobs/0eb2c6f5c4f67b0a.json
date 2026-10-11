@@ -1,0 +1,9 @@
+{
+  "study": "labels",
+  "pipeline": "checkpoints",
+  "seed": 100,
+  "budget": 50,
+  "pool_size": 420,
+  "iterations": 5,
+  "draws": 30
+}

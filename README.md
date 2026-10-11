@@ -98,3 +98,16 @@ MIT licensed. Maintained by Junje Shen. Please cite the original SSME paper when
 See the [reproduction guide](docs/reproduction.md). Bundled, hashed prediction artifacts support CPU-only refits of the main benchmarks with `python reproduction/run.py --jobs 2`. CivilComments and image-to-report workflows are documented separately.
 
 Course experiment project: [OpenI](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240).
+
+## Current checkout extensions (unreleased)
+
+The source checkout adds trusted fitted-model JSON input, prediction batches, and measured performance, label-efficiency and multiclass/redundancy studies. These additions are separate from the published PyPI 0.1.0 wheel.
+
+```bash
+python -m pip install -e .
+python examples/model_files.py
+ssme-lite check-config results/model_files/config.json
+ssme-lite results/model_files/config.json --trust-model-files
+```
+
+See the [model-file CLI guide](docs/guides/cli.md), [extension guide](docs/guides/extensions.md), and [experiment protocol and commands](experiments/extensions/README.md). All submission artifacts are contained in this repository.

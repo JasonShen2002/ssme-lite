@@ -32,10 +32,11 @@ class PredictionMatrixGenerator:
     Binary output is (N,M), positive class classes_[1]. Multiclass is (N,M,K).
     y_partial uses -1 for unknown and integer positions in classes_ otherwise.
     """
-    def __init__(self, models, clip=1e-6, n_jobs=1):
+    def __init__(self, models, clip=1e-6, n_jobs=1, batch_size=None):
         self.models = models
         self.clip = clip
         self.n_jobs = n_jobs
+        self.batch_size = batch_size
 
     def fit(self, X=None, y=None):
         items = list(self.models.items()) if isinstance(self.models, Mapping) else [
@@ -63,11 +64,23 @@ class PredictionMatrixGenerator:
     def transform(self, X, y_partial=None):
         if not hasattr(self, "models_"):
             raise ValueError("call fit or fit_transform first")
-        blocks = Parallel(n_jobs=self.n_jobs, prefer="threads")(
-            delayed(m.predict_proba)(X) for m in self.models_)
-        if any(np.asarray(b).shape != (len(X), len(self.classes_)) for b in blocks):
-            raise ValueError("each predict_proba result must have shape (len(X), n_classes)")
-        p = probabilities(np.stack([np.asarray(b)[:, o] for b, o in zip(blocks, self.orders_)], axis=1), self.clip)
+        n = X.shape[0] if hasattr(X, "shape") else len(X)
+        if n < 1:
+            raise ValueError("X must contain at least one row")
+        if self.batch_size is not None and (isinstance(self.batch_size, bool)
+                or not isinstance(self.batch_size, (int, np.integer)) or self.batch_size < 1):
+            raise ValueError("batch_size must be a positive integer or None")
+        size = n if self.batch_size is None else self.batch_size
+        p = np.empty((n, len(self.models_), len(self.classes_)), dtype=float)
+        with Parallel(n_jobs=self.n_jobs, prefer="threads") as parallel:
+            for start in range(0, n, size):
+                stop = min(start + size, n)
+                batch = X.iloc[start:stop] if hasattr(X, "iloc") else X[start:stop]
+                blocks = parallel(delayed(m.predict_proba)(batch) for m in self.models_)
+                if any(np.asarray(b).shape != (stop-start, len(self.classes_)) for b in blocks):
+                    raise ValueError("each predict_proba result must have shape (batch_rows, n_classes)")
+                p[start:stop] = probabilities(np.stack(
+                    [np.asarray(b)[:, o] for b, o in zip(blocks, self.orders_)], axis=1), self.clip)
         self.sample_ids_ = np.asarray(X.index).copy() if hasattr(X, "index") and not callable(X.index) else np.arange(len(p))
         self.labeled_indices_ = self.unlabeled_indices_ = None
         if y_partial is not None:

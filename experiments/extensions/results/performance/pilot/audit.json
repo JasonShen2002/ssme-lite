@@ -1,0 +1,7 @@
+{
+  "profile": "pilot",
+  "complete": true,
+  "successful_conditions": 10,
+  "expected_conditions": 10,
+  "max_parallel_batch_difference": 0.0
+}

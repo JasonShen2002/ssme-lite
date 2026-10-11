@@ -1,0 +1,9 @@
+{
+  "disjoint_pool_and_heldout": true,
+  "nested_labels": true,
+  "fixed_target_across_budgets": true,
+  "checked_conditions": 24,
+  "profile": "pilot",
+  "complete": true,
+  "expected_conditions": 24
+}

@@ -1,6 +1,6 @@
 # Course requirements and implementation evidence
 
-This audit maps the SSME-Lite assignment to the published 0.1.0 implementation and the final course report. Core deliverables are implemented and supported by code, examples, and saved results. Two ambitious extension statements need a narrower interpretation: large-scale production readiness and arbitrary model loading from configuration.
+This audit maps the assignment to the published 0.1.0 baseline and the current source checkout. The unreleased 2026-10-11 extensions add fitted-model configuration and scaling/statistical experiments; see the [extension guide](guides/extensions.md). Production deployment and arbitrary-scale guarantees remain outside the evidence.
 
 ## Requirement mapping
 
@@ -16,8 +16,8 @@ This audit maps the SSME-Lite assignment to the published 0.1.0 implementation a
 | SSME versus labeled-only across different models | Met | Seven checkpoints and five transfer heads, ten paired splits each; four metrics; CivilComments comparison and annotation-budget study |
 | Model-contribution analysis | Met as conditional influence | Controlled leave-one-model-out refits, posterior total variation and changes in remaining Accuracy estimates; no causal or guaranteed redundancy claim |
 | Parallel computation | Met | Prediction workers, class-density workers, independent benchmark-seed workers; serial/parallel benchmark equivalence test |
-| Large-scale / production-grade software | Partially evidenced | Published package, CI, validation, batch evaluation, and reproducible outputs; no documented scaling curve, peak-memory study, operational deployment, or million-row fit |
-| One-command configuration with data path and model list | Met for stored predictions; partial for arbitrary model objects | JSON CLI reads NPZ probabilities plus `model_names` stored in that file. It does not load arbitrary serialized classifiers or select a model subset from JSON. Model-object inference uses the Python adapter or dataset-specific scripts |
+| Large-scale / production-grade software | Partially evidenced | Published baseline, CI, validation and batch evaluation; current checkout adds isolated scaling/RSS experiments under `experiments/extensions`. No operational deployment or million-row fit claim |
+| One-command configuration with data path and model list | Met for stored predictions and trusted fitted model files in the current checkout | JSON `source: models` reads features, partial labels, an explicit class axis and named joblib files; preflight, batch prediction, provenance and an end-to-end example are included |
 
 “First” is not claimed: no literature-wide novelty search establishes that assertion. The demonstrated contribution is an installable, documented workflow with reproducible experiments and controlled influence diagnostics.
 
@@ -41,4 +41,14 @@ The final report uses four body pages plus one reference page in JMLR style, wit
 
 ## Remaining extension opportunities
 
-To demonstrate the full aspirational extension scope, add measured runtime and peak-memory scaling with sample/model counts, and a documented configuration adapter for trusted fitted model objects. These are separate capabilities from the already working probability-file CLI. Do not describe the current release as production-certified or claim those extensions are already implemented.
+The current checkout implements the model-file adapter and records measured scaling, fixed-target label-efficiency and multiclass/redundancy results. These extensions are not yet published to PyPI. Larger-machine measurements may extend the tested scale; they do not establish production certification. Broader interval coverage and independent reference-algorithm equivalence remain separate research opportunities.
+
+
+## Current checkout verification (2026-10-11)
+
+48 tests passed with one optional official-code audit skipped, both in the
+source checkout and against an installed wheel outside the checkout. The full
+extension grid completed 342 worker conditions, including 27 recorded
+missing-class SSME conditions in the stress study. See the
+[extension findings](guides/extensions.md); earlier published CI results above
+are retained as release history, not claimed as a CI run for this extension.
