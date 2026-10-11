@@ -3,8 +3,8 @@ import argparse
 import json
 from pathlib import Path
 import numpy as np
-from .estimator import SSMEEstimator
-from .benchmark import benchmark, synthetic_scores, gaussian_scores, official_scores
+from .benchmark import benchmark, gaussian_scores, official_scores, synthetic_scores
+from .estimation import SSMEEstimator
 
 
 def main():

@@ -1,0 +1,61 @@
+{
+  "python": "3.11.16",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "versions": {
+    "ssme-lite": "0.1.0",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1"
+  },
+  "scope": "SSME refits from frozen model predictions; no classifier retraining",
+  "absolute_tolerance": 1e-10,
+  "runs": [
+    {
+      "name": "checkpoints",
+      "n_labeled": 20,
+      "seeds": 10,
+      "status": "passed",
+      "input_sha256": "30ad2a0a821fbe5d95114f68d71566078546134c6b1fd75293f224b0e9419ed9",
+      "max_metric_difference": 0.0,
+      "max_selection_difference": 0.0,
+      "max_influence_difference": 0.0,
+      "seconds": 106.35
+    },
+    {
+      "name": "transfer",
+      "n_labeled": 20,
+      "seeds": 10,
+      "status": "passed",
+      "input_sha256": "5a8c23ef540d9ca09ecd8c19270be480c70ba30c3811b03ecc87618ba585c3a7",
+      "max_metric_difference": 0.0,
+      "max_selection_difference": 0.0,
+      "max_influence_difference": 0.0,
+      "seconds": 70.92
+    },
+    {
+      "name": "transfer",
+      "n_labeled": 50,
+      "seeds": 10,
+      "status": "passed",
+      "input_sha256": "5a8c23ef540d9ca09ecd8c19270be480c70ba30c3811b03ecc87618ba585c3a7",
+      "max_metric_difference": 0.0,
+      "max_selection_difference": 0.0,
+      "max_influence_difference": null,
+      "seconds": 18.12
+    },
+    {
+      "name": "transfer",
+      "n_labeled": 100,
+      "seeds": 10,
+      "status": "passed",
+      "input_sha256": "5a8c23ef540d9ca09ecd8c19270be480c70ba30c3811b03ecc87618ba585c3a7",
+      "max_metric_difference": 0.0,
+      "max_selection_difference": 0.0,
+      "max_influence_difference": null,
+      "seconds": 20.72
+    }
+  ],
+  "date": "2026-10-06",
+  "checkpoint_reference_note": "Checkpoint references refreshed from bundled predictions, then confirmed by a second independent full refit. Previous outputs preserved under experiments/archive/checkpoints_before_frozen_input_audit."
+}

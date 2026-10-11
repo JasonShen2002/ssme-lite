@@ -1,0 +1,63 @@
+{
+  "status": "Published to PyPI and verified from a fresh public-index installation",
+  "version": "0.1.0",
+  "validation": {
+    "python": "3.11",
+    "tests_passed": 38,
+    "tests_skipped": 1,
+    "skip_reason": "Optional official-reference audit requires external reference dependencies/tree",
+    "docs_pages": 13,
+    "mkdocs_strict": "passed",
+    "local_links_and_assets": "passed",
+    "twine_check": "passed",
+    "installed_wheel_quickstart": "passed",
+    "installed_wheel_sklearn_example": "passed",
+    "installed_wheel_cli": "passed",
+    "pip_check": "passed",
+    "wheel_built_from_sdist": "passed",
+    "full_real_data_rerun": false,
+    "visual_browser_review": "Unavailable: no browser/native UI connection"
+  },
+  "artifacts": {
+    "ssme_lite-0.1.0-py3-none-any.whl": {
+      "sha256": "3f4dd854d2eaf7d0dc5a6f99554795a53c4935ec4f3050f50e1c6d0908d191ca",
+      "bytes": 53616
+    },
+    "ssme_lite-0.1.0.tar.gz": {
+      "sha256": "40590dc2d1865a65847076f26457a0f310f425a1ee5693f27b0c4cf4a5d285b6",
+      "bytes": 71731
+    }
+  },
+  "publication": {
+    "version": "0.1.0",
+    "url": "https://pypi.org/project/ssme-lite/0.1.0/",
+    "source_commit": "00025cee8303e30f8ca66d327710d626b5821dd1",
+    "workflow": "https://github.com/JasonShen2002/ssme-lite/actions/runs/37307075613",
+    "ci": "https://github.com/JasonShen2002/ssme-lite/actions/runs/37306787797",
+    "python_versions_passed": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ],
+    "artifacts": {
+      "ssme_lite-0.1.0-py3-none-any.whl": {
+        "sha256": "4542cd64dedf98da32e0347211124e3c1a237ee60cb943ed714dbbf5526ee735",
+        "bytes": 53616
+      },
+      "ssme_lite-0.1.0.tar.gz": {
+        "sha256": "6378882f1d3cbfef4eb98c28e2176989b4318c04b7b4a79e194f1c8468ab8982",
+        "bytes": 71181
+      }
+    },
+    "public_install_verification": {
+      "index": "https://pypi.org/simple",
+      "version": "0.1.0",
+      "quickstart": "passed",
+      "sklearn_and_contribution": "passed",
+      "cli_report": "passed",
+      "pip_check": "passed"
+    }
+  }
+}

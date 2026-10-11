@@ -6,14 +6,41 @@ from sklearn.base import BaseEstimator
 from sklearn.neighbors import KernelDensity
 from sklearn.utils.validation import check_is_fitted
 from joblib import Parallel, delayed
-from .prediction import probabilities, alr
+from ..prediction import probabilities, alr
 
 
 class SSMEEstimator(BaseEstimator):
-    """Fit on precomputed scores. Unknown labels are -1; known labels are 0..K-1.
+    """Estimate classifier performance from probabilities and partial labels.
 
-    Fixed-bandwidth KDE updates are a nonparametric EM-style procedure, not a
-    guarantee of monotonic maximization of a finite-dimensional likelihood.
+    Parameters
+    ----------
+    density : str, default="kde"
+        Class-conditional density family; currently only KDE is supported.
+    bandwidth : {"scott", "official"} or float, default="scott"
+        Scalar Gaussian KDE bandwidth in additive log-ratio space. The
+        reference-code rule requires the ``official`` installation extra.
+    max_iter : int, default=100
+        Fixed number of posterior updates, or an early-stopping limit.
+    tol : float, default=1e-3
+        Maximum posterior-change threshold for convergence diagnostics.
+    labeled_weight : float, default=10.0
+        Weight on observed labels; unlabeled samples have weight one.
+    clip : float, default=1e-6
+        Probability clipping threshold, between zero and one half.
+    random_state : int, default=0
+        Initialization seed and default report-sampling seed.
+    n_jobs : int, default=1
+        joblib parallelism for class-density fits.
+    batch_size : int, default=2048
+        Batch size for posterior evaluation.
+    early_stopping : bool, default=False
+        Stop when posterior change falls below ``tol`` if enabled.
+
+    Notes
+    -----
+    Candidate classifiers are not trained by this class. Fixed-bandwidth KDE
+    updates are an EM-style procedure, without a monotonicity guarantee.
+    See ``docs/api.md`` for fitted attributes and reporting options.
     """
     def __init__(self, density="kde", bandwidth="scott", max_iter=100,
                  tol=1e-3, labeled_weight=10.0, clip=1e-6,
@@ -31,6 +58,28 @@ class SSMEEstimator(BaseEstimator):
 
     def fit(self, scores, y, scores_unlabeled=None, model_names=None,
             initial_responsibilities=None):
+        """Fit from aligned probabilities and observed class indices.
+
+        Parameters
+        ----------
+        scores : array-like, shape (N, M) or (N, M, K)
+            Binary positive-class probabilities or full class vectors.
+        y : array-like, shape (N,)
+            Class indices 0..K-1; -1 denotes unknown. Every class must occur
+            among observed labels.
+        scores_unlabeled : array-like, optional
+            Additional unlabeled rows with matching model and class axes.
+        model_names : sequence of str, optional
+            Unique names aligned with the M model columns.
+        initial_responsibilities : array-like, optional
+            Normalized (N_total, K) initialization for controlled experiments.
+            Observed labels override the supplied initialization.
+
+        Returns
+        -------
+        self : SSMEEstimator
+            Fitted estimator; ``posterior_`` includes clamped observed rows.
+        """
         p = probabilities(scores, self.clip)
         y = np.asarray(y, dtype=float)
         if y.shape != (len(p),) or not np.isfinite(y).all() or not np.equal(y, np.floor(y)).all():
@@ -147,6 +196,11 @@ class SSMEEstimator(BaseEstimator):
         return (posterior, np.concatenate(joints)) if return_log_joint else posterior
 
     def predict_proba(self, scores):
+        """Return (N, K) inferred class probabilities for aligned input scores.
+
+        Model and class axes must match the fitted inputs. These posteriors
+        are not clamped; use ``posterior_`` for the fitted, clamped pool.
+        """
         check_is_fitted(self, "kdes_")
         p = probabilities(scores, self.clip)
         if p.shape[1:] != self.scores_.shape[1:]:
@@ -156,13 +210,27 @@ class SSMEEstimator(BaseEstimator):
     def evaluate(self, metrics=("accuracy", "auc", "auprc", "ece"), n_draws=100,
                  confidence=0.95, target="all", random_state=None,
                  title=None, sample_ids=None, primary_metric=None, contribution=False):
-        from .reporting.report import make_report
+        """Return an EvaluationReport for the fitted pool.
+
+        ``metrics`` selects accuracy, auc, auprc (average precision), or ece.
+        ``n_draws`` controls conditional label sampling; ``confidence`` sets
+        quantile coverage. ``target`` is "all" or "unlabeled". Report sampling
+        inherits the fit seed unless ``random_state`` is supplied.
+        ``sample_ids`` identifies all fitted rows. ``primary_metric`` must be
+        requested in ``metrics``. ``contribution=True`` adds one refit per
+        candidate to measure leave-one-model-out posterior influence.
+
+        Intervals condition on the fitted posterior; they do not include
+        density-fit, bandwidth, or population sampling uncertainty.
+        """
+        from ..reporting.report import make_report
         check_is_fitted(self, "posterior_")
         return make_report(self, metrics, n_draws, confidence, target, random_state,
                            title=title, sample_ids=sample_ids, primary_metric=primary_metric,
                            contribution=contribution)
 
     def report(self, **kwargs):
+        """Alias for :meth:`evaluate`, returning an EvaluationReport."""
         return self.evaluate(**kwargs)
 
     def contribution(self, n_draws=30):

@@ -1,0 +1,402 @@
+{
+  "description": "Archived executions of the original SSME_KDE; evidence of official-code onboarding, separate from the final package benchmarks.",
+  "official_commit": "6052ecb233998832c24e89df71f8f8a71fd45e4a",
+  "protocol": {
+    "source_split": "results/civilcomments_tol1e3/splits.json",
+    "split_file_sha256": "16243ce1135a49ed41196da0c90cc4a5781e7c278d2040569ab5e62e3a305258",
+    "seeds": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "n_labeled": 20,
+    "n_unlabeled": 1000,
+    "evaluation": "Common heldout, equal-width weighted ECE, exact expected accuracy; common MC seed 10000+seed and 100 draws.",
+    "source_hashes": {
+      "official/SSME/model.py": "cb30690cc5aa3ec47346746d1459fa73d2516dd43895d4f47ae8d1aa5d7f74b7",
+      "official/SSME/utils.py": "fafa080f5c4ad32bc8de85cf9b5f631777d8b0ce7c6b9b1d3c4b47394958a25c",
+      "ssme_lite/estimator.py": "5605c2b4f262b7980804ae972d6aa9c4aa0b882952d5d582c17af22e90a53201"
+    },
+    "versions": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.9.1",
+      "statsmodels": "0.15.0",
+      "composition-stats": "2.0.0"
+    }
+  },
+  "runs": [
+    {
+      "seed": 0,
+      "source_record_sha256": "2293a3a4cdc8d6bd25b11035b9426d6b91e4e9dbafb5ad46f0fcd8b83e32e09d",
+      "input_sha256": "dab1445e1584b3e84242e545e8aef8e0a845500d0ecb38f66d86368c65274ae0",
+      "split_sha256": "49cb7b9dcbd215bd16ef83a818fec2a858a14f4aa15b3bd8180c3d097580fd28",
+      "iterations": 20,
+      "config": {
+        "dataset": "CivilComments",
+        "epochs": 20,
+        "labeled_data_weight": 10,
+        "prior_type": "learned",
+        "init": "draw",
+        "use_sample_weights": true,
+        "simulate_predictions": true
+      },
+      "native_metrics": [
+        {
+          "demographic": "global",
+          "model_idx": 0,
+          "auc": 0.9270905837467847,
+          "auprc": 0.6499923487645876,
+          "ece": 0.08619711662081032,
+          "acc": 0.8666764705882354
+        },
+        {
+          "demographic": "global",
+          "model_idx": 1,
+          "auc": 0.9504346875829239,
+          "auprc": 0.7665583507833282,
+          "ece": 0.05343075585582681,
+          "acc": 0.9392058823529412
+        },
+        {
+          "demographic": "global",
+          "model_idx": 2,
+          "auc": 0.9503776864215662,
+          "auprc": 0.7664789738039087,
+          "ece": 0.05821969948594287,
+          "acc": 0.9215588235294118
+        },
+        {
+          "demographic": "global",
+          "model_idx": 3,
+          "auc": 0.951340922263299,
+          "auprc": 0.779712747196443,
+          "ece": 0.06007018759465723,
+          "acc": 0.9343039215686275
+        },
+        {
+          "demographic": "global",
+          "model_idx": 4,
+          "auc": 0.9485318116470153,
+          "auprc": 0.7680042037272575,
+          "ece": 0.046321457504932766,
+          "acc": 0.9382254901960785
+        },
+        {
+          "demographic": "global",
+          "model_idx": 5,
+          "auc": 0.9547630952562701,
+          "auprc": 0.7823484419545211,
+          "ece": 0.051859874012408935,
+          "acc": 0.9313627450980393
+        },
+        {
+          "demographic": "global",
+          "model_idx": 6,
+          "auc": 0.9579646085160367,
+          "auprc": 0.8072122016304755,
+          "ece": 0.059198202971113535,
+          "acc": 0.9303823529411765
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "source_record_sha256": "4d790627fc128310758d5de236fe1b970009a5f458110f705d7280deadf32c8d",
+      "input_sha256": "0f9dfe01c82b543955fc199c2589b6d9aca6b69cd11ed3fc2de4732d6d7616ad",
+      "split_sha256": "6ad8f335c07c47dcaba6590d95fe74294ea15c61b9c10ad1371009e0b0af8bd2",
+      "iterations": 20,
+      "config": {
+        "dataset": "CivilComments",
+        "epochs": 20,
+        "labeled_data_weight": 10,
+        "prior_type": "learned",
+        "init": "draw",
+        "use_sample_weights": true,
+        "simulate_predictions": true
+      },
+      "native_metrics": [
+        {
+          "demographic": "global",
+          "model_idx": 0,
+          "auc": 0.922206896551724,
+          "auprc": 0.6696420997205328,
+          "ece": 0.09194077122490633,
+          "acc": 0.8607843137254902
+        },
+        {
+          "demographic": "global",
+          "model_idx": 1,
+          "auc": 0.9671330049261084,
+          "auprc": 0.829778526802727,
+          "ece": 0.05162520980332196,
+          "acc": 0.9392156862745098
+        },
+        {
+          "demographic": "global",
+          "model_idx": 2,
+          "auc": 0.973335960591133,
+          "auprc": 0.8379236187003322,
+          "ece": 0.054750516617147874,
+          "acc": 0.9333333333333332
+        },
+        {
+          "demographic": "global",
+          "model_idx": 3,
+          "auc": 0.9667862068965518,
+          "auprc": 0.8307394132657354,
+          "ece": 0.052057346676481854,
+          "acc": 0.9323529411764706
+        },
+        {
+          "demographic": "global",
+          "model_idx": 4,
+          "auc": 0.9694108374384237,
+          "auprc": 0.8336913515762727,
+          "ece": 0.03921299588712061,
+          "acc": 0.9401960784313725
+        },
+        {
+          "demographic": "global",
+          "model_idx": 5,
+          "auc": 0.9579113300492608,
+          "auprc": 0.8418385644497607,
+          "ece": 0.05170113267892714,
+          "acc": 0.9333333333333332
+        },
+        {
+          "demographic": "global",
+          "model_idx": 6,
+          "auc": 0.9649261083743842,
+          "auprc": 0.8159448007482898,
+          "ece": 0.053226984130017564,
+          "acc": 0.9323529411764706
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "source_record_sha256": "6e09242e02269ecc1db679fc8dfa05f07c4c250bac246c6a8c7b6e96c8aa87d7",
+      "input_sha256": "bbbccd4fb6fb82564aac362ade831e483bf73dafb796a6da9439e086d1d0b291",
+      "split_sha256": "585157582d199b61895f0fcdcdb08aa5f8283376191aee164862212c9a65bb7d",
+      "iterations": 20,
+      "config": {
+        "dataset": "CivilComments",
+        "epochs": 20,
+        "labeled_data_weight": 10,
+        "prior_type": "learned",
+        "init": "draw",
+        "use_sample_weights": true,
+        "simulate_predictions": true
+      },
+      "native_metrics": [
+        {
+          "demographic": "global",
+          "model_idx": 0,
+          "auc": 0.9334659090909091,
+          "auprc": 0.5955317780408448,
+          "ece": 0.08216133183097517,
+          "acc": 0.8607843137254902
+        },
+        {
+          "demographic": "global",
+          "model_idx": 1,
+          "auc": 0.9504545454545454,
+          "auprc": 0.735018819171145,
+          "ece": 0.0639829929377875,
+          "acc": 0.9235294117647059
+        },
+        {
+          "demographic": "global",
+          "model_idx": 2,
+          "auc": 0.9373051948051948,
+          "auprc": 0.7085108766294017,
+          "ece": 0.07804857287935832,
+          "acc": 0.9049019607843136
+        },
+        {
+          "demographic": "global",
+          "model_idx": 3,
+          "auc": 0.9515178571428572,
+          "auprc": 0.727842674297612,
+          "ece": 0.06276040794285062,
+          "acc": 0.9264705882352942
+        },
+        {
+          "demographic": "global",
+          "model_idx": 4,
+          "auc": 0.9533116883116882,
+          "auprc": 0.759046007523173,
+          "ece": 0.04832667567834174,
+          "acc": 0.9205882352941175
+        },
+        {
+          "demographic": "global",
+          "model_idx": 5,
+          "auc": 0.9550405844155844,
+          "auprc": 0.74833706848707,
+          "ece": 0.07464857539653967,
+          "acc": 0.9088235294117646
+        },
+        {
+          "demographic": "global",
+          "model_idx": 6,
+          "auc": 0.9483035714285716,
+          "auprc": 0.7095592577604393,
+          "ece": 0.08481919163102228,
+          "acc": 0.9058823529411765
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "source_record_sha256": "cbfa5185057131378cef11179e6442fd9cb63a10e0af1d4015f82088505bd4dd",
+      "input_sha256": "1ecf9763113f577f28a243af10f6c85990163ac69f5c270c6d9240ddf89c8289",
+      "split_sha256": "3905c36989715c8ee03bf4aa19de7fded7c17934f723ca72dfe4fe366dee64a4",
+      "iterations": 20,
+      "config": {
+        "dataset": "CivilComments",
+        "epochs": 20,
+        "labeled_data_weight": 10,
+        "prior_type": "learned",
+        "init": "draw",
+        "use_sample_weights": true,
+        "simulate_predictions": true
+      },
+      "native_metrics": [
+        {
+          "demographic": "global",
+          "model_idx": 0,
+          "auc": 0.9145548833189282,
+          "auprc": 0.5524766604314051,
+          "ece": 0.07503865637654758,
+          "acc": 0.8696078431372549
+        },
+        {
+          "demographic": "global",
+          "model_idx": 1,
+          "auc": 0.9573638720829734,
+          "auprc": 0.7699694766636962,
+          "ece": 0.05511631962684323,
+          "acc": 0.9382352941176471
+        },
+        {
+          "demographic": "global",
+          "model_idx": 2,
+          "auc": 0.9574416594641313,
+          "auprc": 0.7534312635756328,
+          "ece": 0.07248770192921462,
+          "acc": 0.9196078431372549
+        },
+        {
+          "demographic": "global",
+          "model_idx": 3,
+          "auc": 0.9570872947277441,
+          "auprc": 0.778988894007207,
+          "ece": 0.05597383098413323,
+          "acc": 0.9352941176470588
+        },
+        {
+          "demographic": "global",
+          "model_idx": 4,
+          "auc": 0.9631374243733793,
+          "auprc": 0.780455040365625,
+          "ece": 0.043883561524235004,
+          "acc": 0.9352941176470588
+        },
+        {
+          "demographic": "global",
+          "model_idx": 5,
+          "auc": 0.9573033707865168,
+          "auprc": 0.7552689198961251,
+          "ece": 0.06492600640204535,
+          "acc": 0.9176470588235294
+        },
+        {
+          "demographic": "global",
+          "model_idx": 6,
+          "auc": 0.9635263612791704,
+          "auprc": 0.7710526760872015,
+          "ece": 0.06788983343837626,
+          "acc": 0.9225490196078432
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "source_record_sha256": "aeb405b0629d48eda107bf3e39ce14b3bce025f1babd37f99392a9e81df66b35",
+      "input_sha256": "d804e3cedc5f6318cdd4726d312527c71551610684cc6af7a20b5fed7d379bd7",
+      "split_sha256": "582d48700c2a31028ba1af7515aa697495c9ed9b48ede5cc59001a3dd2758bce",
+      "iterations": 20,
+      "config": {
+        "dataset": "CivilComments",
+        "epochs": 20,
+        "labeled_data_weight": 10,
+        "prior_type": "learned",
+        "init": "draw",
+        "use_sample_weights": true,
+        "simulate_predictions": true
+      },
+      "native_metrics": [
+        {
+          "demographic": "global",
+          "model_idx": 0,
+          "auc": 0.9170007921018463,
+          "auprc": 0.6606533131977282,
+          "ece": 0.08690810403630796,
+          "acc": 0.8696078431372549
+        },
+        {
+          "demographic": "global",
+          "model_idx": 1,
+          "auc": 0.9616443054410049,
+          "auprc": 0.7922574291816433,
+          "ece": 0.055366541852917874,
+          "acc": 0.9323529411764706
+        },
+        {
+          "demographic": "global",
+          "model_idx": 2,
+          "auc": 0.9673850023273096,
+          "auprc": 0.7898596585270742,
+          "ece": 0.06090902616597067,
+          "acc": 0.9274509803921569
+        },
+        {
+          "demographic": "global",
+          "model_idx": 3,
+          "auc": 0.9636123110592116,
+          "auprc": 0.7924594158691566,
+          "ece": 0.052304459448435356,
+          "acc": 0.9352941176470588
+        },
+        {
+          "demographic": "global",
+          "model_idx": 4,
+          "auc": 0.9669767024065198,
+          "auprc": 0.8012817995816364,
+          "ece": 0.04585235126551936,
+          "acc": 0.9372549019607842
+        },
+        {
+          "demographic": "global",
+          "model_idx": 5,
+          "auc": 0.9539111049412458,
+          "auprc": 0.7889556679627155,
+          "ece": 0.06275295442250194,
+          "acc": 0.9166666666666665
+        },
+        {
+          "demographic": "global",
+          "model_idx": 6,
+          "auc": 0.9571938363043958,
+          "auprc": 0.7843145655366716,
+          "ece": 0.0670337647414015,
+          "acc": 0.9225490196078432
+        }
+      ]
+    }
+  ]
+}

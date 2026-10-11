@@ -1,0 +1,3 @@
+# Superseded checkpoint results
+
+These reference outputs could not be reproduced exactly from the retained prediction matrix during the 2026-10-06 submission audit. The original run records a Linux environment; the surviving predictions were produced locally. The original input hash was not recorded, so the precise cause cannot be established. The paper now uses a fresh benchmark of the bundled, hashed prediction artifact. Old Accuracy MAE: 5.72/2.26 pp; recomputed: 5.70/2.22 pp (labels only/SSME). The qualitative conclusion is unchanged. These files are preserved for provenance, not used in the final paper.

@@ -133,6 +133,6 @@ def make_report(estimator, metrics, n_draws, confidence, target, random_state,
     from .data import build_report_data
     data = build_report_data(estimator, table, values, metrics, metadata, sample_ids)
     if contribution:
-        from ..contribution import model_contribution
+        from ..estimation.contribution import model_contribution
         data["contribution"] = model_contribution(estimator)
     return EvaluationReport(table, metadata, data)

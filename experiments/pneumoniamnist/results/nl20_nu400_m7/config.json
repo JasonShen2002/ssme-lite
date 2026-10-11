@@ -37,5 +37,5 @@
     "ssme-lite": "0.1.0"
   },
   "python": "3.11.16",
-  "platform": "Linux-5.15.0-128-generic-x86_64-with-glibc2.35"
+  "platform": "macOS-26.6-arm64-arm-64bit"
 }

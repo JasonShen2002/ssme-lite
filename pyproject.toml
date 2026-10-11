@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 license-files = ["LICENSE"]
-authors = [{name = "jason"}]
+authors = [{name = "Junje Shen"}]
 keywords = ["semi-supervised", "model-evaluation", "model-selection", "machine-learning"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -26,8 +26,15 @@ dependencies = ["numpy>=1.24", "scipy>=1.10", "pandas>=2", "scikit-learn>=1.3", 
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
+docs = ["mkdocs>=1.6,<2"]
 official = ["statsmodels>=0.14"]
 transfer = ["torch>=2", "torchvision>=0.15", "pillow>=9"]
+
+[project.urls]
+Documentation = "https://github.com/JasonShen2002/ssme-lite/blob/main/docs/index.md"
+Source = "https://github.com/JasonShen2002/ssme-lite"
+Issues = "https://github.com/JasonShen2002/ssme-lite/issues"
+Changelog = "https://github.com/JasonShen2002/ssme-lite/blob/main/CHANGELOG.md"
 
 [project.scripts]
 ssme-lite = "ssme_lite.cli:main"

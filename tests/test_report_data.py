@@ -79,3 +79,15 @@ def test_invalid_primary_metric():
     p = np.full((12, 1, 2), .5)
     with pytest.raises(ValueError, match='primary_metric'):
         SSMEEstimator().fit(p, np.arange(12)%2).report(primary_metric='precision')
+
+
+def test_public_report_contribution_survives_module_reorganization(tmp_path):
+    rng = np.random.default_rng(3)
+    scores = rng.uniform(.1, .9, (20, 2))
+    labels = np.full(20, -1)
+    labels[:4] = [0, 1, 0, 1]
+    estimator = SSMEEstimator(max_iter=2).fit(scores, labels)
+    report = estimator.report(n_draws=4, contribution=True)
+    assert len(report.data["contribution"]["rows"]) == 2
+    assert report.save(tmp_path).is_file()
+    assert (tmp_path / "contribution.csv").is_file()

@@ -37,10 +37,13 @@ def main():
         title="PneumoniaMNIST",
         primary_metric="auc",
         sample_ids=parts["estimation"],
+        contribution=True,
     )
     report.save(REPORT)
+    public = HERE / "pneumoniamnist_report.html"
+    public.write_bytes((REPORT / "report.html").read_bytes())
     print(report.ranking("auc").to_string(index=False))
-    print(REPORT / "report.html")
+    print(public)
 
 
 if __name__ == "__main__":

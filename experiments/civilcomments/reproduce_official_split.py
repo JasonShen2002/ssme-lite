@@ -177,7 +177,8 @@ def plot(details_path, out_dir):
     base = details[details.model.isin(NAMES)]
     mae = base.groupby(["method", "metric"])["absolute_error"].mean()
     labeled = mae.xs("labeled_only", level="method")
-    order = list(METRICS)
+    # Display order is top to bottom. METRICS itself is accuracy, auc, auprc, ece.
+    order = ["accuracy", "ece", "auc", "auprc"]
     methods = [
         ("majority_vote", "Majority Vote", "#d94f4f", "x"),
         ("pl", "PL", "#e8923a", "x"),
@@ -185,25 +186,41 @@ def plot(details_path, out_dir):
         ("ssme", "SSME", "#5c5c5c", "o"),
     ]
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(5.6, 4.4))
-    y_pos = np.arange(len(order))[::-1]
-    ax.axvline(1, color="#8a8a8a", linestyle=(0, (1.2, 1.4)), linewidth=1.3, label="Labeled", zorder=1)
-    for method, label, color, marker in methods:
-        values = [mae.loc[(method, name)] / labeled.loc[name] for name in order]
-        ax.scatter(values, y_pos, s=64 if marker == "o" else 46, color=color, marker=marker,
-                   linewidths=1.6, zorder=3, label=label)
-    ax.set_yticks(y_pos, ["ACC", "ECE", "AUC", "AUPRC"])
-    ax.set_xlim(0, 1.6)
-    ax.set_xlabel("RMAE")
-    ax.set_title("Relative estimation error (RMAE)")
-    ax.grid(axis="x", color="#e6e6e6", zorder=0)
-    ax.spines[["top", "right"]].set_visible(False)
-    ax.legend(frameon=False, loc="center left", bbox_to_anchor=(1.02, 0.5))
-    fig.tight_layout()
-    out_dir = Path(out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_dir / "rmae.png", dpi=160, bbox_inches="tight")
-    plt.close(fig)
+    style = {
+        "font.size": 12,
+        "axes.titlesize": 14,
+        "axes.labelsize": 12,
+        "xtick.labelsize": 11,
+        "ytick.labelsize": 12,
+        "legend.fontsize": 11,
+        "axes.linewidth": 0.9,
+    }
+    with plt.rc_context(style):
+        fig, ax = plt.subplots(figsize=(7.4, 3.15))
+        y_pos = np.arange(len(order))[::-1]
+        ax.axvline(1, color="#8a8a8a", linestyle=(0, (1.4, 1.5)), linewidth=1.5,
+                   label="Labeled", zorder=1)
+        for method, label, color, marker in methods:
+            values = [mae.loc[(method, name)] / labeled.loc[name] for name in order]
+            ax.scatter(values, y_pos, s=130 if marker == "o" else 95, color=color, marker=marker,
+                       linewidths=2.2, zorder=3, label=label)
+        ax.set_yticks(y_pos, ["ACC", "ECE", "AUC", "AUPRC"])
+        ax.set_ylim(-0.55, len(order) - 0.45)
+        ax.set_xlim(0, 1.72)
+        ax.set_xticks(np.arange(0, 1.51, 0.25))
+        ax.set_xlabel("RMAE")
+        ax.set_title("Relative estimation error (RMAE)", pad=8)
+        ax.grid(axis="x", color="#e4e4e4", linewidth=0.8, zorder=0)
+        ax.set_axisbelow(True)
+        ax.tick_params(axis="y", length=0, pad=6)
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.legend(frameon=False, loc="center left", bbox_to_anchor=(1.02, 0.5),
+                  handletextpad=0.5, labelspacing=0.55, borderaxespad=0.2)
+        out_dir = Path(out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        fig.savefig(out_dir / "rmae.png", dpi=300, bbox_inches="tight", pad_inches=0.08,
+                    facecolor="white")
+        plt.close(fig)
 
     model_order = [
         ("alg_CORAL", "CORAL"),
@@ -254,8 +271,8 @@ def plot(details_path, out_dir):
     plt.close(fig)
 
 
-def main(n_success=50, n_jobs=8):
-    scores, y, names = official_scores(INPUTS, "CivilComments")
+def main(n_success=50, n_jobs=8, inputs=INPUTS, output=None):
+    scores, y, names = official_scores(inputs, "CivilComments")
     if names != NAMES:
         raise ValueError(f"unexpected model order: {names}")
     y = np.asarray(y)
@@ -274,7 +291,7 @@ def main(n_success=50, n_jobs=8):
         collected = [piece for _, piece in pending if piece]
         print(f"valid splits {len(collected)} / attempts {pending[-1][0] + 1}", flush=True)
     details = pd.DataFrame([row for piece in collected[:n_success] for row in piece])
-    out = PACKAGE.parent / "results" / "civilcomments_package_half_split"
+    out = Path(output) if output is not None else PACKAGE.parent / "results" / "civilcomments_package_half_split"
     out.mkdir(parents=True, exist_ok=True)
     details.to_csv(out / "details.csv", index=False)
     base = details[details.model.isin(NAMES)]
@@ -284,7 +301,7 @@ def main(n_success=50, n_jobs=8):
     rmae = summary.div(summary.loc["labeled_only"], axis=1)
     summary.to_csv(out / "mae.csv")
     rmae.to_csv(out / "rmae.csv")
-    plot(out / "details.csv", Path(__file__).resolve().parent / "results")
+    plot(out / "details.csv", out)
     print(out)
     print((summary * 100).round(2))
     print(rmae.round(3))
@@ -292,4 +309,13 @@ def main(n_success=50, n_jobs=8):
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--inputs', type=Path, default=INPUTS)
+    parser.add_argument('--output', type=Path)
+    parser.add_argument('--n-success', type=int, default=50)
+    parser.add_argument('--jobs', type=int, default=8)
+    args = parser.parse_args()
+    if args.n_success < 1 or args.jobs < 1:
+        parser.error('--n-success and --jobs must be positive')
+    main(args.n_success, args.jobs, args.inputs, args.output)

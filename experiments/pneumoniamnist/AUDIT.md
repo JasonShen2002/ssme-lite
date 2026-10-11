@@ -1,6 +1,8 @@
 # PneumoniaMNIST data and model audit
 
-Verdict: **pass**. The formal experiment uses five models from different families, chosen in advance, scored on the official test split.
+**Historical five-family prediction-file audit.** This document records the earlier precomputed-score protocol. The final course report uses seven runnable checkpoints: ResNet18, three AutoKeras models, and three AutoML Vision models. See [the current experiment summary](../REPORT.md) for that study. The original audit below is retained as provenance.
+
+Verdict for the historical protocol: **pass**. Five models from different families were chosen in advance and scored on the official test split.
 
 ## Data
 

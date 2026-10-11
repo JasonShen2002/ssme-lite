@@ -16,4 +16,7 @@ dist/
 *.pth.part
 *.tflite
 *.npz
+!reproduction/inputs/*.npz
 
+
+/site/
