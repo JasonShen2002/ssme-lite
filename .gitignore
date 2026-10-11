@@ -24,3 +24,11 @@ dist/
 
 !experiments/extensions/model_cli_demo/evaluation.npz
 !experiments/extensions/model_cli_demo/report/predictions.npz
+
+# Local typesetting intermediates; the final PDF and QA receipt are versioned.
+/report/*.aux
+/report/*.out
+/report/*.log
+/report/*.blg
+/report/*.bbl
+/report/*.synctex.gz

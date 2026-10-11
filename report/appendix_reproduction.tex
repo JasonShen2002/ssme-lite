@@ -1,0 +1,62 @@
+\section{Experimental Artifacts and Reproduction}
+\label{app:reproduction}
+
+\paragraph{Artifact access.}
+OpenI experiment project:\newline
+\href{https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240}{openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240}.
+The repository contains the package, paper, frozen predictions, configurations,
+raw results, and audit receipts. The base package is also available as
+\href{https://pypi.org/project/ssme-lite/0.1.0/}{\texttt{ssme-lite==0.1.0}} on PyPI;
+install the accompanying checkout to use the new model-file CLI.
+
+\paragraph{Installation.}
+From the repository root, create a clean Python 3.11 environment:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r reproduction/requirements.txt
+python -m pip install --no-deps -e .
+\end{lstlisting}
+On Windows use \nolinkurl{.venv/Scripts/Activate.ps1}. Fixed-score fits use CPU only.
+
+\paragraph{Main medical experiments.}
+Two NPZ files retain all 624 test rows and ordered candidates; SHA256 hashes are
+in \nolinkurl{reproduction/inputs/manifest.json}. Run:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+python reproduction/run.py --jobs 2
+\end{lstlisting}
+The runner refits ten seeds per setting: checkpoints at 20 labels and transfer
+heads at 20/50/100 labels, with 400 unlabeled rows, 100 updates, and 100 posterior
+draws. At 20 labels it also recomputes model-removal diagnostics. It verifies
+splits, model metrics, errors, rankings, and posterior sensitivity against saved
+references at absolute tolerance $10^{-10}$. Fresh outputs go to
+\nolinkurl{results/reproduction/}. Accuracy MAEs (labels/SSME, pp) are
+5.70/2.22 for checkpoints and 7.11/4.16, 5.60/3.19, 4.28/3.45 for transfer.
+
+\paragraph{Model files to an offline report.} Run the included example:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+python examples/model_files.py
+ssme-lite check-config results/model_files/config.json
+ssme-lite results/model_files/config.json --trust-model-files
+\end{lstlisting}
+The configuration specifies model paths, evaluation features, partial labels,
+ordered classes, and output location. HTML/CSV/JSON outputs include frozen
+predictions and input hashes.
+
+\paragraph{Extensions and figure reproduction.} Inspect and rebuild saved evidence:
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+python experiments/extensions/audit_results.py
+python report/build_report.py
+python report/build_extensions.py
+\end{lstlisting}
+These commands audit saved evidence and regenerate the paper's vector figures.
+\nolinkurl{experiments/extensions/README.md} documents fresh pilot/full runs,
+30-seed label comparisons, ten-seed composition studies, three-repetition timing,
+resume behavior, and the optional 10,000-row server profile. Exact measurement
+source snapshots and environments accompany all 342 configurations.
+
+\paragraph{Additional workflows.}
+Follow \nolinkurl{docs/reproduction.md} to obtain official CivilComments scores
+and run \nolinkurl{experiments/civilcomments/reproduce_official_split.py}; it
+collects 50 class-covered splits with 20 labels and 1,000 unlabeled samples.
+The same guide provides image-to-report and frozen-ResNet18 training commands.

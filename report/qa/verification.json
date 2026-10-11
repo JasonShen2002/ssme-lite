@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-11",
+  "pages": 6,
+  "body_pages": 4,
+  "references_pages": 1,
+  "appendix_pages": 1,
+  "figures": 3,
+  "tables": 2,
+  "compiler": "Tectonic 0.17.0",
+  "overfull_boxes": 0,
+  "unresolved_references": 0,
+  "visual_review": "All six pages inspected; appendix listing frames corrected and rechecked.",
+  "sha256": "78cee7fcc27f36c3f20ad1b1c7388c2938d855a13c1f16cfbba5a816dbb4d34b"
+}

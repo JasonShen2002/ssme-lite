@@ -1,0 +1,19 @@
+{
+  "inputs": [
+    {
+      "path": "experiments/extensions/results/labels/full/summary.csv",
+      "sha256": "a978903585490bfcc7467f1bee4823ca5a653678aeb87944bd2e54dfe5a29f51"
+    },
+    {
+      "path": "experiments/extensions/results/performance/full/summary.csv",
+      "sha256": "600f9407999a93ca4be0e7cbb067d68d92488b5b5e1f0ee9d17c358ed02a0329"
+    },
+    {
+      "path": "experiments/extensions/results/stress/full/summary.csv",
+      "sha256": "e843200403173036cfd6dd016fcd320b44d83ee5d840e497621131795e78bbb2"
+    }
+  ],
+  "builder_sha256": "4c5f1594cb161870012b52111db3f6d548014342ee721e8d6baa7cd3d190a760",
+  "intervals": "Panels a/b: unadjusted marginal 95% t intervals across 30 seeds; panel c: SD across three process repetitions; panel d: means across ten seeds.",
+  "selection": "Panel d displays the two settings with complete class coverage in all ten seeds; full grid remains in experiments/extensions/results/stress/full."
+}

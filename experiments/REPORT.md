@@ -56,10 +56,10 @@ See the [PneumoniaMNIST](../docs/tutorials/pneumoniamnist.md), [transfer](../doc
 An earlier study used five published prediction families, including ResNet50 and auto-sklearn. It is preserved in [the historical report](archive/five_model_score_study.md) and [prediction-file audit](pneumoniamnist/AUDIT.md). Its candidate set and numerical results differ from the current seven-checkpoint inference study.
 
 
-## Unreleased extension studies (2026-10-11)
+## Integrated extension studies (2026-10-11)
 
-The separate [extension results](extensions/RESULTS.md) add 42 performance
-conditions, 180 fixed-target label-efficiency conditions and 120 multiclass/
-redundancy conditions. They use new protocols and seeds and do not replace the
-manuscript numbers above. In particular, the new label-saving criterion did not
-pass, and multiclass missing-label failures are retained.
+The [course report](../report/main.pdf) now integrates an additional 342 configurations: 42 CPU performance conditions, 180 fixed-target label-efficiency conditions, and 120 multiclass/model-composition conditions. The main ten-split protocol above and the new thirty-seed fixed-target protocol are reported separately.
+
+At 20 labels, the new checkpoint and transfer studies reduce mean held-out Accuracy MAE from 5.84 to 3.21 pp and 7.35 to 4.60 pp, respectively. The controlled 5,000-row CPU fit averages 254.07 seconds; all measured parallel/batch output comparisons have maximum absolute difference 0.0. With three classes and 20 labels, six diverse score views attain 1.59 pp MAE, compared with 3.69 pp for three views and 3.48 pp for repeated views.
+
+The [complete extension results](extensions/RESULTS.md) provide all baselines, class-coverage conditions, statistical comparisons, and protocol details. [Reproduction commands](extensions/README.md), [raw records](extensions/results/), and the [independent audit](extensions/results/audit_full.json) accompany the report.

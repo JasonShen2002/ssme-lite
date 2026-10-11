@@ -1,0 +1,20 @@
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ccccc@{}}
+\toprule
+ & \multicolumn{2}{c}{MAE (pp)} & \multicolumn{2}{c}{Paired reduction (pp)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Metric & Labels only & SSME-Lite & Mean & 95\% CI \\
+\midrule
+\multicolumn{5}{c}{\textit{Pretrained checkpoints (7 models)}} \\
+Accuracy & 5.70 & 2.22 & 3.49 & [2.37, 4.60] \\
+AUC & 3.17 & 2.55 & 0.62 & [0.19, 1.04] \\
+AP & 2.98 & 2.40 & 0.58 & [-0.06, 1.22] \\
+ECE & 3.93 & 2.39 & 1.54 & [0.69, 2.38] \\
+\midrule
+\multicolumn{5}{c}{\textit{Transfer learning (5 heads)}} \\
+Accuracy & 7.11 & 4.16 & 2.95 & [1.00, 4.89] \\
+AUC & 4.75 & 3.89 & 0.87 & [-0.59, 2.33] \\
+AP & 4.27 & 4.05 & 0.22 & [-1.47, 1.90] \\
+ECE & 6.43 & 3.96 & 2.47 & [0.68, 4.26] \\
+\bottomrule
+\end{tabular*}

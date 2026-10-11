@@ -1,0 +1,13 @@
+{
+  "archive_sha256": "1507258bb54a12c38caa3b3eb236fa0e039e8b5ee4238beb2a1d02d15a923947",
+  "files": {
+    "main.tex": "e01eb8578dd6f1e5b81a8b1d2bc1012e1e268b7eec5b1e5a2be5bcdb1f001844",
+    "appendix_reproduction.tex": "0743fbd7380647d27d3c2377e5111725736fd400a1be2512c2c8813afdf77aa9",
+    "references.bib": "9f76d1ed51c43a55658598a9d42ab4aeb8b956ecafc86a70e4fb56d8de3298e7",
+    "jmlr2e.sty": "a430a875d561235951800e4e21d2631e18ddf0b369646ec276f43ea5080f27c3",
+    "results_table.tex": "3c76b8f47351ed701bacc7eb4d223096f854249e87a29c76c67aacefc5055132",
+    "figures/workflow.pdf": "846d861ffe0ec18ad20705a0f959dfc3874d4bc15f48b71525344e63aaf69f92",
+    "figures/diagnostics.pdf": "c5d1796a650188b0775c0db86d881ec89d0dde577e100e20476f85398f507de7",
+    "figures/extensions.pdf": "be2a0e83b4223f31dbdff78d553116d5601e5a2402d9046da07902920d6e20df"
+  }
+}

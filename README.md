@@ -1,113 +1,110 @@
 # SSME-Lite
 
+**少量标签，多模型评估。一套可复现的预测、估计、选模与报告工作流。**
+
 [![PyPI](https://img.shields.io/pypi/v/ssme-lite.svg)](https://pypi.org/project/ssme-lite/)
-[![Tests](https://github.com/JasonShen2002/ssme-lite/actions/workflows/ci.yml/badge.svg)](https://github.com/JasonShen2002/ssme-lite/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3572A5)](pyproject.toml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-087F8C.svg)](LICENSE)
 
-**Evaluate existing classifiers with a few labels and many unlabeled predictions.**
+SSME-Lite 将半监督模型评估方法封装为 sklearn 风格的 Python 工具包：输入多个模型的预测概率和少量已知标签，即可估计 Accuracy、ROC AUC、AP 与 ECE，生成模型排名、不确定性区间及可离线打开的交互报告。核心安装无需 PyTorch。
 
-SSME-Lite packages semi-supervised model evaluation into a small Python interface: provide model probabilities and partial labels, estimate performance, rank candidates, and export an interactive HTML report that opens offline.
+**作者：沈骏杰（Junje Shen） · 学号：2026211240 · 课程题目八**
 
-- **One estimator:** `fit()` followed by `report()`.
-- **Four metrics:** Accuracy, ROC AUC, average precision (`auprc`), and ECE.
-- **Flexible inputs:** precomputed probabilities or already fitted sklearn-style models.
-- **Portable outputs:** HTML, CSV, JSON, and metric plots.
-- **Reproducible experiments:** explicit seeds, shared splits, and optional model-influence diagnostics.
-- **Lightweight core:** no PyTorch dependency; transfer learning is optional.
-- **Parallel execution:** configurable prediction, density-fit, and benchmark workers, with batched posterior evaluation.
+[课程论文](report/main.pdf) · [中文导读](report/main_zh.md) · [实验成果](experiments/REPORT.md) · [复现指南](docs/reproduction.md) · [OpenI 项目](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240)
 
-## Published release
+## 先看成果
 
-**SSME-Lite 0.1.0 is available on [PyPI](https://pypi.org/project/ssme-lite/0.1.0/).** The release was built and uploaded through GitHub Actions Trusted Publishing. Automated checks passed on Python 3.10–3.14; a fresh installation from public PyPI was verified with both runnable examples and the CLI report workflow. [Release run](https://github.com/JasonShen2002/ssme-lite/actions/runs/37307075613).
+| 交付内容 | 核心能力与证据 | 阅读入口 |
+| --- | --- | --- |
+| 统一评估接口 | 概率矩阵生成、类别对齐、SSME 拟合、四指标估计与排名 | [API](docs/api.md) |
+| 真实医学案例 | 七个预训练检查点 + 五个冻结 ResNet18 迁移分类头 | [主实验](experiments/REPORT.md) |
+| 模型文件到报告 | JSON 配置、预检查、批量预测、输入哈希与离线输出 | [CLI 指南](docs/guides/cli.md) |
+| 模型影响分析 | 逐模型移除后的后验敏感性，辅助理解模型组合 | [方法说明](docs/method.md) |
+| 扩展实验 | 342 个配置：规模、并行、固定目标标签效率、多分类与重复预测 | [完整中文结果](experiments/extensions/RESULTS.md) |
+| 可验证交付 | 48 项测试通过；源码与 wheel 安装验证；独立结果审计 | [验证记录](experiments/extensions/validation.json) |
 
-## Installation
+![固定目标标签效率、CPU 规模与模型组合实验](report/figures/extensions.png)
 
-Python 3.10 or newer:
+**主实验：**20 个可见标签、十次共享划分下，准确率估计 MAE 从 **5.70 降至 2.22 个百分点**（七个检查点），从 **7.11 降至 4.16 个百分点**（五个迁移分类头）。十二个候选模型的平均准确率估计误差均降低。
+
+**固定目标扩展：**另用 30 个种子固定 420 行样本池与 204 行留出集，在相同的 20 标签预算下，两组平均误差分别降低 **45.1% / 37.3%**。两套协议分别汇总，便于核验。
+
+**工程验证：**完成 500–5,000 样本的 CPU 基准；5,000 样本、三个模型、两类、100 次更新的平均拟合时间为 **254.07 秒**。已测并行和分批配置的输出最大绝对差为 **0.0**。配置、环境、原始结果和源码快照均随仓库提供。
+
+## 五分钟运行
+
+为使用本次提交的全部功能，请从当前源码安装（Python 3.10+）：
 
 ```bash
-python -m pip install ssme-lite
-```
-
-To work from a checkout:
-
-```bash
-git clone https://github.com/JasonShen2002/ssme-lite.git
+git clone https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240.git ssme-lite
 cd ssme-lite
 python -m pip install -e '.[dev]'
+python examples/quickstart.py
 ```
 
-## Minimal interface
+打开 `results/quickstart/report.html` 即可查看离线报告。已发布的基础版本也可通过 `python -m pip install ssme-lite==0.1.0` 安装；本次模型文件 CLI 和扩展实验随当前源码提供。
+
+### 用已有模型一键生成报告
+
+以下示例准备两个已训练分类器、评估特征与部分标签，然后通过 JSON 配置运行：
+
+```bash
+python examples/model_files.py
+ssme-lite check-config results/model_files/config.json
+ssme-lite results/model_files/config.json --trust-model-files
+```
+
+在自己的配置中指定模型文件、NPZ 数据、类别顺序和输出目录即可复用。joblib 文件需来自可信来源，加载时以 `--trust-model-files` 显式确认。已有的 `ssme-lite config.json` 调用保持兼容。
+
+### Python 接口
 
 ```python
 from ssme_lite import SSMEEstimator
 
-# scores: (samples, models), positive-class probabilities for binary tasks.
-# y_partial: one integer label per row; -1 means unknown.
-estimator = SSMEEstimator(random_state=0)
+# scores: (样本数, 模型数)，二分类正类概率
+# y_partial: 已知类别；未知标签记为 -1
+estimator = SSMEEstimator(max_iter=100, random_state=0)
 estimator.fit(scores, y_partial, model_names=model_names)
 report = estimator.report(primary_metric="accuracy")
 print(report.ranking("accuracy"))
 report.save("results/my_report")
 ```
 
-Every class must have at least one observed label. For multiclass tasks, use `(samples, models, classes)` probabilities and class indices `0..K-1`.
+多分类输入使用 `(样本数, 模型数, 类别数)`；标签为 `0..K-1` 的类别索引，每一类至少有一个可见标签。区间描述给定拟合后验下的标签不确定性；模型贡献度表示移除一个输入模型后的敏感性。详见[方法与解释](docs/method.md)。
 
-For a complete example without external data, run `python examples/quickstart.py` from the checkout. It generates a small synthetic dataset, fits SSME, and saves `results/quickstart/report.html`. This example illustrates the interface, not an empirical performance claim.
+## 目录导航
 
-## Documentation and tutorials
-
-- [Documentation home](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/index.md)
-- [Five-minute quickstart](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/quickstart.md)
-- [Use your own models](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/guides/inputs.md)
-- [Understand the report](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/guides/reports.md)
-- [API reference](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/api.md)
-
-| Tutorial | What you will learn |
+| 目录 | 用途 |
 | --- | --- |
-| [CivilComments](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/tutorials/civilcomments.md) | Quickstart on the original paper's dataset and a qualitative reproduction check |
-| [PneumoniaMNIST](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/tutorials/pneumoniamnist.md) | Main end-to-end demonstration: prediction, evaluation, ranking, and reporting |
-| [Transfer learning](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/tutorials/transfer.md) | Frozen ResNet18 features, five classifier heads, and a shared evaluation interface |
+| `report/` | 最终论文 PDF、LaTeX、矢量图、中文导读、Overleaf 源码包 |
+| `ssme_lite/` | 可安装的核心 Python 包 |
+| `examples/` | 无外部数据的快速示例与模型文件工作流 |
+| `docs/` | 安装、接口、教程、CLI、复现与方法说明 |
+| `reproduction/` | 主实验的冻结输入、哈希、参考结果与复现脚本 |
+| `experiments/` | 医学、迁移、CivilComments 与扩展实验资料 |
+| `tests/` | 数值、接口、输入对齐、报告与实验协议测试 |
 
-[View saved experiment reports](https://jasonshen2002.github.io/ssme-lite/).
+## 复现与验证
 
-## Experimental evidence
-
-PneumoniaMNIST is the main study: seven released checkpoints demonstrate the complete inference-to-report workflow, and five frozen-ResNet18 transfer heads demonstrate reuse with newly trained classifiers. With 20 visible labels, mean held-out Accuracy estimation error decreases from **5.70 to 2.22 percentage points** for checkpoints and from **7.11 to 4.16** for transfer heads, over ten shared splits.
-
-CivilComments is the original-paper quickstart and qualitative reproduction check. These are measured results for the stated protocols, rather than guarantees for every dataset. See the [current experiment summary](https://github.com/JasonShen2002/ssme-lite/blob/main/experiments/REPORT.md) and [course-requirement evidence](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/course-requirements.md).
-
-## Method and interpretation
-
-SSME-Lite follows Shanmugam et al., *Evaluating Multiple Models Using Labeled and Unlabeled Data*, NeurIPS 2025. It combines classifier probabilities through additive log-ratio features, weighted class-conditional kernel densities, and iterative posterior updates with observed labels clamped.
-
-Report intervals describe latent-label uncertainty conditional on the fitted posterior. Model contribution measures sensitivity to leaving out an input model. See the [method guide](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/method.md) for definitions, implementation choices, and attribution. The current real-data demonstrations are binary classification tasks; the interface also accepts multiclass probabilities.
-
-## Development
+主实验从随仓库保存的预测开始，重新拟合 SSME，无需 GPU：
 
 ```bash
-python -m pip install -e '.[dev,docs]'
+python reproduction/run.py --jobs 2
+```
+
+扩展结果可直接审计；图表可从已有统计记录重建：
+
+```bash
+python experiments/extensions/audit_results.py
+python report/build_report.py
+python report/build_extensions.py
 python -m pytest -q
-mkdocs serve
 ```
 
-See [Contributing](https://github.com/JasonShen2002/ssme-lite/blob/main/CONTRIBUTING.md) and the [release guide](https://github.com/JasonShen2002/ssme-lite/blob/main/docs/releasing.md).
+需要重新运行全部扩展或扩展至 10,000 样本时，参见[实验命令](experiments/extensions/README.md)。[复现指南](docs/reproduction.md)另列原图推理、ResNet18 特征提取和 CivilComments 输入准备步骤。
 
-MIT licensed. Maintained by Junje Shen. Please cite the original SSME paper when using the method.
+## 文档与引用
 
-## Reproduce the course report
+[文档首页](docs/index.md) · [输入格式](docs/guides/inputs.md) · [阅读报告](docs/guides/reports.md) · [迁移学习](docs/tutorials/transfer.md) · [课程要求对应](docs/course-requirements.md) · [贡献指南](CONTRIBUTING.md)
 
-See the [reproduction guide](docs/reproduction.md). Bundled, hashed prediction artifacts support CPU-only refits of the main benchmarks with `python reproduction/run.py --jobs 2`. CivilComments and image-to-report workflows are documented separately.
-
-Course experiment project: [OpenI](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240).
-
-## Current checkout extensions (unreleased)
-
-The source checkout adds trusted fitted-model JSON input, prediction batches, and measured performance, label-efficiency and multiclass/redundancy studies. These additions are separate from the published PyPI 0.1.0 wheel.
-
-```bash
-python -m pip install -e .
-python examples/model_files.py
-ssme-lite check-config results/model_files/config.json
-ssme-lite results/model_files/config.json --trust-model-files
-```
-
-See the [model-file CLI guide](docs/guides/cli.md), [extension guide](docs/guides/extensions.md), and [experiment protocol and commands](experiments/extensions/README.md). All submission artifacts are contained in this repository.
+方法基于 Shanmugam 等人的 *Evaluating Multiple Models Using Labeled and Unlabeled Data*（NeurIPS 2025）。使用时请引用原论文；完整文献见 [references.bib](report/references.bib)。本项目采用 [MIT License](LICENSE)。

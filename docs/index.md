@@ -8,6 +8,10 @@ SSME-Lite helps you evaluate several already trained classifiers when labels are
 
 **The workflow:** collect probabilities → reveal a few labels → fit `SSMEEstimator` → inspect and export results.
 
+## Course submission
+
+Read the [course paper](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/report/main.pdf), [Chinese overview](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/report/main_zh.md), and [integrated experimental evidence](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/experiments/REPORT.md). The current checkout includes the model-file CLI and all extension artifacts.
+
 ## Start here
 
 1. [Install the package](installation.md).
