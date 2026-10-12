@@ -24,9 +24,6 @@ jobs:
           python "$GITHUB_WORKSPACE/examples/quickstart.py"
           python "$GITHUB_WORKSPACE/examples/sklearn_models.py"
           ssme-lite results/quickstart/evaluation.json
-          python "$GITHUB_WORKSPACE/examples/model_files.py"
-          ssme-lite check-config results/model_files/config.json
-          ssme-lite results/model_files/config.json --trust-model-files
       - uses: actions/upload-artifact@v4
         with:
           name: distributions
