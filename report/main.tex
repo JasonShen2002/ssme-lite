@@ -117,18 +117,18 @@ Removing MLP or logistic regression gives the largest mean TV (0.0465 and 0.0425
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/extensions.pdf}
-\caption{Extension study. (a,b) Fixed pool/holdout: 420/204 rows; 30 seeds, nested labels, 95\% $t$ intervals. (c) CPU mean $\pm$ SD over three repetitions, 100 updates. (d) Same three evaluated candidates; ten seeds, fixed 240-row target. MAE units: percentage points.}
+\caption{(a) CivilComments relative MAE over 50 valid splits; dashed line: labeled-only baseline. (b) Transfer MAE over ten splits per budget, 400 unlabeled rows, 95\% $t$ intervals. (c) CPU mean $\pm$ SD over three repetitions, 100 updates. (d) Same three evaluated candidates; ten seeds, fixed 240-row target. MAE units: percentage points.}
 \label{fig:extensions}
 \end{figure}
 
 \paragraph{Annotation efficiency at a fixed target.}
-New seeds 100--129 preserve pool and holdout rows across 20/50/100-label budgets (180 configurations). At 20 labels, checkpoint MAE changes from 5.84 to 3.21 pp and transfer MAE from 7.35 to 4.60 pp: reductions of 45.1\% and 37.3\%. Figure~\ref{fig:extensions}a,b also includes mean-probability estimation. These equal-budget gains use a distinct criterion from cross-budget replacement.
+New seeds 100--129 preserve pool and holdout rows across 20/50/100-label budgets (180 configurations). At 20 labels, checkpoint MAE changes from 5.84 to 3.21 pp and transfer MAE from 7.35 to 4.60 pp: reductions of 45.1\% and 37.3\%. Figure~\ref{fig:extensions}b complements this study with the original ten-split transfer results (204/174/124 held-out rows).
 
 \paragraph{Measured scaling and model composition.}
 The 42-condition CPU study measures 500--5,000 rows: fits take 2.73, 10.62, 42.63, and 254.07 s on macOS arm64 with one numerical-library thread. Parallel/batch outputs agree exactly; worker choice is workload-dependent (1,000 rows: 10.62/11.56 s for one/two workers). The 120-condition digits study covers 3/10 classes and diverse/replicated views. Three-class, 20-label MAE is 1.59 pp with six diverse views, versus 3.69 with three and 3.48 with duplicates. Figure~\ref{fig:extensions}d shows two fully class-covered settings.
 
 \paragraph{Original-paper check and delivery.}
-CivilComments relative MAEs are 0.41/0.47/0.42/0.42 for Accuracy/AUC/AP/ECE over 50 splits. Baselines include voting, pseudo-labels, and Dawid--Skene \citep{dawid1979}. The checkout adds trusted joblib-to-report configuration and input hashes. Independent auditing checks 342 configurations and 8,478 Accuracy truth values; Appendix~\ref{app:reproduction} links artifacts and commands.
+CivilComments relative MAEs are 0.41, 0.47, 0.42, and 0.42 (Figure~\ref{fig:extensions}a), comparing voting, pseudo-labels, and Dawid--Skene \citep{dawid1979}. The checkout adds trusted joblib-to-report configuration and input hashes. Independent auditing checks 342 configurations and 8,478 Accuracy truth values; Appendix~\ref{app:reproduction} links artifacts and commands.
 
 \section{Conclusion}
 SSME-Lite unifies prediction, scarce-label evaluation, model selection, and offline reporting. Medical case studies, fixed-target comparisons, and measured execution profiles support its practical reuse.

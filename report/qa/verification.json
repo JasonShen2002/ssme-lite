@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-11",
+  "date": "2026-10-12",
   "pages": 6,
   "body_pages": 4,
   "references_pages": 1,
@@ -9,6 +9,6 @@
   "compiler": "Tectonic 0.17.0",
   "overfull_boxes": 0,
   "unresolved_references": 0,
-  "visual_review": "All six pages inspected; appendix listing frames corrected and rechecked.",
-  "sha256": "78cee7fcc27f36c3f20ad1b1c7388c2938d855a13c1f16cfbba5a816dbb4d34b"
+  "visual_review": "Revised Figure 3 panels a/b and page 4 inspected; six-page layout retained.",
+  "sha256": "edb0c9633daf80bfcedfa7390f35d3cbb02447a30548e361fc62fd758ab1a7ff"
 }

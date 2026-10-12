@@ -1,8 +1,12 @@
 {
   "inputs": [
     {
-      "path": "experiments/extensions/results/labels/full/summary.csv",
-      "sha256": "a978903585490bfcc7467f1bee4823ca5a653678aeb87944bd2e54dfe5a29f51"
+      "path": "report/civilcomments_mae.csv",
+      "sha256": "22d21f3b21743bfe13a04af8aa8f3038da0f655afca018fd08f6a10564725860"
+    },
+    {
+      "path": "report/budget_statistics.csv",
+      "sha256": "b45d2578d5f79534f27dcea78b05c321e066b60e2402eda1d4cd6e0e942e918f"
     },
     {
       "path": "experiments/extensions/results/performance/full/summary.csv",
@@ -13,7 +17,7 @@
       "sha256": "e843200403173036cfd6dd016fcd320b44d83ee5d840e497621131795e78bbb2"
     }
   ],
-  "builder_sha256": "4c5f1594cb161870012b52111db3f6d548014342ee721e8d6baa7cd3d190a760",
-  "intervals": "Panels a/b: unadjusted marginal 95% t intervals across 30 seeds; panel c: SD across three process repetitions; panel d: means across ten seeds.",
+  "builder_sha256": "4053ce6fb8fb0ba58d013ac6ba6d42dcb52d401d7c17bb89cc9236571695810d",
+  "intervals": "Panel a: relative MAE across 50 valid splits; panel b: 95% t intervals across ten splits per budget; panel c: SD across three process repetitions; panel d: means across ten seeds.",
   "selection": "Panel d displays the two settings with complete class coverage in all ten seeds; full grid remains in experiments/extensions/results/stress/full."
 }

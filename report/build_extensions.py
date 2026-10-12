@@ -21,23 +21,29 @@ plt.rcParams.update({'font.family':'DejaVu Sans','font.size':8,'axes.labelsize':
  'axes.spines.top':False,'axes.spines.right':False,'axes.edgecolor':'#9AA7B4',
  'axes.linewidth':.6,'xtick.labelsize':7.5,'ytick.labelsize':7.5,
  'pdf.fonttype':42,'ps.fonttype':42,'legend.fontsize':7.2})
-paths = [EXT/'labels/full/summary.csv', EXT/'performance/full/summary.csv',
-         EXT/'stress/full/summary.csv']
-labels, perf, stress = [pd.read_csv(p) for p in paths]
-fig, axs = plt.subplots(2,2,figsize=(6.3,3.25))
-fig.subplots_adjust(left=.085,right=.99,bottom=.11,top=.865,wspace=.36,hspace=.85)
-methods=[('labeled_only','Labels only',SLATE,'o'),('ssme','SSME-Lite',TEAL,'s'),
-         ('mean_probability','Mean probability',GOLD,'^')]
-for ax,pipeline,title in zip(axs[0],['checkpoints','transfer'],['(a) Seven checkpoints','(b) Five transfer heads']):
- for method,label,color,marker in methods:
-  d=labels.query('pipeline == @pipeline and target == "heldout" and metric == "accuracy" and method == @method').sort_values('budget')
-  assert len(d)==3 and d.valid_seeds.eq(30).all()
-  ci=t.ppf(.975,d.valid_seeds-1)*d.mae_sd/np.sqrt(d.valid_seeds)*100
-  ax.errorbar(d.budget,d.mae*100,yerr=ci,color=color,marker=marker,lw=1.35,ms=3.4,capsize=2,elinewidth=.7,label=label)
- ax.set(title=title,xlabel='Visible labels (fixed 420-row pool)',ylabel='Accuracy MAE (pp)',xticks=[20,50,100],ylim=(0,10),yticks=[0,5,10])
- ax.grid(axis='y',color='#E6EBEF',linewidth=.6)
- ax.set_axisbelow(True)
-fig.legend(*axs[0,0].get_legend_handles_labels(),loc='upper center',bbox_to_anchor=(.53,1.005),ncol=3,frameon=False,columnspacing=1.7)
+paths = [HERE/'civilcomments_mae.csv', HERE/'budget_statistics.csv',
+         EXT/'performance/full/summary.csv', EXT/'stress/full/summary.csv']
+civil = pd.read_csv(paths[0], index_col='method')
+budget = pd.read_csv(paths[1])
+perf, stress = [pd.read_csv(p) for p in paths[2:]]
+fig, axs = plt.subplots(2,2,figsize=(6.3,3.0))
+fig.subplots_adjust(left=.085,right=.99,bottom=.11,top=.93,wspace=.36,hspace=.85)
+ax=axs[0,0]
+metrics=['accuracy','auc','auprc','ece']; x=np.arange(4)
+ratios=civil.div(civil.loc['labeled_only'])
+for j,(method,label,color) in enumerate([
+ ('majority_vote','W. vote','#AEB8C4'),('pl','Pseudo-label','#DDA447'),
+ ('dawid_skene','Dawid--Skene','#847AA3'),('ssme','SSME-Lite',TEAL)]):
+ ax.bar(x+(j-1.5)*.19,ratios.loc[method,metrics],.18,label=label,color=color)
+ax.axhline(1,color='#47515B',ls='--',lw=.8)
+ax.set(title='(a) CivilComments quickstart',xticks=x,xticklabels=['Acc.','AUC','AP','ECE'],ylabel='Relative MAE',ylim=(0,2.35),yticks=[0,1,2])
+ax.legend(ncol=2,loc='upper left',frameon=False,handlelength=1,handletextpad=.35,columnspacing=.6,fontsize=6.7)
+ax=axs[0,1]
+for method,label,color in [('labeled_only','Labels only',SLATE),('ssme','SSME-Lite',TEAL)]:
+ d=budget.query('method == @method').sort_values('labels')
+ ax.errorbar(d.labels,d.mae_pp,yerr=d.ci_high-d.mae_pp,label=label,color=color,marker='o',capsize=3,lw=1.4,ms=3.4)
+ax.set(title='(b) PneumoniaMNIST transfer',xlabel='Visible labels (400 unlabeled)',ylabel='Accuracy MAE (pp)',xticks=[20,50,100],ylim=(0,11),yticks=[0,5,10])
+ax.legend(frameon=False,fontsize=6.7)
 ax=axs[1,0]
 d=perf.query('kind == "controlled" and models == 3 and classes == 2 and workers == 1 and batch == 512').sort_values('n')
 assert len(d)==4 and d.fit_seconds_count.eq(3).all()
@@ -71,7 +77,7 @@ for ext in ['pdf','png']:
 plt.close(fig)
 manifest={'inputs':[{'path':str(p.relative_to(ROOT)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in paths],
  'builder_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
- 'intervals':'Panels a/b: unadjusted marginal 95% t intervals across 30 seeds; panel c: SD across three process repetitions; panel d: means across ten seeds.',
+ 'intervals':'Panel a: relative MAE across 50 valid splits; panel b: 95% t intervals across ten splits per budget; panel c: SD across three process repetitions; panel d: means across ten seeds.',
  'selection':'Panel d displays the two settings with complete class coverage in all ten seeds; full grid remains in experiments/extensions/results/stress/full.'}
 (HERE/'extension_figure_provenance.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print('Created vector PDF and 240-dpi PNG: figures/extensions; input hashes recorded.')
