@@ -38,17 +38,17 @@ For a downloadable example, run `python examples/quickstart.py` from the checkou
 
 ## Model names and model objects
 
-The candidate list is the `model_names` array saved inside the NPZ file, aligned with its model axis. The published 0.1.0 CLI uses this probability-input contract. The current source checkout also supports fitted model files, as described below. See [input adapters](inputs.md) for the Python API.
+The candidate list is the `model_names` array saved inside the NPZ file, aligned with its model axis. The published 0.1.0 CLI uses this probability-input contract. Version 0.2.0 also supports fitted model files, as described below. See [input adapters](inputs.md) for the Python API.
 
 ## Benchmark configurations
 
 The repository's `configs/` also includes synthetic and released-score benchmark configurations. Those run repeated experimental comparisons and have different data requirements and costs. The small NPZ example above is the recommended first CLI run. See `ssme-lite --help` for the command syntax.
 
-## Fitted-model workflow (current source checkout)
+## Fitted-model workflow (0.2.0)
 
-The source checkout now supports `source: "models"`. This addition is not part
-of the previously published PyPI 0.1.0 wheel. Install this checkout with
-`python -m pip install -e .` before running the commands below.
+Version 0.2.0 supports `source: "models"`. Install with
+`python -m pip install ssme-lite==0.2.0`; run the repository example below
+from a source checkout.
 
 ```bash
 python examples/model_files.py

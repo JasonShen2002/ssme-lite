@@ -42,7 +42,7 @@ The package is **published on [PyPI](https://pypi.org/project/ssme-lite/)**:
 pip install ssme-lite
 ```
 
-Requires Python 3.10+. The core package runs without PyTorch. PyPI provides release **0.1.0**; install the current repository to use the added model-file CLI and extension experiments:
+Requires Python 3.10+. The core package runs without PyTorch. Version **0.2.0** includes the fitted-model CLI. Clone the repository for tutorials, frozen inputs, and experiment scripts:
 
 ```bash
 git clone https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240.git ssme-lite

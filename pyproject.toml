@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ssme-lite"
-version = "0.1.0"
+version = "0.2.0"
 description = "Semi-supervised evaluation and selection of existing classifiers"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -31,10 +31,10 @@ official = ["statsmodels>=0.14"]
 transfer = ["torch>=2", "torchvision>=0.15", "pillow>=9"]
 
 [project.urls]
-Documentation = "https://github.com/JasonShen2002/ssme-lite/blob/main/docs/index.md"
-Source = "https://github.com/JasonShen2002/ssme-lite"
+Documentation = "https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/docs/index.md"
+Source = "https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240"
 Issues = "https://github.com/JasonShen2002/ssme-lite/issues"
-Changelog = "https://github.com/JasonShen2002/ssme-lite/blob/main/CHANGELOG.md"
+Changelog = "https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/CHANGELOG.md"
 
 [project.scripts]
 ssme-lite = "ssme_lite.cli:main"

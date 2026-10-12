@@ -1,6 +1,6 @@
 # SSME-Lite
 
-**Published:** [ssme-lite 0.1.0 on PyPI](https://pypi.org/project/ssme-lite/0.1.0/). Install with `python -m pip install ssme-lite`.
+**Published:** [ssme-lite 0.2.0 on PyPI](https://pypi.org/project/ssme-lite/0.2.0/). Install with `python -m pip install ssme-lite`.
 
 ## From classifier probabilities to an evaluation report
 
@@ -10,7 +10,7 @@ SSME-Lite helps you evaluate several already trained classifiers when labels are
 
 ## Course submission
 
-Read the [course paper](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/report/main.pdf), [Chinese overview](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/report/main_zh.md), and [integrated experimental evidence](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/experiments/REPORT.md). The current checkout includes the model-file CLI and all extension artifacts.
+Read the [course paper](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/report/main.pdf), [Project overview](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/report/overview.md), and [integrated experimental evidence](https://openi.pcl.ac.cn/jasonshen/SSME-Lite-2026211240/src/branch/master/experiments/REPORT.md). The current checkout includes the model-file CLI and all extension artifacts.
 
 ## Start here
 

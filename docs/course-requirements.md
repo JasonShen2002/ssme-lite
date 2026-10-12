@@ -1,6 +1,6 @@
 # Course requirements and implementation evidence
 
-This audit maps the assignment to the published 0.1.0 baseline and the current source checkout. The unreleased 2026-10-11 extensions add fitted-model configuration and scaling/statistical experiments; see the [extension guide](guides/extensions.md). Production deployment and arbitrary-scale guarantees remain outside the evidence.
+This audit maps the assignment to the published 0.1.0 baseline and the current source checkout. Version 0.2.0 incorporates the 2026-10-11 extensions for fitted-model configuration and scaling/statistical experiments; see the [extension guide](guides/extensions.md). Production deployment and arbitrary-scale guarantees remain outside the evidence.
 
 ## Requirement mapping
 
@@ -41,7 +41,7 @@ The final report uses four body pages plus one reference page in JMLR style, wit
 
 ## Remaining extension opportunities
 
-The current checkout implements the model-file adapter and records measured scaling, fixed-target label-efficiency and multiclass/redundancy results. These extensions are not yet published to PyPI. Larger-machine measurements may extend the tested scale; they do not establish production certification. Broader interval coverage and independent reference-algorithm equivalence remain separate research opportunities.
+The current checkout implements the model-file adapter and records measured scaling, fixed-target label-efficiency and multiclass/redundancy results. These package extensions are included in version 0.2.0. Larger-machine measurements may extend the tested scale; they do not establish production certification. Broader interval coverage and independent reference-algorithm equivalence remain separate research opportunities.
 
 
 ## Current checkout verification (2026-10-11)

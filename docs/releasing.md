@@ -17,7 +17,7 @@ Install the wheel in a fresh environment, then run `examples/quickstart.py`, `ss
 
 ## Current release
 
-Version 0.1.0 is already [published on PyPI](https://pypi.org/project/ssme-lite/0.1.0/). The account and pending-publisher instructions below describe initial setup; they do not need to be repeated for the existing publisher. For subsequent changed distributions, increment the version before invoking the workflow. Documentation-only repository edits do not replace the immutable 0.1.0 release.
+Version 0.2.0 is the current release target; 0.1.0 remains the historical baseline. The account and pending-publisher instructions below describe initial setup; they do not need to be repeated for the existing publisher. For subsequent changed distributions, increment the version before invoking the workflow. Documentation-only repository edits do not replace the immutable 0.1.0 release.
 
 ## PyPI account setup
 

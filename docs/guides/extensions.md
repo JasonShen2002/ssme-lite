@@ -1,8 +1,8 @@
 # Current checkout extensions
 
-These additions are unreleased source-checkout work dated 2026-10-11. Install
-this repository with `python -m pip install -e .`; the previously published
-0.1.0 wheel does not contain the new model-file CLI.
+Version 0.2.0 includes fitted-model configuration and batched prediction. Install
+with `python -m pip install ssme-lite==0.2.0`. Experiment scripts and archived
+measurements are included in the source repository.
 
 ## Four deliverables
 

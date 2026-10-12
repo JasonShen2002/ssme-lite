@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.2.0
+
+- English submission documentation and linked interactive reports.
 
 - JSON workflows for trusted fitted model files, input preflight and configuration templates.
 - Batched candidate prediction with array, pandas and sparse inputs.

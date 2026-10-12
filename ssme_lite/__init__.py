@@ -5,5 +5,5 @@ from .reporting import EvaluationReport
 from .splits import SemiSupervisedSplit
 
 __all__ = ["PredictionMatrixGenerator", "SSMEEstimator", "EvaluationReport", "SemiSupervisedSplit"]
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 

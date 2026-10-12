@@ -46,7 +46,7 @@ This is a new SSME fit from fixed classifier outputs, not a rerun of classifier 
 Obtain the original prediction inputs using the [official SSME repository](https://github.com/divyashan/SSME). Preserve `inputs/CivilComments/<model>/labels.npy` and `preds.npy` for the seven models listed in the [CivilComments tutorial](tutorials/civilcomments.md). These external inputs are not bundled with the submission.
 
 ```bash
-python -m pip install 'ssme-lite[official]==0.1.0'
+python -m pip install 'ssme-lite[official]==0.2.0'
 python experiments/civilcomments/reproduce_official_split.py --inputs /path/to/SSME/inputs --output results/reproduction/civilcomments --jobs 2
 ```
 
@@ -57,7 +57,7 @@ Replace `/path/to/SSME/inputs` with the actual directory; quote paths containing
 For checkpoint inference:
 
 ```bash
-python -m pip install 'ssme-lite[transfer]==0.1.0' ai-edge-litert
+python -m pip install 'ssme-lite[transfer]==0.2.0' ai-edge-litert
 python experiments/pneumoniamnist/pneumonia_ssme.py
 ssme-lite experiments/pneumoniamnist/config.json
 ```
@@ -65,7 +65,7 @@ ssme-lite experiments/pneumoniamnist/config.json
 For frozen-backbone features, classifier training, and evaluation:
 
 ```bash
-python -m pip install 'ssme-lite[transfer]==0.1.0'
+python -m pip install 'ssme-lite[transfer]==0.2.0'
 python experiments/transfer/transfer_ssme.py
 ssme-lite experiments/transfer/config.json
 ```
